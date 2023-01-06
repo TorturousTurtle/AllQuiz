@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "NihongoVocab",
-    "slug": "NihongoVocab",
+    "slug": "nihongovocab",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "45ba246f-a6eb-473c-b0a1-579f70a25276"
+      }
+    },
+    "owner": "bverrill88"
   }
 }
