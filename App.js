@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import {Ionicons} from '@expo/vector-icons/Ionicons';
 
 import HomeScreen from './HomeScreen'
 import SettingsScreen from "./SettingsScreen";
@@ -63,10 +63,12 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === "Settings") {
-              iconName = focused ? "ios-person" : "ios-person-outline";
-            } else if (route.name === "Home") {
-              iconName = focused ? "ios-home" : "ios-home-outline";
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'ios-information-circle'
+                : 'ios-information-circle-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'ios-list' : 'ios-list-outline';
             }
 
             // You can return any component that you like here!

@@ -173,7 +173,7 @@ export const n5Arr = [
     ["橋", "はし", "bridge"],
     ["", "なる", "to become"],
     ["家庭", "かてい", "home, household"],
-    ["色", "いろ", "colour"],
+    ["色", "いろ", "color"],
     ["", "コップ", "cup"],
     ["", "キロ/キロメートル", "kilo (kilometre)"],
     ["居る", "いる", "(hum) to be (animate), to exist"],

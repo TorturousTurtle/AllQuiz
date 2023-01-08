@@ -12,12 +12,24 @@ import { n5Arr } from "./assets/N5VocabArr";
 
 let wrongAnswers = [];
 
+let round = 1;
+
 const Separator = () => <View style={styles.separator} />;
 
 const generateQuestionArr = (start, end) => {
   let arr = [];
   let i = 0;
   if (start === 0 && end === n5Arr.length) {
+    let a1 = [];
+    for (i = start; i < end; i++) {
+      a1.push(i);
+    }
+    while (arr.length < 50) {
+      let pos = Math.random() * a1.length;
+      let element = a1.splice(pos, 1)[0];
+      arr.push(n5Arr[element]);
+    }
+  } else if (end - start > 50) {
     let a1 = [];
     for (i = start; i < end; i++) {
       a1.push(i);
@@ -42,7 +54,7 @@ const populateNextRound = () => {
   let arr = [];
   let i = 0;
   while (i < wrongAnswers.length) {
-    arr[i] = n5Arr[wrongAnswers[i]];
+    arr[i] = wrongAnswers[i];
     i++;
   }
   wrongAnswers = [];
@@ -66,44 +78,95 @@ function DisplayCard({ extraData }) {
   const [answer, setAnswer] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [shuffleActive, setShuffleActive] = useState(true);
+  const [questionFirst, setQuestionFirst] = useState(true);
   const navigation = useNavigation();
 
   const handleFlip = () => {
     setCardFront(!cardFront);
+    
   };
+
+  const handleStartDef = () => {
+    handleSetQuestions(!questionFirst);
+    setQuestionFirst((questionFirst) => !questionFirst);
+  };
+
+  const handleSetQuestions = (flag) => {
+    if (flag) {
+        setQuestion(
+          questionList[qIterator][0].length > 0
+            ? questionList[qIterator][0]
+            : questionList[qIterator][1]
+        );
+        setAnswer(
+          questionList[qIterator][0].length > 0
+            ? questionList[qIterator][1] + "\n\n" + questionList[qIterator][2]
+            : questionList[qIterator][2]
+        );
+      } else {
+        setQuestion(questionList[qIterator][2]);
+        setAnswer(
+          questionList[qIterator][0].length > 0
+            ? questionList[qIterator][0] + "\n\n" + questionList[qIterator][1]
+            : questionList[qIterator][1]
+        );
+      }
+  }
 
   const handleCorrect = () => {
     let i = qIterator + 1;
     setCardFront(true);
     if (i < questionList.length) {
       setQIterator(i);
-      setQuestion(
-        questionList[i][0].length > 0 ? questionList[i][0] : questionList[i][1]
-      );
-      setAnswer(
-        questionList[i][0].length > 0
-          ? questionList[i][1] + "\n" + questionList[i][2]
-          : questionList[i][2]
-      );
+      if (questionFirst) {
+        setQuestion(
+          questionList[i][0].length > 0
+            ? questionList[i][0]
+            : questionList[i][1]
+        );
+        setAnswer(
+          questionList[i][0].length > 0
+            ? questionList[i][1] + "\n\n" + questionList[i][2]
+            : questionList[i][2]
+        );
+      } else {
+        setQuestion(questionList[i][2]);
+        setAnswer(
+          questionList[i][0].length > 0
+            ? questionList[i][0] + "\n\n" + questionList[i][1]
+            : questionList[i][1]
+        );
+      }
     } else {
       setModalVisible(true);
     }
   };
 
   const handleWrong = () => {
-    wrongAnswers.push(qIterator);
+    wrongAnswers.push(questionList[qIterator]);
     setCardFront(true);
     let i = qIterator + 1;
     if (i < questionList.length) {
       setQIterator(i);
-      setQuestion(
-        questionList[i][0].length > 0 ? questionList[i][0] : questionList[i][1]
-      );
-      setAnswer(
-        questionList[i][0].length > 0
-          ? questionList[i][1] + "\n" + questionList[i][2]
-          : questionList[i][2]
-      );
+      if (questionFirst) {
+        setQuestion(
+          questionList[i][0].length > 0
+            ? questionList[i][0]
+            : questionList[i][1]
+        );
+        setAnswer(
+          questionList[i][0].length > 0
+            ? questionList[i][1] + "\n\n" + questionList[i][2]
+            : questionList[i][2]
+        );
+      } else {
+        setQuestion(questionList[i][2]);
+        setAnswer(
+          questionList[i][0].length > 0
+            ? questionList[i][0] + "\n\n" + questionList[i][1]
+            : questionList[i][1]
+        );
+      }
     } else {
       setModalVisible(true);
     }
@@ -112,32 +175,57 @@ function DisplayCard({ extraData }) {
   const handleShuffle = () => {
     let arr = shuffleQuestions(questionList);
     setQuestionList(arr);
-    setQuestion(
-      arr[qIterator][0].length > 0 ? arr[qIterator][0] : arr[qIterator][1]
-    );
-    setAnswer(
-      arr[qIterator][0].length > 0
-        ? arr[qIterator][1] + "\n" + arr[qIterator][2]
-        : arr[qIterator][2]
-    );
+    if (questionFirst) {
+      setQuestion(
+        arr[qIterator][0].length > 0 ? arr[qIterator][0] : arr[qIterator][1]
+      );
+      setAnswer(
+        arr[qIterator][0].length > 0
+          ? arr[qIterator][1] + "\n\n" + arr[qIterator][2]
+          : arr[qIterator][2]
+      );
+    } else {
+      setQuestion(arr[qIterator][2]);
+      setAnswer(
+        arr[qIterator][0].length > 0
+          ? arr[qIterator][0] + "\n\n" + arr[qIterator][1]
+          : arr[qIterator][1]
+      );
+    }
   };
 
   const handleNextRound = () => {
     setQIterator(0);
     let arr = populateNextRound();
     setQuestionList(arr);
+    if (questionFirst) {
+      setQuestion(arr[0][0].length > 0 ? arr[0][0] : arr[0][1]);
+      setAnswer(
+        arr[0][0].length > 0 ? arr[0][1] + "\n\n" + arr[0][2] : arr[0][2]
+      );
+    } else {
+      setQuestion(arr[0][2]);
+      setAnswer(
+        arr[0][0].length > 0 ? arr[0][0] + "\n\n" + arr[0][1] : arr[0][1]
+      );
+    }
     setShuffleActive(true);
     setModalVisible(false);
+    round++;
   };
 
   const goHome = () => {
     wrongAnswers = [];
+    round = 1;
+    setQuestionFirst(true);
     setModalVisible(false);
     navigation.popToTop();
   };
 
   const cancelButton = () => {
     wrongAnswers = [];
+    round = 1;
+    setQuestionFirst(true);
     setModalVisible(false);
     navigation.popToTop();
   };
@@ -146,17 +234,34 @@ function DisplayCard({ extraData }) {
     if (questionList.length === 0) {
       let arr = generateQuestionArr(extraData[0], extraData[1]);
       setQuestionList(arr);
-      setQuestion(
-        arr[qIterator][0].length > 0 ? arr[qIterator][0] : arr[qIterator][1]
-      );
-      setAnswer(
-        arr[qIterator][0].length > 0
-          ? arr[qIterator][1] + "\n" + arr[qIterator][2]
-          : arr[qIterator][2]
-      );
+      if (questionFirst) {
+        setQuestion(
+          arr[qIterator][0].length > 0 ? arr[qIterator][0] : arr[qIterator][1]
+        );
+        setAnswer(
+          arr[qIterator][0].length > 0
+            ? arr[qIterator][1] + "\n\n" + arr[qIterator][2]
+            : arr[qIterator][2]
+        );
+      } else {
+        setQuestion(arr[qIterator][2]);
+        setAnswer(
+          arr[qIterator][0].length > 0
+            ? arr[qIterator][0] + "\n\n" + arr[qIterator][1]
+            : arr[qIterator][1]
+        );
+      }
     }
     if (qIterator > 0) setShuffleActive(false);
-  }, [cardFront, question, answer, qIterator, questionList, shuffleActive]);
+  }, [
+    cardFront,
+    question,
+    answer,
+    qIterator,
+    questionList,
+    shuffleActive,
+    questionFirst,
+  ]);
 
   return (
     <View>
@@ -187,26 +292,41 @@ function DisplayCard({ extraData }) {
       <View style={styles.bottomContainer}>
         <View style={styles.buttonContainer}>
           <TouchableHighlight
-            style={styles.buttonDisplay}
-            onPress={handleCorrect}
-          >
-            <Text style={styles.buttonText}>Correct</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
             style={[styles.buttonDisplay, { backgroundColor: "#dd1c1a" }]}
             onPress={handleWrong}
           >
             <Text style={styles.buttonText}>Wrong</Text>
           </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.buttonDisplay}
+            onPress={handleCorrect}
+          >
+            <Text style={styles.buttonText}>Correct</Text>
+          </TouchableHighlight>
         </View>
         <View style={styles.shuffleButtonContainer}>
           {shuffleActive && (
-            <TouchableHighlight
-              style={[styles.buttonDisplay, { width: 350 }]}
-              onPress={handleShuffle}
-            >
-              <Text style={[styles.buttonText, { fontSize: 35 }]}>Shuffle</Text>
-            </TouchableHighlight>
+            <View>
+              <TouchableHighlight
+                style={[styles.buttonDisplay, { height: 40, width: 350 }]}
+                onPress={handleShuffle}
+              >
+                <Text style={[styles.buttonText, { fontSize: 35 }]}>
+                  Shuffle
+                </Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={[
+                  styles.buttonDisplay,
+                  { height: 40, width: 350, marginTop: "3%" },
+                ]}
+                onPress={handleStartDef}
+              >
+                <Text style={[styles.buttonText, { fontSize: 25 }]}>
+                  Start With Definitions
+                </Text>
+              </TouchableHighlight>
+            </View>
           )}
         </View>
         <View style={styles.modalContainer}>
@@ -217,6 +337,7 @@ function DisplayCard({ extraData }) {
           >
             <View style={styles.modalContainer}>
               <View style={styles.scoreContainer}>
+              <Text style={styles.modalText}>Round: {round}</Text>
                 <Text style={styles.modalText}>Your Score</Text>
                 <Text style={styles.scoreText}>
                   Correct: {questionList.length - wrongAnswers.length}
@@ -330,7 +451,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "white",
     textAlign: "center",
-    fontFamily: "Optima",
+    fontFamily: "HiraMinProN-W3"
   },
   modalText: {
     fontSize: 45,
@@ -363,7 +484,6 @@ const styles = StyleSheet.create({
   buttonDisplay: {
     width: 150,
     height: 65,
-    marginTop: 10,
     backgroundColor: "#2076df",
     justifyContent: "center",
     alignItems: "center",
@@ -420,7 +540,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalContainer: {
-    height: "40%",
+    height: "50%",
     width: "90%",
     borderRadius: 15,
     backgroundColor: "white",
