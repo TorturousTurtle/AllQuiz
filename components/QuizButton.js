@@ -1,36 +1,32 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
-  View,
   StyleSheet,
   TouchableHighlight,
-  ImageBackground,
 } from "react-native";
 
-import { masterVocabScores } from "./assets/MasterVocabScores";
-
-function SettingsScreen({ navigation }) {
+const QuizButton = ({ func, range }) => {
   const handlePress = () => {
-    let arr = Object.keys(masterVocabScores);
-    console.log(arr.length)
+    let arr = [range[0] - 1, range[1]];
+    func(arr);
   }
   return (
-    <View style={styles.container}>
-      <TouchableHighlight
+    <TouchableHighlight
       underlayColor="#757f8a"
       style={styles.buttonContainer}
       onPress={handlePress}
     >
-      <Text style={styles.buttonText}> Press Me</Text>
+      <Text style={styles.buttonText}>
+        {range[0]} - {range[1]}
+      </Text>
     </TouchableHighlight>
-    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
+  buttonsContainer: {
+    marginTop: 20,
+    height: "80%",
   },
   buttonContainer: {
     width: 300,
@@ -50,6 +46,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-})
+});
 
-export default SettingsScreen;
+export default QuizButton;

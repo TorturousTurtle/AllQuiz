@@ -13,92 +13,88 @@ import {
 
 const Separator = () => <View style={styles.separator} />;
 
-function N5Screen({ navigation, handleUpdateRange }) {
+function N4Screen({ navigation, handleUpdateRange }) {
   const [startValue, setStartValue] = useState("0");
   const [endValue, setEndValue] = useState("0");
+  const arr = "n4";
 
   const startQuiz1 = () => {
-    handleUpdateRange([0, 50]);
+    handleUpdateRange([0, 50], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz2 = () => {
-    handleUpdateRange([50, 100]);
+    handleUpdateRange([50, 100], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz3 = () => {
-    handleUpdateRange([100, 150]);
+    handleUpdateRange([100, 150], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz4 = () => {
-    handleUpdateRange([150, 200]);
+    handleUpdateRange([150, 200], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz5 = () => {
-    handleUpdateRange([200, 250]);
+    handleUpdateRange([200, 250], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz6 = () => {
-    handleUpdateRange([250, 300]);
+    handleUpdateRange([250, 300], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz7 = () => {
-    handleUpdateRange([300, 350]);
+    handleUpdateRange([300, 350], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz8 = () => {
-    handleUpdateRange([350, 400]);
+    handleUpdateRange([350, 400], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz9 = () => {
-    handleUpdateRange([400, 450]);
+    handleUpdateRange([400, 450], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz10 = () => {
-    handleUpdateRange([450, 500]);
+    handleUpdateRange([450, 500], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz11 = () => {
-    handleUpdateRange([500, 550]);
+    handleUpdateRange([500, 550], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz12 = () => {
-    handleUpdateRange([550, 600]);
+    handleUpdateRange([550, 600], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz13 = () => {
-    handleUpdateRange([600, 650]);
+    handleUpdateRange([600, 650], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz14 = () => {
-    handleUpdateRange([650, 700]);
-    navigation.navigate("Flash Cards");
-  };
-
-  const startQuiz15 = () => {
-    handleUpdateRange([700, 727]);
+    handleUpdateRange([650, 681], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz16 = () => {
-    handleUpdateRange([0, 727]);
+    handleUpdateRange([0, 681], "n4");
     navigation.navigate("Flash Cards");
   };
 
   const startQuiz17 = () => {
-    handleUpdateRange([startValue, endValue]);
+    handleUpdateRange([startValue, endValue], "n4");
     navigation.navigate("Flash Cards");
   };
 
@@ -284,15 +280,7 @@ function N5Screen({ navigation, handleUpdateRange }) {
                 style={styles.buttonContainer}
                 onPress={startQuiz14}
               >
-                <Text style={styles.buttonText}>651 - 700</Text>
-              </TouchableHighlight>
-              <Separator />
-              <TouchableHighlight
-                underlayColor="#757f8a"
-                style={styles.buttonContainer}
-                onPress={startQuiz15}
-              >
-                <Text style={styles.buttonText}>701 - 727</Text>
+                <Text style={styles.buttonText}>651 - 681</Text>
               </TouchableHighlight>
             </View>
           </ScrollView>
@@ -389,4 +377,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default N5Screen;
+export default N4Screen;

@@ -1,54 +1,119 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {Ionicons} from '@expo/vector-icons/Ionicons';
+import { Ionicons } from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { testScores } from "./assets/testScores.js";
 
-import HomeScreen from './HomeScreen'
+import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
-import N5Screen from './N5Screen'
+import QuizScreen from "./QuizScreen";
 import DisplayCard from "./DisplayCard";
+import TestScreen from "./TestScreen";
 
 const HomeStack = createNativeStackNavigator();
+const SettingsStack = createNativeStackNavigator();
 
 function HomeStackScreen() {
-  const [questionRange, setQuetionRange] = useState([]);
+  const [questionRange, setQuestionRange] = useState([]);
+  const [currArr, setCurrArr] = useState("");
+  const [level, setLevel] = useState("");
+  const [screenTitle, setScreenTitle] = useState("");
+  const [practiceArr, setPracticeArr] = useState([]);
 
-  const handleUpdateRange = (range) => {
-    setQuetionRange(range);
+  const handleUpdateRange = (range, arr) => {
+    setQuestionRange(range);
+    setCurrArr(arr);
+  };
+
+  const handleLevelChoice = (choice) => {
+    screen = choice.toUpperCase() + " Vocabulary";
+    setLevel(choice);
+    setScreenTitle(screen);
+  };
+
+  const handleUpdatePracticeArr = (arr) => {
+    setPracticeArr(arr);
+  }
+
+  const storeScores = async () => {
+    try {
+      const jsonValue = JSON.stringify(testScores);
+      await AsyncStorage.setItem("@scores", jsonValue);
+    } catch (e) {
+      console.log("Error: " + e);
+    }
   };
 
   useEffect(() => {
-    
-  }, [questionRange]);
+    // storeScores();
+  }, [questionRange, currArr, level, screenTitle, practiceArr]);
 
   return (
     <HomeStack.Navigator
       screenOptions={{
-        headerTintColor: 'white',
-        headerStyle: { backgroundColor: 'black' },
+        headerTintColor: "black",
+        headerStyle: { backgroundColor: "white" },
       }}
     >
-      <HomeStack.Screen name=" " component={HomeScreen} />
-      <HomeStack.Screen name="N5 Vocabulary" options={{ title: "" }}>
-          {(props) => (
-            <N5Screen
-              {...props}
-              extraData={questionRange}
-              handleUpdateRange={handleUpdateRange}
-            />
-          )}
-        </HomeStack.Screen>
+      <HomeStack.Screen name=" ">
+        {(props) => (
+          <HomeScreen {...props} handleLevelChoice={handleLevelChoice} handleUpdatePracticeArr={handleUpdatePracticeArr} />
+        )}
+      </HomeStack.Screen>
+      <HomeStack.Screen name="Quiz Screen" options={{ title: screenTitle }}>
+        {(props) => (
+          <QuizScreen
+            {...props}
+            extraData={questionRange}
+            handleUpdateRange={handleUpdateRange}
+            listChoice={level}
+          />
+        )}
+      </HomeStack.Screen>
       <HomeStack.Screen name="Flash Cards" options={{ title: "" }}>
-          {(props) => (
-            <DisplayCard
-              {...props}
-              extraData={questionRange}
-            />
-          )}
-        </HomeStack.Screen>
+        {(props) => (
+          <DisplayCard {...props} extraData={questionRange} currArr={currArr} practiceArr={practiceArr} />
+        )}
+      </HomeStack.Screen>
     </HomeStack.Navigator>
+  );
+}
+
+function SettingsStackScreen() {
+  const [questionRange, setQuestionRange] = useState([]);
+  const [currArr, setCurrArr] = useState("");
+
+  const handleUpdateRange = (range, arr) => {
+    setQuestionRange(range);
+    setCurrArr(arr);
+  };
+
+  useEffect(() => {}, [questionRange, currArr]);
+  return (
+    <SettingsStack.Navigator
+      screenOptions={{
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: "black" },
+      }}
+    >
+      <SettingsStack.Screen name="TestScreen" options={{ title: "Test" }}>
+        {(props) => (
+          <TestScreen
+            {...props}
+            extraData={questionRange}
+            handleUpdateRange={handleUpdateRange}
+          />
+        )}
+      </SettingsStack.Screen>
+      <SettingsStack.Screen name="Flash Cards" options={{ title: "" }}>
+        {(props) => (
+          <DisplayCard {...props} extraData={questionRange} currArr={currArr} />
+        )}
+      </SettingsStack.Screen>
+    </SettingsStack.Navigator>
   );
 }
 
@@ -59,39 +124,36 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+        screenOptions={({ route }) => (
+          {
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
-            } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
-            }
+              if (route.name === "Home") {
+                iconName = focused
+                  ? "ios-information-circle"
+                  : "ios-information-circle-outline";
+              } else if (route.name === "Settings") {
+                iconName = focused ? "ios-list" : "ios-list-outline";
+              }
 
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        },
-        {
-          "tabBarActiveTintColor": "#2076df",
-          "tabBarInactiveTintColor": "#45ba55",
-          "tabBarStyle": [
-            {
-              "display": "flex"
+              // You can return any component that you like here!
+              return <Ionicons name={iconName} size={size} color={color} />;
             },
-            null
-          ]
-        }
+          },
+          {
+            tabBarActiveTintColor: "#2076df",
+            tabBarInactiveTintColor: "#45ba55",
+            tabBarStyle: [
+              {
+                display: "flex",
+              },
+              null,
+            ],
+          }
         )}
       >
-        <Tab.Screen
-          name="Home"
-          component={HomeStackScreen}
-          initialParams={{ testString: "testString" }}
-        />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>

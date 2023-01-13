@@ -8,9 +8,17 @@ import {
   FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { n5Arr } from "./assets/N5VocabArr";
+import { n4Arr } from "./assets/N4VocabArr";
+import { n3Arr } from "./assets/N3VocabArr";
+import { n2Arr } from "./assets/N2VocabArr";
 
 let wrongAnswers = [];
+let idList = [];
+
+let currArrList = n5Arr;
 
 let round = 1;
 
@@ -19,7 +27,7 @@ const Separator = () => <View style={styles.separator} />;
 const generateQuestionArr = (start, end) => {
   let arr = [];
   let i = 0;
-  if (start === 0 && end === n5Arr.length) {
+  if (start === 0 && end === currArrList.length) {
     let a1 = [];
     for (i = start; i < end; i++) {
       a1.push(i);
@@ -27,7 +35,8 @@ const generateQuestionArr = (start, end) => {
     while (arr.length < 50) {
       let pos = Math.random() * a1.length;
       let element = a1.splice(pos, 1)[0];
-      arr.push(n5Arr[element]);
+      arr.push(currArrList[element]);
+      idList.push(currArrList[element][0]);
     }
   } else if (end - start > 50) {
     let a1 = [];
@@ -37,16 +46,17 @@ const generateQuestionArr = (start, end) => {
     while (arr.length < 50) {
       let pos = Math.random() * a1.length;
       let element = a1.splice(pos, 1)[0];
-      arr.push(n5Arr[element]);
+      arr.push(currArrList[element]);
+      idList.push(currArrList[element][0]);
     }
   } else {
     while (start < end) {
-      arr[i] = n5Arr[start];
+      arr[i] = currArrList[start];
+      idList[i] = currArrList[start][0];
       start++;
       i++;
     }
   }
-
   return arr;
 };
 
@@ -70,7 +80,7 @@ const shuffleQuestions = (o) => {
   return o;
 };
 
-function DisplayCard({ extraData }) {
+function DisplayCard({ extraData, currArr, practiceArr }) {
   const [questionList, setQuestionList] = useState([]);
   const [qIterator, setQIterator] = useState(0);
   const [cardFront, setCardFront] = useState(true);
@@ -79,11 +89,11 @@ function DisplayCard({ extraData }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [shuffleActive, setShuffleActive] = useState(true);
   const [questionFirst, setQuestionFirst] = useState(true);
+  const [scores, setScores] = useState([]);
   const navigation = useNavigation();
 
   const handleFlip = () => {
     setCardFront(!cardFront);
-    
   };
 
   const handleStartDef = () => {
@@ -93,48 +103,50 @@ function DisplayCard({ extraData }) {
 
   const handleSetQuestions = (flag) => {
     if (flag) {
-        setQuestion(
-          questionList[qIterator][0].length > 0
-            ? questionList[qIterator][0]
-            : questionList[qIterator][1]
-        );
-        setAnswer(
-          questionList[qIterator][0].length > 0
-            ? questionList[qIterator][1] + "\n\n" + questionList[qIterator][2]
-            : questionList[qIterator][2]
-        );
-      } else {
-        setQuestion(questionList[qIterator][2]);
-        setAnswer(
-          questionList[qIterator][0].length > 0
-            ? questionList[qIterator][0] + "\n\n" + questionList[qIterator][1]
-            : questionList[qIterator][1]
-        );
-      }
-  }
+      setQuestion(
+        questionList[qIterator][1].length > 0
+          ? questionList[qIterator][1]
+          : questionList[qIterator][2]
+      );
+      setAnswer(
+        questionList[qIterator][1].length > 0
+          ? questionList[qIterator][2] + "\n\n" + questionList[qIterator][3]
+          : questionList[qIterator][3]
+      );
+    } else {
+      setQuestion(questionList[qIterator][3]);
+      setAnswer(
+        questionList[qIterator][1].length > 0
+          ? questionList[qIterator][1] + "\n\n" + questionList[qIterator][2]
+          : questionList[qIterator][2]
+      );
+    }
+  };
 
   const handleCorrect = () => {
+    let id = questionList[qIterator][0];
+    scores[id]["correct"] = scores[id]["correct"] + 1;
     let i = qIterator + 1;
     setCardFront(true);
     if (i < questionList.length) {
       setQIterator(i);
       if (questionFirst) {
         setQuestion(
-          questionList[i][0].length > 0
-            ? questionList[i][0]
-            : questionList[i][1]
-        );
-        setAnswer(
-          questionList[i][0].length > 0
-            ? questionList[i][1] + "\n\n" + questionList[i][2]
+          questionList[i][1].length > 0
+            ? questionList[i][1]
             : questionList[i][2]
         );
-      } else {
-        setQuestion(questionList[i][2]);
         setAnswer(
-          questionList[i][0].length > 0
-            ? questionList[i][0] + "\n\n" + questionList[i][1]
-            : questionList[i][1]
+          questionList[i][2].length > 0
+            ? questionList[i][2] + "\n\n" + questionList[i][3]
+            : questionList[i][3]
+        );
+      } else {
+        setQuestion(questionList[i][3]);
+        setAnswer(
+          questionList[i][1].length > 0
+            ? questionList[i][1] + "\n\n" + questionList[i][2]
+            : questionList[i][2]
         );
       }
     } else {
@@ -143,6 +155,8 @@ function DisplayCard({ extraData }) {
   };
 
   const handleWrong = () => {
+    let id = questionList[qIterator][0];
+    scores[id]["wrong"] = scores[id]["wrong"] + 1;
     wrongAnswers.push(questionList[qIterator]);
     setCardFront(true);
     let i = qIterator + 1;
@@ -150,21 +164,21 @@ function DisplayCard({ extraData }) {
       setQIterator(i);
       if (questionFirst) {
         setQuestion(
-          questionList[i][0].length > 0
-            ? questionList[i][0]
-            : questionList[i][1]
-        );
-        setAnswer(
-          questionList[i][0].length > 0
-            ? questionList[i][1] + "\n\n" + questionList[i][2]
+          questionList[i][1].length > 0
+            ? questionList[i][1]
             : questionList[i][2]
         );
-      } else {
-        setQuestion(questionList[i][2]);
         setAnswer(
-          questionList[i][0].length > 0
-            ? questionList[i][0] + "\n\n" + questionList[i][1]
-            : questionList[i][1]
+          questionList[i][1].length > 0
+            ? questionList[i][2] + "\n\n" + questionList[i][3]
+            : questionList[i][3]
+        );
+      } else {
+        setQuestion(questionList[i][3]);
+        setAnswer(
+          questionList[i][1].length > 0
+            ? questionList[i][1] + "\n\n" + questionList[i][2]
+            : questionList[i][2]
         );
       }
     } else {
@@ -177,19 +191,19 @@ function DisplayCard({ extraData }) {
     setQuestionList(arr);
     if (questionFirst) {
       setQuestion(
-        arr[qIterator][0].length > 0 ? arr[qIterator][0] : arr[qIterator][1]
+        arr[qIterator][1].length > 0 ? arr[qIterator][1] : arr[qIterator][2]
       );
       setAnswer(
-        arr[qIterator][0].length > 0
-          ? arr[qIterator][1] + "\n\n" + arr[qIterator][2]
-          : arr[qIterator][2]
+        arr[qIterator][1].length > 0
+          ? arr[qIterator][2] + "\n\n" + arr[qIterator][3]
+          : arr[qIterator][3]
       );
     } else {
-      setQuestion(arr[qIterator][2]);
+      setQuestion(arr[qIterator][3]);
       setAnswer(
-        arr[qIterator][0].length > 0
-          ? arr[qIterator][0] + "\n\n" + arr[qIterator][1]
-          : arr[qIterator][1]
+        arr[qIterator][1].length > 0
+          ? arr[qIterator][1] + "\n\n" + arr[qIterator][2]
+          : arr[qIterator][2]
       );
     }
   };
@@ -199,14 +213,14 @@ function DisplayCard({ extraData }) {
     let arr = populateNextRound();
     setQuestionList(arr);
     if (questionFirst) {
-      setQuestion(arr[0][0].length > 0 ? arr[0][0] : arr[0][1]);
+      setQuestion(arr[0][1].length > 0 ? arr[0][1] : arr[0][2]);
       setAnswer(
-        arr[0][0].length > 0 ? arr[0][1] + "\n\n" + arr[0][2] : arr[0][2]
+        arr[0][1].length > 0 ? arr[0][2] + "\n\n" + arr[0][3] : arr[0][3]
       );
     } else {
-      setQuestion(arr[0][2]);
+      setQuestion(arr[0][3]);
       setAnswer(
-        arr[0][0].length > 0 ? arr[0][0] + "\n\n" + arr[0][1] : arr[0][1]
+        arr[0][1].length > 0 ? arr[0][1] + "\n\n" + arr[0][2] : arr[0][2]
       );
     }
     setShuffleActive(true);
@@ -214,9 +228,46 @@ function DisplayCard({ extraData }) {
     round++;
   };
 
+  const updateScores = async () => {
+    for (let i = 0; i < idList.length; i++) {
+      let id = idList[i];
+      let avg =
+        parseFloat(scores[id]["correct"]) /
+        (scores[id]["correct"] + scores[id]["wrong"]);
+      scores[id]["average"] = avg;
+    }
+    try {
+      const jsonValue = JSON.stringify(scores);
+      await AsyncStorage.setItem("@scores", jsonValue);
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
+  const handleSetQuestion = (arr) => {
+    if (questionFirst) {
+      setQuestion(
+        arr[qIterator][1].length > 0 ? arr[qIterator][1] : arr[qIterator][2]
+      );
+      setAnswer(
+        arr[qIterator][1].length > 0
+          ? arr[qIterator][2] + "\n\n" + arr[qIterator][3]
+          : arr[qIterator][3]
+      );
+    } else {
+      setQuestion(arr[qIterator][3]);
+      setAnswer(
+        arr[qIterator][1].length > 0
+          ? arr[qIterator][1] + "\n\n" + arr[qIterator][2]
+          : arr[qIterator][2]
+      );
+    }
+  }
+
   const goHome = () => {
     wrongAnswers = [];
     round = 1;
+    updateScores();
     setQuestionFirst(true);
     setModalVisible(false);
     navigation.popToTop();
@@ -224,32 +275,53 @@ function DisplayCard({ extraData }) {
 
   const cancelButton = () => {
     wrongAnswers = [];
+    idList = [];
     round = 1;
     setQuestionFirst(true);
     setModalVisible(false);
     navigation.popToTop();
   };
 
-  useEffect(() => {
-    if (questionList.length === 0) {
-      let arr = generateQuestionArr(extraData[0], extraData[1]);
-      setQuestionList(arr);
-      if (questionFirst) {
-        setQuestion(
-          arr[qIterator][0].length > 0 ? arr[qIterator][0] : arr[qIterator][1]
-        );
-        setAnswer(
-          arr[qIterator][0].length > 0
-            ? arr[qIterator][1] + "\n\n" + arr[qIterator][2]
-            : arr[qIterator][2]
-        );
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@scores");
+      if (jsonValue != null) {
+        setScores(JSON.parse(jsonValue));
       } else {
-        setQuestion(arr[qIterator][2]);
-        setAnswer(
-          arr[qIterator][0].length > 0
-            ? arr[qIterator][0] + "\n\n" + arr[qIterator][1]
-            : arr[qIterator][1]
-        );
+        console.log("No scores imported");
+      }
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
+  useEffect(() => {
+    if (scores.length === 0) getData();
+    if (questionList.length === 0) {
+      if (practiceArr.length > 0) {
+        setQuestionList(practiceArr);
+      } else {
+        switch (currArr) {
+          case "n5":
+            currArrList = n5Arr;
+            break;
+          case "n4":
+            currArrList = n4Arr;
+            break;
+          case "n3":
+            currArrList = n3Arr;
+            break;
+          case "n2":
+            currArrList = n2Arr;
+            break;
+        }
+      }
+      if (practiceArr.length === 0) {
+        let arr = generateQuestionArr(extraData[0], extraData[1]);
+        setQuestionList(arr);
+        handleSetQuestion(arr);
+      } else {
+        handleSetQuestion(practiceArr);
       }
     }
     if (qIterator > 0) setShuffleActive(false);
@@ -261,6 +333,7 @@ function DisplayCard({ extraData }) {
     questionList,
     shuffleActive,
     questionFirst,
+    scores,
   ]);
 
   return (
@@ -270,7 +343,7 @@ function DisplayCard({ extraData }) {
           flexDirection: "row",
           justifyContent: "space-between",
           padding: 5,
-          backgroundColor: "#2076df",
+          backgroundColor: "#114B5F",
         }}
       >
         <TouchableHighlight onPress={cancelButton}>
@@ -290,7 +363,12 @@ function DisplayCard({ extraData }) {
         </View>
       </TouchableHighlight>
       <View style={styles.bottomContainer}>
-        <View style={styles.buttonContainer}>
+        <View
+          style={[
+            styles.buttonContainer,
+            { marginTop: shuffleActive ? "10%" : "20%" },
+          ]}
+        >
           <TouchableHighlight
             style={[styles.buttonDisplay, { backgroundColor: "#dd1c1a" }]}
             onPress={handleWrong}
@@ -337,7 +415,7 @@ function DisplayCard({ extraData }) {
           >
             <View style={styles.modalContainer}>
               <View style={styles.scoreContainer}>
-              <Text style={styles.modalText}>Round: {round}</Text>
+                <Text style={styles.modalText}>Round: {round}</Text>
                 <Text style={styles.modalText}>Your Score</Text>
                 <Text style={styles.scoreText}>
                   Correct: {questionList.length - wrongAnswers.length}
@@ -385,22 +463,22 @@ const styles = StyleSheet.create({
     height: "50%",
     justifyContent: "center",
     alignContent: "center",
-    backgroundColor: "#2076df",
+    backgroundColor: "#114B5F",
     borderBottomWidth: 2,
-    borderBottomColor: "#ba45aa",
+    borderBottomColor: "#E0FF4F",
     shadowColor: "rgba(0, 0, 0, 1)",
   },
   bottomContainer: {
     height: "50%",
     justifyContent: "flex-start",
-    backgroundColor: "#45ba55",
+    backgroundColor: "#95a3a4",
   },
   iteratorContainer: {
     width: 80,
     marginLeft: 290,
     marginTop: 5,
-    backgroundColor: "#2076df",
-    borderColor: "black",
+    backgroundColor: "#114B5F",
+    borderColor: "white",
     borderRadius: 10,
     borderWidth: 1,
   },
@@ -451,7 +529,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "white",
     textAlign: "center",
-    fontFamily: "HiraMinProN-W3"
+    fontFamily: "HiraMinProN-W3",
   },
   modalText: {
     fontSize: 45,
@@ -477,8 +555,8 @@ const styles = StyleSheet.create({
   },
 
   shuffleButtonContainer: {
-    marginTop: "10%",
     alignItems: "center",
+    marginTop: "5%",
   },
 
   buttonDisplay: {
@@ -536,7 +614,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     fontSize: 30,
-    color: "black",
+    color: "#fc440f",
     textAlign: "center",
   },
   modalContainer: {

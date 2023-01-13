@@ -1,15 +1,79 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
   StyleSheet,
-  TouchableHighlight,
   ImageBackground,
+  TouchableHighlight,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import _ from "lodash";
+
+import LevelButton from "./components/LevelButton";
+
+const levelArr = ["N5", "N4", "N3", "N2"];
 
 const Separator = () => <View style={styles.separator} />;
 
-function HomeScreen({ navigation }) {
+function HomeScreen({
+  navigation,
+  handleLevelChoice,
+  handleUpdatePracticeArr,
+}) {
+  const [scores, setScores] = useState([]);
+  const handleOptionPress = (choice) => {
+    screen = choice.toUpperCase() + " Vocabulary";
+    handleLevelChoice(choice);
+    navigation.navigate("Quiz Screen");
+  };
+
+  const handleLeastKnownClick = () => {
+    handleUpdatePracticeArr(scores);
+    navigation.navigate("Flash Cards");
+  };
+
+  const renderItem = (item) => {
+    return (
+      <View>
+        <LevelButton func={handleOptionPress} level={item} />
+        <Separator />
+      </View>
+    );
+  };
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@scores");
+      if (jsonValue != null) {
+        let score = JSON.parse(jsonValue);
+        let arr = [];
+        let temp = [];
+        for (const key in score) {
+          let x = [key, score[key]["average"], score[key]["question"]];
+          arr.push(x);
+        }
+        arr.sort(function (a, b) {
+          return a[1] - b[1];
+        });
+        for (const x in arr) {
+          if (arr[x][1] !== 0) {
+            if (temp.length < 50) temp.push(arr[x][2]);
+          }
+        }
+        setScores(temp);
+      } else {
+        console.log("No scores imported");
+      }
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
+  useEffect(() => {
+    if (scores.length === 0) getData();
+  }, [scores]);
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -20,50 +84,16 @@ function HomeScreen({ navigation }) {
           <Text style={styles.textHeader}> Choose A Level </Text>
         </View>
         <View style={styles.buttonsContainer}>
-          <TouchableHighlight
-            underlayColor="#757f8a"
-            style={styles.buttonContainer}
-            onPress={() => navigation.navigate("N5 Vocabulary")}
-          >
-            <Text style={styles.buttonText}> N5 </Text>
-          </TouchableHighlight>
-          <Separator />
-          <TouchableHighlight
-            underlayColor="#757f8a"
-            style={styles.buttonContainer}
-            // onPress={() => navigation.navigate("CCNA")}
-            onPress={null}
-          >
-            <Text style={styles.buttonText}> N4 </Text>
-          </TouchableHighlight>
-          <Separator />
-          <TouchableHighlight
-            underlayColor="#757f8a"
-            style={styles.buttonContainer}
-            // onPress={() => navigation.navigate("Network+")}
-            onPress={null}
-          >
-            <Text style={styles.buttonText}> N3 </Text>
-          </TouchableHighlight>
-          <Separator />
-          <TouchableHighlight
-            underlayColor="#757f8a"
-            style={styles.buttonContainer}
-            // onPress={() => navigation.navigate("CCNA")}
-            onPress={null}
-          >
-            <Text style={styles.buttonText}> N2 </Text>
-          </TouchableHighlight>
-          <Separator />
-          <TouchableHighlight
-            underlayColor="#757f8a"
-            style={styles.buttonContainer}
-            // onPress={() => navigation.navigate("CCNA")}
-            onPress={null}
-          >
-            <Text style={styles.buttonText}> N1 </Text>
-          </TouchableHighlight>
+          {levelArr.map((item) => renderItem(item))}
         </View>
+        <TouchableHighlight
+          underlayColor="#757f8a"
+          style={[styles.buttonContainer, { marginTop: "5%"}]}
+          onPress={handleLeastKnownClick}
+        >
+          <Text style={styles.buttonText}> Least Known </Text>
+        </TouchableHighlight>
+        <Separator />
       </ImageBackground>
     </View>
   );

@@ -1,36 +1,26 @@
-import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  ImageBackground,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, StyleSheet, TouchableHighlight } from "react-native";
 
-import { masterVocabScores } from "./assets/MasterVocabScores";
-
-function SettingsScreen({ navigation }) {
+const LevelButton = ({ func, level }) => {
   const handlePress = () => {
-    let arr = Object.keys(masterVocabScores);
-    console.log(arr.length)
-  }
+    choice = level.toLowerCase();
+    func(choice);
+  };
   return (
-    <View style={styles.container}>
-      <TouchableHighlight
+    <TouchableHighlight
       underlayColor="#757f8a"
       style={styles.buttonContainer}
       onPress={handlePress}
     >
-      <Text style={styles.buttonText}> Press Me</Text>
+      <Text style={styles.buttonText}> {level} </Text>
     </TouchableHighlight>
-    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
+  buttonsContainer: {
+    marginTop: 20,
+    height: "80%",
   },
   buttonContainer: {
     width: 300,
@@ -50,6 +40,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-})
+});
 
-export default SettingsScreen;
+export default LevelButton;
