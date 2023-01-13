@@ -22,6 +22,8 @@ function HomeStackScreen() {
   const [level, setLevel] = useState("");
   const [screenTitle, setScreenTitle] = useState("");
   const [practiceArr, setPracticeArr] = useState([]);
+  const [scores, setScores] = useState([]);
+  const [flag, setFlag] = useState(true);
 
   const handleUpdateRange = (range, arr) => {
     setQuestionRange(range);
@@ -38,6 +40,19 @@ function HomeStackScreen() {
     setPracticeArr(arr);
   }
 
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@scores");
+      if (jsonValue != null) {
+        setScores(JSON.parse(jsonValue));
+      } else {
+        console.log("No scores imported");
+      }
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
   const storeScores = async () => {
     try {
       const jsonValue = JSON.stringify(testScores);
@@ -48,8 +63,12 @@ function HomeStackScreen() {
   };
 
   useEffect(() => {
-    // storeScores();
-  }, [questionRange, currArr, level, screenTitle, practiceArr]);
+    if(flag){
+      getData();
+      setFlag(false);
+    }
+    if(scores.length === 0) storeScores();
+  }, [questionRange, currArr, level, screenTitle, practiceArr, scores, flag]);
 
   return (
     <HomeStack.Navigator
