@@ -9,9 +9,11 @@ import { testScores } from "./assets/testScores.js";
 
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
+import JLPTScreen from "./JLPTScreen.js";
 import QuizScreen from "./QuizScreen";
 import DisplayCard from "./DisplayCard";
 import TestScreen from "./TestScreen";
+import GenkiScreen from "./GenkiScreen.js";
 
 const HomeStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
@@ -24,6 +26,7 @@ function HomeStackScreen() {
   const [practiceArr, setPracticeArr] = useState([]);
   const [scores, setScores] = useState([]);
   const [flag, setFlag] = useState(true);
+  const [dailyAttempts, setDailyAttempts] = useState({});
 
   const handleUpdateRange = (range, arr) => {
     setQuestionRange(range);
@@ -31,22 +34,51 @@ function HomeStackScreen() {
   };
 
   const handleLevelChoice = (choice) => {
-    screen = choice.toUpperCase() + " Vocabulary";
+    let screen = "";
+    if (choice[0] === "g") {
+      screen = "Chapter " + choice.slice(-1);
+    } else {
+      screen = choice.toUpperCase() + " Vocabulary";
+    }
     setLevel(choice);
     setScreenTitle(screen);
   };
 
   const handleUpdatePracticeArr = (arr) => {
     setPracticeArr(arr);
-  }
+  };
 
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
+      const tries = await AsyncStorage.getItem("@tries")
+      const date = new Date();
       if (jsonValue != null) {
         setScores(JSON.parse(jsonValue));
       } else {
         console.log("No scores imported");
+      }
+      if(tries != null){
+        let x = JSON.parse(tries);
+        let oldDate = new Date(Date.parse(x.date));
+        let day1 = oldDate.getDay();
+        let month1 = oldDate.getMonth();
+        if(day1 < date.getDay() && month1 <= date.getMonth()){
+          let obj = {
+            "attempts": 0,
+            "date": date
+          } 
+          setDailyAttempts(obj);
+        } else {
+          setDailyAttempts(tries);
+        }
+      } else {
+        let obj = {
+          "attempts": 0,
+          "date": date
+        } 
+        setDailyAttempts(obj);
+        storeAttempts(obj);
       }
     } catch (e) {
       console.log("Error: " + e);
@@ -62,13 +94,22 @@ function HomeStackScreen() {
     }
   };
 
+  const storeAttempts = async (obj) => {
+    try {
+      const jsonValue = JSON.stringify(obj);
+      await AsyncStorage.setItem("@tries", jsonValue);
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
   useEffect(() => {
-    if(flag){
+    if (flag) {
       getData();
       setFlag(false);
     }
-    if(scores.length === 0) storeScores();
-  }, [questionRange, currArr, level, screenTitle, practiceArr, scores, flag]);
+    if (scores.length === 0) storeScores();
+  }, [questionRange, currArr, level, screenTitle, practiceArr, scores, flag, dailyAttempts]);
 
   return (
     <HomeStack.Navigator
@@ -79,7 +120,30 @@ function HomeStackScreen() {
     >
       <HomeStack.Screen name=" ">
         {(props) => (
-          <HomeScreen {...props} handleLevelChoice={handleLevelChoice} handleUpdatePracticeArr={handleUpdatePracticeArr} />
+          <HomeScreen
+            {...props}
+            handleLevelChoice={handleLevelChoice}
+            handleUpdatePracticeArr={handleUpdatePracticeArr}
+          />
+        )}
+      </HomeStack.Screen>
+      <HomeStack.Screen name="JLPT Levels">
+        {(props) => (
+          <JLPTScreen
+            {...props}
+            handleLevelChoice={handleLevelChoice}
+            handleUpdatePracticeArr={handleUpdatePracticeArr}
+          />
+        )}
+      </HomeStack.Screen>
+      <HomeStack.Screen name="Genki Chapters">
+        {(props) => (
+          <GenkiScreen
+            {...props}
+            handleLevelChoice={handleLevelChoice}
+            handleUpdatePracticeArr={handleUpdatePracticeArr}
+            handleUpdateRange={handleUpdateRange}
+          />
         )}
       </HomeStack.Screen>
       <HomeStack.Screen name="Quiz Screen" options={{ title: screenTitle }}>
@@ -94,7 +158,12 @@ function HomeStackScreen() {
       </HomeStack.Screen>
       <HomeStack.Screen name="Flash Cards" options={{ title: "" }}>
         {(props) => (
-          <DisplayCard {...props} extraData={questionRange} currArr={currArr} practiceArr={practiceArr} />
+          <DisplayCard
+            {...props}
+            extraData={questionRange}
+            currArr={currArr}
+            practiceArr={practiceArr}
+          />
         )}
       </HomeStack.Screen>
     </HomeStack.Navigator>

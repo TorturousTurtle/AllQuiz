@@ -14,6 +14,29 @@ import { n5Arr } from "./assets/N5VocabArr";
 import { n4Arr } from "./assets/N4VocabArr";
 import { n3Arr } from "./assets/N3VocabArr";
 import { n2Arr } from "./assets/N2VocabArr";
+import { g1Arr } from "./assets/G1VocabArr";
+import { g2Arr } from "./assets/G2VocabArr";
+import { g3Arr } from "./assets/G3VocabArr";
+import { g4Arr } from "./assets/G4VocabArr";
+import { g5Arr } from "./assets/G5VocabArr";
+import { g6Arr } from "./assets/G6VocabArr";
+import { g7Arr } from "./assets/G7VocabArr";
+import { g8Arr } from "./assets/G8VocabArr";
+import { g9Arr } from "./assets/G9VocabArr";
+import { g10Arr } from "./assets/G10VocabArr";
+import { g11Arr } from "./assets/G11VocabArr";
+import { g12Arr } from "./assets/G12VocabArr";
+import { g13Arr } from "./assets/G13VocabArr";
+import { g14Arr } from "./assets/G14VocabArr";
+import { g15Arr } from "./assets/G15VocabArr";
+import { g16Arr } from "./assets/G16VocabArr";
+import { g17Arr } from "./assets/G17VocabArr";
+import { g18Arr } from "./assets/G18VocabArr";
+import { g19Arr } from "./assets/G19VocabArr";
+import { g20Arr } from "./assets/G20VocabArr";
+import { g21Arr } from "./assets/G21VocabArr";
+import { g22Arr } from "./assets/G22VocabArr";
+import { g23Arr } from "./assets/G23VocabArr";
 
 let wrongAnswers = [];
 let idList = [];
@@ -23,6 +46,15 @@ let currArrList = n5Arr;
 let round = 1;
 
 const Separator = () => <View style={styles.separator} />;
+
+const generateGenkiQuestionArr = () => {
+  let arr = [];
+  for (let i = 0; i < currArrList.length; i++) {
+    arr[i] = currArrList[i];
+    idList[i] = currArrList[i][0];
+  }
+  return arr;
+};
 
 const generateQuestionArr = (start, end) => {
   let arr = [];
@@ -90,7 +122,26 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
   const [shuffleActive, setShuffleActive] = useState(true);
   const [questionFirst, setQuestionFirst] = useState(true);
   const [scores, setScores] = useState([]);
+  const [dailyAttempts, setDailyAttempts] = useState({});
   const navigation = useNavigation();
+
+  const updateScoreList = (question, pointType) => {
+    let x = JSON.parse(JSON.stringify(scores));
+    let n = pointType === "correct" ? [1, 0] : [0, 1];
+    let obj = {
+      "correct": n[0],
+      "wrong": n[1],
+      "average": 0,
+      "question": [
+        question[0],
+        question[1],
+        question[2],
+        question[3],
+      ]
+    }
+    x[question[0]] = obj;
+    setScores(JSON.parse(JSON.stringify(x)));
+  };
 
   const handleFlip = () => {
     setCardFront(!cardFront);
@@ -125,7 +176,11 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
 
   const handleCorrect = () => {
     let id = questionList[qIterator][0];
-    scores[id]["correct"] = scores[id]["correct"] + 1;
+    if (scores.hasOwnProperty(id)) {
+      scores[id]["correct"] = scores[id]["correct"] + 1;
+    } else {
+      updateScoreList(questionList[qIterator], "correct");
+    }
     let i = qIterator + 1;
     setCardFront(true);
     if (i < questionList.length) {
@@ -156,7 +211,11 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
 
   const handleWrong = () => {
     let id = questionList[qIterator][0];
-    scores[id]["wrong"] = scores[id]["wrong"] + 1;
+    if (scores.hasOwnProperty(id)) {
+      scores[id]["wrong"] = scores[id]["wrong"] + 1;
+    } else {
+      updateScoreList(questionList[qIterator], "wrong");
+    }
     wrongAnswers.push(questionList[qIterator]);
     setCardFront(true);
     let i = qIterator + 1;
@@ -236,9 +295,13 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
         (scores[id]["correct"] + scores[id]["wrong"]);
       scores[id]["average"] = avg;
     }
+    dailyAttempts.attempts = dailyAttempts.attempts + 1;
+    console.log(dailyAttempts)
     try {
       const jsonValue = JSON.stringify(scores);
       await AsyncStorage.setItem("@scores", jsonValue);
+      const attempts = JSON.stringify(dailyAttempts);
+      await AsyncStorage.setItem("@tries", attempts);
     } catch (e) {
       console.log("Error: " + e);
     }
@@ -262,13 +325,15 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           : arr[qIterator][2]
       );
     }
-  }
+  };
 
   const goHome = () => {
     wrongAnswers = [];
     round = 1;
     updateScores();
     setQuestionFirst(true);
+    setQuestionList([]);
+    practiceArr = [];
     setModalVisible(false);
     navigation.popToTop();
   };
@@ -279,16 +344,22 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     round = 1;
     setQuestionFirst(true);
     setModalVisible(false);
+    setQuestionList([]);
+    practiceArr = [];
     navigation.popToTop();
   };
 
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
+      const attempts = await AsyncStorage.getItem("@tries");
       if (jsonValue != null) {
         setScores(JSON.parse(jsonValue));
       } else {
         console.log("No scores imported");
+      }
+      if (attempts != null){
+        setDailyAttempts(JSON.parse(attempts));
       }
     } catch (e) {
       console.log("Error: " + e);
@@ -314,10 +385,84 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           case "n2":
             currArrList = n2Arr;
             break;
+          case "g1":
+            currArrList = g1Arr;
+            break;
+          case "g2":
+            currArrList = g2Arr;
+            break;
+          case "g3":
+            currArrList = g3Arr;
+            break;
+          case "g4":
+            currArrList = g4Arr;
+            break;
+          case "g5":
+            currArrList = g5Arr;
+            break;
+          case "g6":
+            currArrList = g6Arr;
+            break;
+          case "g7":
+            currArrList = g7Arr;
+            break;
+          case "g8":
+            currArrList = g8Arr;
+            break;
+          case "g9":
+            currArrList = g9Arr;
+            break;
+          case "g10":
+            currArrList = g10Arr;
+            break;
+          case "g11":
+            currArrList = g11Arr;
+            break;
+          case "g12":
+            currArrList = g12Arr;
+            break;
+          case "g13":
+            currArrList = g13Arr;
+            break;
+          case "g14":
+            currArrList = g14Arr;
+            break;
+          case "g15":
+            currArrList = g15Arr;
+            break;
+          case "g16":
+            currArrList = g16Arr;
+            break;
+          case "g17":
+            currArrList = g17Arr;
+            break;
+          case "g18":
+            currArrList = g18Arr;
+            break;
+          case "g19":
+            currArrList = g19Arr;
+            break;
+          case "g20":
+            currArrList = g20Arr;
+            break;
+          case "g21":
+            currArrList = g21Arr;
+            break;
+          case "g22":
+            currArrList = g22Arr;
+            break;
+          case "g23":
+            currArrList = g23Arr;
+            break;
         }
       }
       if (practiceArr.length === 0) {
-        let arr = generateQuestionArr(extraData[0], extraData[1]);
+        let arr = [];
+        if (currArr.slice(0) === "n") {
+          arr = generateQuestionArr(extraData[0], extraData[1]);
+        } else {
+          arr = generateGenkiQuestionArr();
+        }
         setQuestionList(arr);
         handleSetQuestion(arr);
       } else {

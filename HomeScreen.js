@@ -6,73 +6,19 @@ import {
   ImageBackground,
   TouchableHighlight,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import _ from "lodash";
-
-import LevelButton from "./components/LevelButton";
-
-const levelArr = ["N5", "N4", "N3", "N2"];
 
 const Separator = () => <View style={styles.separator} />;
 
 function HomeScreen({
   navigation,
-  handleLevelChoice,
-  handleUpdatePracticeArr,
 }) {
-  const [scores, setScores] = useState([]);
-  const handleOptionPress = (choice) => {
-    screen = choice.toUpperCase() + " Vocabulary";
-    handleLevelChoice(choice);
-    navigation.navigate("Quiz Screen");
+  const handleJLPTNav = () => {
+    navigation.navigate("JLPT Levels");
   };
 
-  const handleLeastKnownClick = () => {
-    handleUpdatePracticeArr(scores);
-    navigation.navigate("Flash Cards");
+  const handleGenkiNav = () => {
+    navigation.navigate("Genki Chapters");
   };
-
-  const renderItem = (item) => {
-    return (
-      <View>
-        <LevelButton func={handleOptionPress} level={item} />
-        <Separator />
-      </View>
-    );
-  };
-
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("@scores");
-      if (jsonValue != null) {
-        let score = JSON.parse(jsonValue);
-        let arr = [];
-        let temp = [];
-        for (const key in score) {
-          let x = [key, score[key]["average"], score[key]["question"]];
-          arr.push(x);
-        }
-        arr.sort(function (a, b) {
-          return a[1] - b[1];
-        });
-        for (const x in arr) {
-          if (arr[x][1] !== 0) {
-            if (temp.length < 50) temp.push(arr[x][2]);
-          }
-        }
-        setScores(temp);
-      } else {
-        console.log("No scores imported");
-      }
-    } catch (e) {
-      console.log("Error: " + e);
-    }
-  };
-
-  useEffect(() => {
-    if (scores.length === 0) getData();
-  }, [scores]);
 
   return (
     <View style={styles.container}>
@@ -81,19 +27,30 @@ function HomeScreen({
         style={styles.homeScreenBackground}
       >
         <View style={styles.headerContainer}>
-          <Text style={styles.textHeader}> Choose A Level </Text>
+          <Text style={styles.textHeader}> Choose A Quiz Source </Text>
         </View>
         <View style={styles.buttonsContainer}>
-          {levelArr.map((item) => renderItem(item))}
+          <TouchableHighlight
+            underlayColor="#757f8a"
+            style={styles.buttonContainer}
+            onPress={handleJLPTNav}
+          >
+            <Text style={styles.buttonText}>
+              JLPT
+            </Text>
+          </TouchableHighlight>
+          <Separator />
+          <TouchableHighlight
+            underlayColor="#757f8a"
+            style={styles.buttonContainer}
+            onPress={handleGenkiNav}
+          >
+            <Text style={styles.buttonText}>
+              Genki
+            </Text>
+          </TouchableHighlight>
+          <Separator />
         </View>
-        <TouchableHighlight
-          underlayColor="#757f8a"
-          style={[styles.buttonContainer, { marginTop: "5%"}]}
-          onPress={handleLeastKnownClick}
-        >
-          <Text style={styles.buttonText}> Least Known </Text>
-        </TouchableHighlight>
-        <Separator />
       </ImageBackground>
     </View>
   );
@@ -116,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonsContainer: {
-    marginTop: 20,
+    marginTop: "20%",
   },
   buttonContainer: {
     width: 300,
