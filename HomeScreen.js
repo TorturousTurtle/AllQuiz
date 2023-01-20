@@ -7,6 +7,8 @@ import {
   TouchableHighlight,
 } from "react-native";
 
+import { StatusBar } from 'expo-status-bar';
+
 const Separator = () => <View style={styles.separator} />;
 
 function HomeScreen({
@@ -52,6 +54,7 @@ function HomeScreen({
           <Separator />
         </View>
       </ImageBackground>
+      <StatusBar style="dark" />
     </View>
   );
 }

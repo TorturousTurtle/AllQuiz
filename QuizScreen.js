@@ -49,7 +49,7 @@ function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
     navigation.navigate("Flash Cards");
   };
 
-  const renderItem = (item) => {
+  const renderItem = (item, index) => {
     let x = item * 50 + 1;
     let y = x + 49;
     let arr = [];
@@ -62,7 +62,7 @@ function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
     }
     return (
       <View>
-        <QuizButton func={startQuiz} range={arr} />
+        <QuizButton func={startQuiz} range={arr} id={index.toString()} />
         <Separator />
       </View>
     );
@@ -160,7 +160,7 @@ function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView>
             <View style={styles.buttonsContainer}>
-              {listArr.map((item) => renderItem(item))}
+              {listArr.map((item, index) => renderItem(item, index))}
             </View>
           </ScrollView>
         </SafeAreaView>

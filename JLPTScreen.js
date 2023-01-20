@@ -33,10 +33,10 @@ function JLPTScreen({
     navigation.navigate("Flash Cards");
   };
 
-  const renderItem = (item) => {
+  const renderItem = (item, index) => {
     return (
       <View>
-        <LevelButton func={handleOptionPress} level={item} />
+        <LevelButton func={handleOptionPress} level={item} id={index.toString()} />
         <Separator />
       </View>
     );
@@ -84,7 +84,7 @@ function JLPTScreen({
           <Text style={styles.textHeader}> Choose A Level </Text>
         </View>
         <View style={styles.buttonsContainer}>
-          {levelArr.map((item) => renderItem(item))}
+          {levelArr.map((item, index) => renderItem(item, index))}
         </View>
         <TouchableHighlight
           underlayColor="#757f8a"

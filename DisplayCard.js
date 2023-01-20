@@ -296,7 +296,6 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       scores[id]["average"] = avg;
     }
     dailyAttempts.attempts = dailyAttempts.attempts + 1;
-    console.log(dailyAttempts)
     try {
       const jsonValue = JSON.stringify(scores);
       await AsyncStorage.setItem("@scores", jsonValue);
@@ -458,7 +457,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       }
       if (practiceArr.length === 0) {
         let arr = [];
-        if (currArr.slice(0) === "n") {
+        if (currArr[0] === "n") {
           arr = generateQuestionArr(extraData[0], extraData[1]);
         } else {
           arr = generateGenkiQuestionArr();

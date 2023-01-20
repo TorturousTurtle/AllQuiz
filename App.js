@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons/Ionicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { testScores } from "./assets/testScores.js";
 
 import HomeScreen from "./HomeScreen";
-import SettingsScreen from "./SettingsScreen";
+import ScoreScreen from "./ScoreScreen";
 import JLPTScreen from "./JLPTScreen.js";
 import QuizScreen from "./QuizScreen";
 import DisplayCard from "./DisplayCard";
-import TestScreen from "./TestScreen";
 import GenkiScreen from "./GenkiScreen.js";
+import { masterVocabScores } from "./assets/MasterVocabScores.js";
+
+import { n5Arr } from "./assets/N5VocabArr";
 
 const HomeStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
+
+let numAttempts = 0;
 
 function HomeStackScreen() {
   const [questionRange, setQuestionRange] = useState([]);
@@ -27,6 +29,7 @@ function HomeStackScreen() {
   const [scores, setScores] = useState([]);
   const [flag, setFlag] = useState(true);
   const [dailyAttempts, setDailyAttempts] = useState({});
+  numAttempts = dailyAttempts.attempts;
 
   const handleUpdateRange = (range, arr) => {
     setQuestionRange(range);
@@ -51,32 +54,35 @@ function HomeStackScreen() {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
-      const tries = await AsyncStorage.getItem("@tries")
+      const tries = await AsyncStorage.getItem("@tries");
       const date = new Date();
       if (jsonValue != null) {
         setScores(JSON.parse(jsonValue));
       } else {
+        storeScores();
         console.log("No scores imported");
       }
-      if(tries != null){
+      if (tries != null) {
         let x = JSON.parse(tries);
         let oldDate = new Date(Date.parse(x.date));
         let day1 = oldDate.getDay();
         let month1 = oldDate.getMonth();
-        if(day1 < date.getDay() && month1 <= date.getMonth()){
+        if (day1 < date.getDay() && month1 <= date.getMonth()) {
           let obj = {
-            "attempts": 0,
-            "date": date
-          } 
+            attempts: 0,
+            date: date,
+          };
           setDailyAttempts(obj);
+          storeAttempts(obj);
+          numAttempts = 0;
         } else {
-          setDailyAttempts(tries);
+          setDailyAttempts(x);
         }
       } else {
         let obj = {
-          "attempts": 0,
-          "date": date
-        } 
+          attempts: 0,
+          date: date,
+        };
         setDailyAttempts(obj);
         storeAttempts(obj);
       }
@@ -87,7 +93,7 @@ function HomeStackScreen() {
 
   const storeScores = async () => {
     try {
-      const jsonValue = JSON.stringify(testScores);
+      const jsonValue = JSON.stringify(masterVocabScores);
       await AsyncStorage.setItem("@scores", jsonValue);
     } catch (e) {
       console.log("Error: " + e);
@@ -108,8 +114,16 @@ function HomeStackScreen() {
       getData();
       setFlag(false);
     }
-    if (scores.length === 0) storeScores();
-  }, [questionRange, currArr, level, screenTitle, practiceArr, scores, flag, dailyAttempts]);
+  }, [
+    questionRange,
+    currArr,
+    level,
+    screenTitle,
+    practiceArr,
+    scores,
+    flag,
+    dailyAttempts,
+  ]);
 
   return (
     <HomeStack.Navigator
@@ -183,18 +197,12 @@ function SettingsStackScreen() {
   return (
     <SettingsStack.Navigator
       screenOptions={{
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "black" },
+        headerTintColor: "black",
+        headerStyle: { backgroundColor: "#114B5F" },
       }}
     >
-      <SettingsStack.Screen name="TestScreen" options={{ title: "Test" }}>
-        {(props) => (
-          <TestScreen
-            {...props}
-            extraData={questionRange}
-            handleUpdateRange={handleUpdateRange}
-          />
-        )}
+      <SettingsStack.Screen name="Settings Screen" options={{ title: "" }}>
+        {(props) => <ScoreScreen {...props} numAttempts={numAttempts} />}
       </SettingsStack.Screen>
       <SettingsStack.Screen name="Flash Cards" options={{ title: "" }}>
         {(props) => (
@@ -212,37 +220,45 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
-        screenOptions={({ route }) => (
-          {
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-              if (route.name === "Home") {
-                iconName = focused
-                  ? "ios-information-circle"
-                  : "ios-information-circle-outline";
-              } else if (route.name === "Settings") {
-                iconName = focused ? "ios-list" : "ios-list-outline";
-              }
+            if (route.name === "Home") {
+              iconName = focused
+                ? "ios-home"
+                : "ios-home-outline";
+            } else if (route.name === "Scores") {
+              iconName = focused ? "bulb" : "bulb-outline";
+            }
 
-              // You can return any component that you like here!
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
-          {
-            tabBarActiveTintColor: "#2076df",
-            tabBarInactiveTintColor: "#45ba55",
-            tabBarStyle: [
-              {
-                display: "flex",
-              },
-              null,
-            ],
-          }
-        )}
+          tabBarActiveTintColor: "#2076df",
+          tabBarInactiveTintColor: "#45ba55",
+          tabBarStyle: [
+            {
+              display: "flex",
+            },
+            null,
+          ],
+        })}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen
+          name="Home"
+          component={HomeStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="Scores"
+          component={SettingsStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
