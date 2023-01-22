@@ -18,8 +18,6 @@ import { n5Arr } from "./assets/N5VocabArr";
 const HomeStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
 
-let numAttempts = 0;
-
 function HomeStackScreen() {
   const [questionRange, setQuestionRange] = useState([]);
   const [currArr, setCurrArr] = useState("");
@@ -29,7 +27,6 @@ function HomeStackScreen() {
   const [scores, setScores] = useState([]);
   const [flag, setFlag] = useState(true);
   const [dailyAttempts, setDailyAttempts] = useState({});
-  numAttempts = dailyAttempts.attempts;
 
   const handleUpdateRange = (range, arr) => {
     setQuestionRange(range);
@@ -64,24 +61,31 @@ function HomeStackScreen() {
       }
       if (tries != null) {
         let x = JSON.parse(tries);
+        let date = new Date();
         let oldDate = new Date(Date.parse(x.date));
         let day1 = oldDate.getDay();
-        let month1 = oldDate.getMonth();
-        if (day1 < date.getDay() && month1 <= date.getMonth()) {
+        let olderDate = date > oldDate;
+        if ((day1 < date.getDay() || date.getDay() - day1 < 0) && olderDate) {
           let obj = {
             attempts: 0,
             date: date,
+            totalStudiedToday: 0,
           };
           setDailyAttempts(obj);
           storeAttempts(obj);
           numAttempts = 0;
         } else {
+          if (!x.hasOwnProperty("totalStudiedToday")) {
+            x["totalStudiedToday"] = 0;
+          }
           setDailyAttempts(x);
+          storeAttempts(x);
         }
       } else {
         let obj = {
           attempts: 0,
           date: date,
+          totalStudiedToday: 0,
         };
         setDailyAttempts(obj);
         storeAttempts(obj);
@@ -185,15 +189,59 @@ function HomeStackScreen() {
 }
 
 function SettingsStackScreen() {
-  const [questionRange, setQuestionRange] = useState([]);
-  const [currArr, setCurrArr] = useState("");
+  const [numAttempts, setNumAttempts] = useState(null);
 
-  const handleUpdateRange = (range, arr) => {
-    setQuestionRange(range);
-    setCurrArr(arr);
+  const updateDailyTries = () => {
+    let tries = getData();
+    return tries;
   };
 
-  useEffect(() => {}, [questionRange, currArr]);
+  const getData = async () => {
+    try {
+      const tries = await AsyncStorage.getItem("@tries");
+      const date = new Date();
+      if (tries != null) {
+        let x = JSON.parse(tries);
+        let oldDate = new Date(Date.parse(x.date));
+        let day1 = oldDate.getDay();
+        let olderDate = date > oldDate;
+        if ((day1 < date.getDay() || date.getDay() - day1 < 0) && olderDate) {
+          let obj = {
+            attempts: 0,
+            date: date,
+            totalStudiedToday: 0,
+          };
+          setNumAttempts(obj);
+          return obj;
+        } else {
+          if (!x.hasOwnProperty("totalStudiedToday")) {
+            x["totalStudiedToday"] = 0;
+          }
+          setNumAttempts({
+            ...numAttempts,
+            attempts: x.attempts,
+            date: x.date,
+            totalStudiedToday: x.totalStudiedToday
+        });
+          return x;
+        }
+      } else {
+        let obj = {
+          attempts: 0,
+          date: date,
+          totalStudiedToday: 0,
+        };
+        setNumAttempts(obj);
+        return obj;
+      }
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
+  useEffect(() => {
+    if (numAttempts === null) getData();
+  }, [numAttempts]);
   return (
     <SettingsStack.Navigator
       screenOptions={{
@@ -202,11 +250,12 @@ function SettingsStackScreen() {
       }}
     >
       <SettingsStack.Screen name="Settings Screen" options={{ title: "" }}>
-        {(props) => <ScoreScreen {...props} numAttempts={numAttempts} />}
-      </SettingsStack.Screen>
-      <SettingsStack.Screen name="Flash Cards" options={{ title: "" }}>
         {(props) => (
-          <DisplayCard {...props} extraData={questionRange} currArr={currArr} />
+          <ScoreScreen
+            {...props}
+            numAttempts={numAttempts}
+            updateDailyTries={updateDailyTries}
+          />
         )}
       </SettingsStack.Screen>
     </SettingsStack.Navigator>
@@ -225,9 +274,7 @@ export default function App() {
             let iconName;
 
             if (route.name === "Home") {
-              iconName = focused
-                ? "ios-home"
-                : "ios-home-outline";
+              iconName = focused ? "ios-home" : "ios-home-outline";
             } else if (route.name === "Scores") {
               iconName = focused ? "bulb" : "bulb-outline";
             }

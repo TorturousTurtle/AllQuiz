@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet,
   TouchableHighlight,
-  ImageBackground,
+  Modal,
   ScrollView,
   RefreshControl,
 } from "react-native";
@@ -42,6 +42,7 @@ import { g23Arr } from "./assets/G23VocabArr";
 import { masterVocabScores } from "./assets/MasterVocabScores";
 
 const masterQuizList = [
+  { label: "Sort By Least Known", value: "leastKnown" },
   { label: "JLPT N5", value: "n5" },
   { label: "JLPT N4", value: "n4" },
   { label: "JLPT N3", value: "n3" },
@@ -75,61 +76,61 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-function ScoreScreen({ navigation, numAttempts }) {
+function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
   const [scores, setScores] = useState([]);
   const [arrList, setArrList] = useState([]);
-  const [dailyAttempts, setDailyAttempts] = useState({});
+  const [dailyAttempts, setDailyAttempts] = useState(null);
   const [open, setOpen] = useState(false);
   const [quizList, setQuizList] = useState(null);
   const [items, setItems] = useState(masterQuizList);
   const [refreshing, setRefreshing] = useState(false);
+  const [leastKnownArr, setLeastKnownArr] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [kanji, setKanji] = useState("");
+  const [kana, setKana] = useState("");
+  const [definition, setDefinition] = useState("");
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
+  const [average, setAverage] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const onRefresh = () => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    wait(2000).then(() => {
+      let tries = updateDailyTries();
+      setDailyAttempts(numAttempts);
+      setRefreshing(false);
+    });
   };
 
-  const storeAttempts = async (obj) => {
-    try {
-      const jsonValue = JSON.stringify(obj);
-      await AsyncStorage.setItem("@tries", jsonValue);
-    } catch (e) {
-      console.log("Error: " + e);
-    }
+  const handleHideModal = () => {
+    setShowModal(false);
   };
 
   const getData = async () => {
+    setDailyAttempts(numAttempts);
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
-      const tries = await AsyncStorage.getItem("@tries");
-      const date = new Date();
       if (jsonValue != null) {
-        setScores(JSON.parse(jsonValue));
+        let arr = [];
+        let temp = [];
+        let score = JSON.parse(jsonValue);
+        setScores(score);
+        for (const key in score) {
+          let x = [key, score[key]["average"], score[key]["question"]];
+          arr.push(x);
+        }
+        arr.sort(function (a, b) {
+          return a[1] - b[1];
+        });
+        for (const x in arr) {
+          if (arr[x][1] !== 0) {
+            if (temp.length < 50) temp.push(arr[x][2]);
+          }
+        }
+        setLeastKnownArr(temp);
       } else {
         console.log("No scores imported");
-      }
-      if (tries != null) {
-        let x = JSON.parse(tries);
-        let oldDate = new Date(Date.parse(x.date));
-        let day1 = oldDate.getDay();
-        let month1 = oldDate.getMonth();
-        if (day1 < date.getDay() && month1 <= date.getMonth()) {
-          let obj = {
-            attempts: 0,
-            date: date,
-          };
-          setDailyAttempts(obj);
-        } else {
-          setDailyAttempts(x);
-        }
-      } else {
-        let obj = {
-          attempts: 0,
-          date: date,
-        };
-
-        setDailyAttempts(obj);
-        storeAttempts(obj);
       }
     } catch (e) {
       console.log("Error: " + e);
@@ -139,6 +140,9 @@ function ScoreScreen({ navigation, numAttempts }) {
   const setScoreList = () => {
     let currArrList = null;
     switch (quizList) {
+      case "leastKnown":
+        currArrList = leastKnownArr;
+        break;
       case "n5":
         currArrList = n5Arr;
         break;
@@ -227,27 +231,63 @@ function ScoreScreen({ navigation, numAttempts }) {
   const renderItem = (item, index) => {
     const x = scores[item[0]];
     const kanji = x.question[1].length > 0 ? x.question[1] : x.question[2];
-    const avg = (Math.floor(x.average * 100)).toString() + "%";
+    const avg = Math.floor(x.average * 100).toString() + "%";
+
+    const handleShowHistory = () => {
+      setKanji(scores[item[0]].question[1]);
+      setKana(scores[item[0]].question[2]);
+      setDefinition(scores[item[0]].question[3]);
+      setCorrect(scores[item[0]].correct);
+      setWrong(scores[item[0]].wrong);
+      setAverage(avg);
+      setTotal(scores[item[0]].correct + scores[item[0]].wrong);
+      setShowModal(true);
+    };
+
     return (
-      <View style={styles.scoreContainer}>
-        <Text style={styles.scoreText}>
-          {index + 1}: {kanji}
-        </Text>
-        <Text style={styles.scoreText}>{avg}</Text>
-      </View>
+      <TouchableHighlight onPress={handleShowHistory}>
+        <View style={styles.scoreContainer}>
+          <Text style={styles.scoreText} selectable={true}>
+            {index + 1}: {kanji}
+          </Text>
+          <Text style={styles.scoreText}>{avg}</Text>
+        </View>
+      </TouchableHighlight>
     );
   };
 
   useEffect(() => {
-    if (!dailyAttempts.hasOwnProperty("date")) getData();
+    if (scores.length === 0) getData();
     setScoreList();
-  }, [scores, dailyAttempts, open, quizList, items, arrList, refreshing]);
+    setDailyAttempts(numAttempts);
+  }, [
+    scores,
+    open,
+    quizList,
+    dailyAttempts,
+    items,
+    arrList,
+    refreshing,
+    leastKnownArr,
+    kanji,
+    kana,
+    definition,
+    correct,
+    wrong,
+    average,
+    total,
+    showModal
+  ]);
 
   return (
     <View style={styles.container}>
       <View style={styles.attemptsContainer}>
         <Text style={styles.attemptsText}>
-          Quizzes Taken Today: {numAttempts}
+          Quizzes Taken Today: {dailyAttempts ? dailyAttempts.attempts : 0}
+        </Text>
+        <Text style={styles.attemptsText}>
+          Total Cards Studied:{" "}
+          {dailyAttempts ? dailyAttempts.totalStudiedToday : 0}
         </Text>
       </View>
       <DropDownPicker
@@ -257,17 +297,48 @@ function ScoreScreen({ navigation, numAttempts }) {
         setOpen={setOpen}
         setValue={setQuizList}
         setItems={setItems}
-        containerStyle={{ width: "80%" }}
+        containerStyle={{ width: "80%", marginTop: "3%" }}
         textStyle={{ fontSize: 20, fontWeight: "bold" }}
       />
-      <ScrollView
-        style={styles.scrollContainer}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        {arrList && arrList.map((item, index) => renderItem(item, index))}
-      </ScrollView>
+      <View style={styles.textContainer}>
+        <Text style={styles.scoreText}>Kanji/Kana</Text>
+        <Text style={styles.scoreText}>Average %</Text>
+      </View>
+      {!showModal && (
+        <ScrollView
+          style={styles.scrollContainer}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          {arrList && arrList.map((item, index) => renderItem(item, index))}
+        </ScrollView>
+      )}
+      <View style={styles.modalMainContainer}>
+        <Modal animationType="slide" transparent={true} visible={showModal}>
+          <View style={styles.modalContainer}>
+            {kanji.length > 0 && <Text style={styles.modalText}>{kanji}</Text>}
+            <Text style={styles.modalText}>{kana}</Text>
+            <Text> </Text>
+            <Text style={[styles.scoreText, {fontSize: 45}]}>{definition}</Text>
+            <Text> </Text>
+            <Text style={styles.scoreText}>Correct: {correct}</Text>
+            <Text style={styles.scoreText}>Incorrect: {wrong}</Text>
+            <Text style={styles.scoreText}>Average: {average}</Text>
+            <Text style={styles.scoreText}>Total Times Seen: {total}</Text>
+            <View style={styles.listContainer}>
+              <View style={styles.modalButtonContainer}>
+                <TouchableHighlight
+                  style={[styles.modalButton, { backgroundColor: "#dd1c1a" }]}
+                  onPress={handleHideModal}
+                >
+                  <Text style={styles.buttonText}>Hide</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
     </View>
   );
 }
@@ -287,7 +358,15 @@ const styles = StyleSheet.create({
     height: "10%",
   },
   scrollContainer: {
-    marginTop: "5%",
+  },
+  textContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 40,
+    width: 350,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   scoreContainer: {
     flexDirection: "row",
@@ -299,6 +378,32 @@ const styles = StyleSheet.create({
     width: 350,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  modalMainContainer: {},
+  modalContainer: {
+    width: "90%",
+    borderRadius: 15,
+    backgroundColor: "#45ba55",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "70%",
+    marginLeft: "5%",
+    shadowColor: "rgba(0, 0, 0, 0.9)",
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    shadowOffset: { width: 7, height: 5 },
+  },
+  historyContainer: {
+    height: "50%",
+    width: "100%",
+    backgroundColor: "#45ba55",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  modalButtonContainer: {
+    marginTop: 1,
   },
   attemptsText: {
     fontSize: 35,
@@ -326,6 +431,38 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     fontWeight: "bold",
+  },
+  modalText: {
+    fontSize: 45,
+    textDecorationLine: "underline",
+    color: "white",
+    textAlign: "center",
+    fontFamily: "Optima",
+    fontWeight: "bold",
+    marginTop: 20,
+  },
+  modalButton: {
+    width: 250,
+    height: 40,
+    marginTop: "10%",
+    backgroundColor: "#2076df",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
+    shadowColor: "rgba(0, 0, 0, 0.9)",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: { width: 3, height: 1 },
+  },
+  listContainer: {
+    justifyContent: "center",
+    borderRadius: 7,
+    shadowColor: "rgba(0, 0, 0, 0.9)",
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    shadowOffset: { width: 7, height: 5 },
   },
 });
 

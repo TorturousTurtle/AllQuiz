@@ -123,6 +123,8 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
   const [questionFirst, setQuestionFirst] = useState(true);
   const [scores, setScores] = useState([]);
   const [dailyAttempts, setDailyAttempts] = useState({});
+  const [hint, setHint] = useState(null);
+  const [showHint, setShowHint] = useState(false);
   const navigation = useNavigation();
 
   const updateScoreList = (question, pointType) => {
@@ -152,6 +154,10 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     setQuestionFirst((questionFirst) => !questionFirst);
   };
 
+  const handleShowHint = () => {
+    setShowHint(!showHint);
+  }
+
   const handleSetQuestions = (flag) => {
     if (flag) {
       setQuestion(
@@ -164,6 +170,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           ? questionList[qIterator][2] + "\n\n" + questionList[qIterator][3]
           : questionList[qIterator][3]
       );
+      setHint(questionList[qIterator][3])
     } else {
       setQuestion(questionList[qIterator][3]);
       setAnswer(
@@ -196,6 +203,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
             ? questionList[i][2] + "\n\n" + questionList[i][3]
             : questionList[i][3]
         );
+        setHint(questionList[i][3])
       } else {
         setQuestion(questionList[i][3]);
         setAnswer(
@@ -232,6 +240,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
             ? questionList[i][2] + "\n\n" + questionList[i][3]
             : questionList[i][3]
         );
+        setHint(questionList[i][3])
       } else {
         setQuestion(questionList[i][3]);
         setAnswer(
@@ -243,6 +252,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     } else {
       setModalVisible(true);
     }
+    setShowHint(false);
   };
 
   const handleShuffle = () => {
@@ -257,6 +267,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           ? arr[qIterator][2] + "\n\n" + arr[qIterator][3]
           : arr[qIterator][3]
       );
+      setHint(arr[qIterator][3])
     } else {
       setQuestion(arr[qIterator][3]);
       setAnswer(
@@ -269,6 +280,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
 
   const handleNextRound = () => {
     setQIterator(0);
+    dailyAttempts.totalStudiedToday += questionList.length;
     let arr = populateNextRound();
     setQuestionList(arr);
     if (questionFirst) {
@@ -276,6 +288,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       setAnswer(
         arr[0][1].length > 0 ? arr[0][2] + "\n\n" + arr[0][3] : arr[0][3]
       );
+      setHint(arr[0][3])
     } else {
       setQuestion(arr[0][3]);
       setAnswer(
@@ -284,6 +297,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     }
     setShuffleActive(true);
     setModalVisible(false);
+    setHint(false);
     round++;
   };
 
@@ -296,6 +310,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       scores[id]["average"] = avg;
     }
     dailyAttempts.attempts = dailyAttempts.attempts + 1;
+    dailyAttempts.totalStudiedToday += questionList.length;
     try {
       const jsonValue = JSON.stringify(scores);
       await AsyncStorage.setItem("@scores", jsonValue);
@@ -316,6 +331,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           ? arr[qIterator][2] + "\n\n" + arr[qIterator][3]
           : arr[qIterator][3]
       );
+      setHint(arr[qIterator][3])
     } else {
       setQuestion(arr[qIterator][3]);
       setAnswer(
@@ -331,6 +347,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     round = 1;
     updateScores();
     setQuestionFirst(true);
+    setShowHint(false);
     setQuestionList([]);
     practiceArr = [];
     setModalVisible(false);
@@ -342,6 +359,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     idList = [];
     round = 1;
     setQuestionFirst(true);
+    setShowHint(false);
     setModalVisible(false);
     setQuestionList([]);
     practiceArr = [];
@@ -478,6 +496,8 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     shuffleActive,
     questionFirst,
     scores,
+    hint,
+    showHint
   ]);
 
   return (
@@ -504,6 +524,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           <Text style={styles.questionText}>
             {cardFront ? question : answer}
           </Text>
+          {showHint && <Text style={styles.questionText}>{hint}</Text>}
         </View>
       </TouchableHighlight>
       <View style={styles.bottomContainer}>
@@ -519,12 +540,12 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           >
             <Text style={styles.buttonText}>Wrong</Text>
           </TouchableHighlight>
-          <TouchableHighlight
+          {!showHint && <TouchableHighlight
             style={styles.buttonDisplay}
             onPress={handleCorrect}
           >
             <Text style={styles.buttonText}>Correct</Text>
-          </TouchableHighlight>
+          </TouchableHighlight>}
         </View>
         <View style={styles.shuffleButtonContainer}>
           {shuffleActive && (
@@ -550,6 +571,17 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
               </TouchableHighlight>
             </View>
           )}
+          {!showHint && cardFront && <TouchableHighlight
+            style={[
+              styles.buttonDisplay,
+              { height: 40, width: 350, marginTop: "3%" },
+            ]}
+            onPress={handleShowHint}
+          >
+            <Text style={[styles.buttonText, { fontSize: 25 }]}>
+              Show Hint
+            </Text>
+          </TouchableHighlight>}
         </View>
         <View style={styles.modalContainer}>
           <Modal
