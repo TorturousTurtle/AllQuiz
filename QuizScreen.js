@@ -168,7 +168,7 @@ function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
           <Separator />
           <TouchableHighlight
             underlayColor="#757f8a"
-            style={styles.buttonContainer}
+            style={[styles.buttonContainer, {marginTop: "10%"}]}
             onPress={startQuiz16}
           >
             <Text style={styles.buttonText}>Random 50</Text>

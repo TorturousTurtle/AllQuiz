@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  getFocusedRouteNameFromRoute,
+  NavigationContainer,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -44,8 +47,12 @@ function HomeStackScreen() {
     setScreenTitle(screen);
   };
 
-  const handleUpdatePracticeArr = (arr) => {
-    setPracticeArr(arr);
+  const handleResetPracticeArr = () => {
+    setPracticeArr([]);
+  }
+
+  const handleUpdatePracticeArr = () => {
+    setPracticeArr(scores);
   };
 
   const getData = async () => {
@@ -54,7 +61,22 @@ function HomeStackScreen() {
       const tries = await AsyncStorage.getItem("@tries");
       const date = new Date();
       if (jsonValue != null) {
-        setScores(JSON.parse(jsonValue));
+        let score = JSON.parse(jsonValue);
+        let arr = [];
+        let temp = [];
+        for (const key in score) {
+          let x = [key, score[key]["average"], score[key]["question"]];
+          arr.push(x);
+        }
+        arr.sort(function (a, b) {
+          return a[1] - b[1];
+        });
+        for (const x in arr) {
+          if (arr[x][1] !== 0) {
+            if (temp.length < 50) temp.push(arr[x][2]);
+          }
+        }
+        setScores(temp);
       } else {
         storeScores();
         console.log("No scores imported");
@@ -180,6 +202,7 @@ function HomeStackScreen() {
             {...props}
             extraData={questionRange}
             currArr={currArr}
+            handleResetPracticeArr={handleResetPracticeArr}
             practiceArr={practiceArr}
           />
         )}
@@ -221,8 +244,8 @@ function SettingsStackScreen() {
             ...numAttempts,
             attempts: x.attempts,
             date: x.date,
-            totalStudiedToday: x.totalStudiedToday
-        });
+            totalStudiedToday: x.totalStudiedToday,
+          });
           return x;
         }
       } else {
@@ -295,9 +318,16 @@ export default function App() {
         <Tab.Screen
           name="Home"
           component={HomeStackScreen}
-          options={{
+          options={({ route }) => ({
             headerShown: false,
-          }}
+            tabBarStyle: ((route) => {
+              const routeName = getFocusedRouteNameFromRoute(route) ?? "";
+              if (routeName === "Flash Cards") {
+                return { display: "none" };
+              }
+              return;
+            })(route),
+          })}
         />
         <Tab.Screen
           name="Scores"

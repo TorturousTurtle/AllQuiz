@@ -112,7 +112,12 @@ const shuffleQuestions = (o) => {
   return o;
 };
 
-function DisplayCard({ extraData, currArr, practiceArr }) {
+const DisplayCard = ({
+  extraData,
+  currArr,
+  practiceArr,
+  handleResetPracticeArr,
+}) => {
   const [questionList, setQuestionList] = useState([]);
   const [qIterator, setQIterator] = useState(0);
   const [cardFront, setCardFront] = useState(true);
@@ -131,16 +136,11 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     let x = JSON.parse(JSON.stringify(scores));
     let n = pointType === "correct" ? [1, 0] : [0, 1];
     let obj = {
-      "correct": n[0],
-      "wrong": n[1],
-      "average": 0,
-      "question": [
-        question[0],
-        question[1],
-        question[2],
-        question[3],
-      ]
-    }
+      correct: n[0],
+      wrong: n[1],
+      average: 0,
+      question: [question[0], question[1], question[2], question[3]],
+    };
     x[question[0]] = obj;
     setScores(JSON.parse(JSON.stringify(x)));
   };
@@ -156,7 +156,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
 
   const handleShowHint = () => {
     setShowHint(!showHint);
-  }
+  };
 
   const handleSetQuestions = (flag) => {
     if (flag) {
@@ -170,7 +170,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           ? questionList[qIterator][2] + "\n\n" + questionList[qIterator][3]
           : questionList[qIterator][3]
       );
-      setHint(questionList[qIterator][3])
+      setHint(questionList[qIterator][3]);
     } else {
       setQuestion(questionList[qIterator][3]);
       setAnswer(
@@ -203,7 +203,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
             ? questionList[i][2] + "\n\n" + questionList[i][3]
             : questionList[i][3]
         );
-        setHint(questionList[i][3])
+        setHint(questionList[i][3]);
       } else {
         setQuestion(questionList[i][3]);
         setAnswer(
@@ -240,7 +240,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
             ? questionList[i][2] + "\n\n" + questionList[i][3]
             : questionList[i][3]
         );
-        setHint(questionList[i][3])
+        setHint(questionList[i][3]);
       } else {
         setQuestion(questionList[i][3]);
         setAnswer(
@@ -267,7 +267,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           ? arr[qIterator][2] + "\n\n" + arr[qIterator][3]
           : arr[qIterator][3]
       );
-      setHint(arr[qIterator][3])
+      setHint(arr[qIterator][3]);
     } else {
       setQuestion(arr[qIterator][3]);
       setAnswer(
@@ -288,7 +288,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       setAnswer(
         arr[0][1].length > 0 ? arr[0][2] + "\n\n" + arr[0][3] : arr[0][3]
       );
-      setHint(arr[0][3])
+      setHint(arr[0][3]);
     } else {
       setQuestion(arr[0][3]);
       setAnswer(
@@ -331,7 +331,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           ? arr[qIterator][2] + "\n\n" + arr[qIterator][3]
           : arr[qIterator][3]
       );
-      setHint(arr[qIterator][3])
+      setHint(arr[qIterator][3]);
     } else {
       setQuestion(arr[qIterator][3]);
       setAnswer(
@@ -350,8 +350,9 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     setShowHint(false);
     setQuestionList([]);
     practiceArr = [];
+    handleResetPracticeArr();
     setModalVisible(false);
-    navigation.popToTop();
+    navigation.goBack();
   };
 
   const cancelButton = () => {
@@ -363,7 +364,8 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     setModalVisible(false);
     setQuestionList([]);
     practiceArr = [];
-    navigation.popToTop();
+    handleResetPracticeArr();
+    navigation.goBack();
   };
 
   const getData = async () => {
@@ -375,7 +377,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       } else {
         console.log("No scores imported");
       }
-      if (attempts != null){
+      if (attempts != null) {
         setDailyAttempts(JSON.parse(attempts));
       }
     } catch (e) {
@@ -497,7 +499,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
     questionFirst,
     scores,
     hint,
-    showHint
+    showHint,
   ]);
 
   return (
@@ -521,9 +523,10 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       </View>
       <TouchableHighlight onPress={handleFlip} style={styles.topContainer}>
         <View>
-          <Text style={styles.questionText}>
-            {cardFront ? question : answer}
-          </Text>
+          {cardFront && <Text style={styles.questionText}>{question}</Text>}
+          {!showHint && !cardFront && (
+            <Text style={styles.questionText}>{answer}</Text>
+          )}
           {showHint && <Text style={styles.questionText}>{hint}</Text>}
         </View>
       </TouchableHighlight>
@@ -540,12 +543,14 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
           >
             <Text style={styles.buttonText}>Wrong</Text>
           </TouchableHighlight>
-          {!showHint && <TouchableHighlight
-            style={styles.buttonDisplay}
-            onPress={handleCorrect}
-          >
-            <Text style={styles.buttonText}>Correct</Text>
-          </TouchableHighlight>}
+          {!showHint && (
+            <TouchableHighlight
+              style={styles.buttonDisplay}
+              onPress={handleCorrect}
+            >
+              <Text style={styles.buttonText}>Correct</Text>
+            </TouchableHighlight>
+          )}
         </View>
         <View style={styles.shuffleButtonContainer}>
           {shuffleActive && (
@@ -565,23 +570,31 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
                 ]}
                 onPress={handleStartDef}
               >
-                <Text style={[styles.buttonText, { fontSize: 25 }]}>
-                  Start With Definitions
-                </Text>
+                {questionFirst ? (
+                  <Text style={[styles.buttonText, { fontSize: 25 }]}>
+                    Start With Definitions
+                  </Text>
+                ) : (
+                  <Text style={[styles.buttonText, { fontSize: 25 }]}>
+                    Start With Kanji/Kana
+                  </Text>
+                )}
               </TouchableHighlight>
             </View>
           )}
-          {!showHint && cardFront && <TouchableHighlight
-            style={[
-              styles.buttonDisplay,
-              { height: 40, width: 350, marginTop: "3%" },
-            ]}
-            onPress={handleShowHint}
-          >
-            <Text style={[styles.buttonText, { fontSize: 25 }]}>
-              Show Hint
-            </Text>
-          </TouchableHighlight>}
+          {!showHint && cardFront && questionFirst && (
+            <TouchableHighlight
+              style={[
+                styles.buttonDisplay,
+                { height: 40, width: 350, marginTop: "3%" },
+              ]}
+              onPress={handleShowHint}
+            >
+              <Text style={[styles.buttonText, { fontSize: 25 }]}>
+                Show Hint
+              </Text>
+            </TouchableHighlight>
+          )}
         </View>
         <View style={styles.modalContainer}>
           <Modal
@@ -628,7 +641,7 @@ function DisplayCard({ extraData, currArr, practiceArr }) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

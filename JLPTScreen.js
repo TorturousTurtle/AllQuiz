@@ -19,18 +19,12 @@ const Separator = () => <View style={styles.separator} />;
 function JLPTScreen({
   navigation,
   handleLevelChoice,
-  handleUpdatePracticeArr,
 }) {
   const [scores, setScores] = useState([]);
   const handleOptionPress = (choice) => {
-    screen = choice.toUpperCase() + " Vocabulary";
+    let screen = choice.toUpperCase() + " Vocabulary";
     handleLevelChoice(choice);
     navigation.navigate("Quiz Screen");
-  };
-
-  const handleLeastKnownClick = () => {
-    handleUpdatePracticeArr(scores);
-    navigation.navigate("Flash Cards");
   };
 
   const renderItem = (item, index) => {
@@ -46,22 +40,7 @@ function JLPTScreen({
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
       if (jsonValue != null) {
-        let score = JSON.parse(jsonValue);
-        let arr = [];
-        let temp = [];
-        for (const key in score) {
-          let x = [key, score[key]["average"], score[key]["question"]];
-          arr.push(x);
-        }
-        arr.sort(function (a, b) {
-          return a[1] - b[1];
-        });
-        for (const x in arr) {
-          if (arr[x][1] !== 0) {
-            if (temp.length < 50) temp.push(arr[x][2]);
-          }
-        }
-        setScores(temp);
+        setScores(JSON.parse(jsonValue));
       } else {
         console.log("No scores imported");
       }
@@ -86,14 +65,6 @@ function JLPTScreen({
         <View style={styles.buttonsContainer}>
           {levelArr.map((item, index) => renderItem(item, index))}
         </View>
-        <TouchableHighlight
-          underlayColor="#757f8a"
-          style={[styles.buttonContainer, { marginTop: "5%"}]}
-          onPress={handleLeastKnownClick}
-        >
-          <Text style={styles.buttonText}> Least Known </Text>
-        </TouchableHighlight>
-        <Separator />
       </ImageBackground>
     </View>
   );
@@ -116,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonsContainer: {
-    marginTop: 20,
+    marginTop: "15%",
   },
   buttonContainer: {
     width: 300,

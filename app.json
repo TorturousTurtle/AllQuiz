@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "NihongoVocab",
+    "name": "Nihongo Vocab",
     "slug": "nihongovocab",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "orientation": "portrait",
     "icon": "./assets/NihongoVocab.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/NihongoVocab.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

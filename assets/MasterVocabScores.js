@@ -96987,4 +96987,70 @@ export let masterVocabScores = {
       "extremely",
     ],
   },
+  "fea5ecc8-212f-4ea5-96d2-010c7bc2a168": {
+    correct: 0,
+    wrong: 0,
+    average: 0,
+    question: [
+      "fea5ecc8-212f-4ea5-96d2-010c7bc2a168",
+      "",
+      "スマホ",
+      "smartphone",
+    ],
+  },
+  "fea5ecc8-212f-4ea5-96d2-010c7bc2a169": {
+    correct: 0,
+    wrong: 0,
+    average: 0,
+    question: [
+      "fea5ecc8-212f-4ea5-96d2-010c7bc2a169",
+      "Ｔシャツ",
+      "ティーシャツ",
+      "T - shirt",
+    ],
+  },
+  "a50500ba-f4fe-4455-bdbc-8ab735c6898f": {
+    correct: 0,
+    wrong: 0,
+    average: 0,
+    question: [
+      "a50500ba-f4fe-4455-bdbc-8ab735c6898f",
+      "銀行",
+      "コンビニ",
+      "convenience store",
+    ],
+  },
+  "3e34a1b5-ab64-4a71-ac7c-9f041c73fbc9": {
+    correct: 0,
+    wrong: 0,
+    average: 0,
+    question: [
+      "3e34a1b5-ab64-4a71-ac7c-9f041c73fbc9",
+      "",
+      "コンピューター",
+      "computer",
+    ],
+  },
+  "3e34a1b5-ab64-4a71-ac7c-9f041c73fbd9": {
+    correct: 0,
+    wrong: 0,
+    average: 0,
+    question: [
+      "3e34a1b5-ab64-4a71-ac7c-9f041c73fbd9",
+      "",
+      "ビジネス",
+      "business",
+    ],
+  },
+  "3e34a1b5-ab64-4a71-ac7c-9f041c73fbe9": {
+    correct: 0,
+    wrong: 0,
+    average: 0,
+    question: [
+      "3e34a1b5-ab64-4a71-ac7c-9f041c73fbe9",
+      "歴史",
+      "れきし",
+      "history",
+    ],
+  },
 };

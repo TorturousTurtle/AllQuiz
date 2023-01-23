@@ -93,10 +93,11 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
   const [wrong, setWrong] = useState(0);
   const [average, setAverage] = useState(0);
   const [total, setTotal] = useState(0);
+  const [numNotSeen, setNumNotSeen] = useState(0);
 
   const onRefresh = () => {
     setRefreshing(true);
-    wait(2000).then(() => {
+    wait(500).then(() => {
       let tries = updateDailyTries();
       setDailyAttempts(numAttempts);
       setRefreshing(false);
@@ -125,7 +126,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
         });
         for (const x in arr) {
           if (arr[x][1] !== 0) {
-            if (temp.length < 50) temp.push(arr[x][2]);
+            if (temp.length < 1000) temp.push(arr[x][2]);
           }
         }
         setLeastKnownArr(temp);
@@ -139,6 +140,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
 
   const setScoreList = () => {
     let currArrList = null;
+    let notSeen = 0;
     switch (quizList) {
       case "leastKnown":
         currArrList = leastKnownArr;
@@ -226,6 +228,16 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
         break;
     }
     setArrList(currArrList);
+    if (currArrList) {
+      for (let i = 0; i < currArrList.length; i++) {
+        let x = currArrList[i];
+        let average = scores[x[0]].average;
+        if (average === 0) {
+          notSeen++;
+        }
+      }
+    }
+    setNumNotSeen(notSeen);
   };
 
   const renderItem = (item, index) => {
@@ -276,7 +288,8 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
     wrong,
     average,
     total,
-    showModal
+    showModal,
+    numNotSeen,
   ]);
 
   return (
@@ -300,9 +313,16 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
         containerStyle={{ width: "80%", marginTop: "3%" }}
         textStyle={{ fontSize: 20, fontWeight: "bold" }}
       />
+      <View style={{marginTop: "2%"}}>
+      {quizList && (
+        <Text style={styles.notSeenText}>
+          Number of Kanji/Kana Not Seen Yet: {numNotSeen}/{arrList ? arrList.length : 0}
+        </Text>
+      )}
+      </View>
       <View style={styles.textContainer}>
-        <Text style={styles.scoreText}>Kanji/Kana</Text>
-        <Text style={styles.scoreText}>Average %</Text>
+        <Text style={styles.notSeenText}>Kanji/Kana</Text>
+        <Text style={styles.notSeenText}>Average %</Text>
       </View>
       {!showModal && (
         <ScrollView
@@ -320,7 +340,9 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
             {kanji.length > 0 && <Text style={styles.modalText}>{kanji}</Text>}
             <Text style={styles.modalText}>{kana}</Text>
             <Text> </Text>
-            <Text style={[styles.scoreText, {fontSize: 45}]}>{definition}</Text>
+            <Text style={[styles.scoreText, { fontSize: 45 }]}>
+              {definition}
+            </Text>
             <Text> </Text>
             <Text style={styles.scoreText}>Correct: {correct}</Text>
             <Text style={styles.scoreText}>Incorrect: {wrong}</Text>
@@ -357,8 +379,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "10%",
   },
-  scrollContainer: {
-  },
+  scrollContainer: {},
   textContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -412,6 +433,11 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: 25,
+    color: "white",
+  },
+  notSeenText: {
+    fontSize: 20,
+    fontWeight: "bold",
     color: "white",
   },
   buttonContainer: {

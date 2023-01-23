@@ -13,6 +13,7 @@ const Separator = () => <View style={styles.separator} />;
 
 function HomeScreen({
   navigation,
+  handleUpdatePracticeArr
 }) {
   const handleJLPTNav = () => {
     navigation.navigate("JLPT Levels");
@@ -20,6 +21,11 @@ function HomeScreen({
 
   const handleGenkiNav = () => {
     navigation.navigate("Genki Chapters");
+  };
+
+  const handleLeastKnownClick = () => {
+    handleUpdatePracticeArr();
+    navigation.navigate("Flash Cards");
   };
 
   return (
@@ -52,6 +58,14 @@ function HomeScreen({
             </Text>
           </TouchableHighlight>
           <Separator />
+          <TouchableHighlight
+          underlayColor="#757f8a"
+          style={styles.buttonContainer}
+          onPress={handleLeastKnownClick}
+        >
+          <Text style={styles.buttonText}> Least Known </Text>
+        </TouchableHighlight>
+        <Separator />
         </View>
       </ImageBackground>
       <StatusBar style="dark" />

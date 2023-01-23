@@ -32,11 +32,6 @@ function GenkiScreen({
     navigation.navigate("Flash Cards");
   };
 
-  const handleLeastKnownClick = () => {
-    // handleUpdatePracticeArr(scores);
-    // navigation.navigate("Flash Cards");
-  };
-
   const renderItem = (item, index) => {
     const chapter = "Chapter " + (index + 1);
     return (
@@ -88,19 +83,13 @@ function GenkiScreen({
         <View style={styles.headerContainer}>
           <Text style={styles.textHeader}> Choose A Chapter </Text>
         </View>
+        <View style={styles.scrollContainer}>
         <ScrollView>
         <View style={styles.buttonsContainer}>
           {levelArr.map((item, index) => renderItem(item, index))}
         </View>
         </ScrollView>
-        <TouchableHighlight
-          underlayColor="#757f8a"
-          style={[styles.buttonContainer, { marginTop: "5%"}]}
-          onPress={handleLeastKnownClick}
-        >
-          <Text style={styles.buttonText}> Least Known </Text>
-        </TouchableHighlight>
-        <Separator />
+        </View>
       </ImageBackground>
     </View>
   );
@@ -121,6 +110,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
     justifyContent: "center",
     alignItems: "center",
+  },
+  scrollContainer: {
+    height: "75%"
   },
   buttonsContainer: {
     marginTop: 20,
