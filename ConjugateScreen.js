@@ -13,50 +13,29 @@ import _ from "lodash";
 
 import LevelButton from "./components/LevelButton";
 
-const levelArr = ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "G16", "G17", "G18", "G19", "G20", "G21", "G22", "G23", "G24"];
+const tenseArr = ["Present Tense", "Past Tense"];
 
 const Separator = () => <View style={styles.separator} />;
 
-function GenkiScreen({
+function ConjugateScreen({
   navigation,
   handleLevelChoice,
   handleUpdateRange
 }) {
-  const [scores, setScores] = useState([]);
   const handleOptionPress = (choice) => {
-    const x = +choice.slice(-1);
-    const chapter = levelArr[x - 1];
-    handleLevelChoice(chapter.toLowerCase());
-    handleUpdateRange([0, 0], chapter.toLowerCase());
+    handleLevelChoice(choice);
+    handleUpdateRange([0, 0], choice);
     navigation.navigate("Flash Cards");
   };
 
   const renderItem = (item, index) => {
-    const chapter = "Chapter " + (index + 1);
     return (
       <View>
-        <LevelButton func={handleOptionPress} level={chapter} />
+        <LevelButton func={handleOptionPress} level={item} />
         <Separator />
       </View>
     );
   };
-
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("@scores");
-      if (jsonValue != null) {
-        setScores(JSON.parse(jsonValue));
-      } else {
-        console.log("No scores imported");
-      }
-    } catch (e) {
-      console.log("Error: " + e);
-    }
-  };
-
-  useEffect(() => {
-    if (scores.length === 0) getData();
-  }, [scores]);
 
   return (
     <View style={styles.container}>
@@ -65,12 +44,12 @@ function GenkiScreen({
         style={styles.homeScreenBackground}
       >
         <View style={styles.headerContainer}>
-          <Text style={styles.textHeader}> Choose A Chapter </Text>
+          <Text style={styles.textHeader}> Choose A Tense </Text>
         </View>
         <View style={styles.scrollContainer}>
         <ScrollView>
         <View style={styles.buttonsContainer}>
-          {levelArr.map((item, index) => renderItem(item, index))}
+          {tenseArr.map((item, index) => renderItem(item, index))}
         </View>
         </ScrollView>
         </View>
@@ -99,7 +78,7 @@ const styles = StyleSheet.create({
     height: "75%"
   },
   buttonsContainer: {
-    marginTop: 20,
+    marginTop: "20%",
   },
   buttonContainer: {
     width: 300,
@@ -131,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GenkiScreen;
+export default ConjugateScreen;

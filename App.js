@@ -14,6 +14,7 @@ import JLPTScreen from "./JLPTScreen.js";
 import QuizScreen from "./QuizScreen";
 import DisplayCard from "./DisplayCard";
 import GenkiScreen from "./GenkiScreen.js";
+import ConjugateScreen from "./ConjugateScreen";
 import { masterVocabScores } from "./assets/MasterVocabScores.js";
 
 import { n5Arr } from "./assets/N5VocabArr";
@@ -179,6 +180,16 @@ function HomeStackScreen() {
       <HomeStack.Screen name="Genki Chapters">
         {(props) => (
           <GenkiScreen
+            {...props}
+            handleLevelChoice={handleLevelChoice}
+            handleUpdatePracticeArr={handleUpdatePracticeArr}
+            handleUpdateRange={handleUpdateRange}
+          />
+        )}
+      </HomeStack.Screen>
+      <HomeStack.Screen name="Verb Conjugation">
+        {(props) => (
+          <ConjugateScreen
             {...props}
             handleLevelChoice={handleLevelChoice}
             handleUpdatePracticeArr={handleUpdatePracticeArr}

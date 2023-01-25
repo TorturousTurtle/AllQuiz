@@ -2,7 +2,7 @@
   "expo": {
     "name": "Nihongo Vocab",
     "slug": "nihongovocab",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "orientation": "portrait",
     "icon": "./assets/NihongoVocab.png",
     "userInterfaceStyle": "light",
@@ -14,12 +14,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bverrill88.nihongovocab"
+      "bundleIdentifier": "com.bverrill88.nihongovocab",
+      "config": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {

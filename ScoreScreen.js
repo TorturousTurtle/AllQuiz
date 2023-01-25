@@ -39,7 +39,6 @@ import { g21Arr } from "./assets/G21VocabArr";
 import { g22Arr } from "./assets/G22VocabArr";
 import { g23Arr } from "./assets/G23VocabArr";
 
-import { masterVocabScores } from "./assets/MasterVocabScores";
 
 const masterQuizList = [
   { label: "Sort By Least Known", value: "leastKnown" },
@@ -96,10 +95,19 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
   const [numNotSeen, setNumNotSeen] = useState(0);
 
   const onRefresh = () => {
+    let notSeen = 0;
     setRefreshing(true);
     wait(500).then(() => {
       let tries = updateDailyTries();
       setDailyAttempts(numAttempts);
+      for (let i = 0; i < arrList.length; i++) {
+        let x = arrList[i];
+        let average = scores[x[0]].average;
+        if (average === 0) {
+          notSeen++;
+        }
+      }
+      setNumNotSeen(notSeen);
       setRefreshing(false);
     });
   };
@@ -259,7 +267,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
     return (
       <TouchableHighlight onPress={handleShowHistory}>
         <View style={styles.scoreContainer}>
-          <Text style={styles.scoreText} selectable={true}>
+          <Text style={styles.scoreText}>
             {index + 1}: {kanji}
           </Text>
           <Text style={styles.scoreText}>{avg}</Text>
@@ -313,12 +321,13 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
         containerStyle={{ width: "80%", marginTop: "3%" }}
         textStyle={{ fontSize: 20, fontWeight: "bold" }}
       />
-      <View style={{marginTop: "2%"}}>
-      {quizList && (
-        <Text style={styles.notSeenText}>
-          Number of Kanji/Kana Not Seen Yet: {numNotSeen}/{arrList ? arrList.length : 0}
-        </Text>
-      )}
+      <View style={{ marginTop: "2%" }}>
+        {quizList && (
+          <Text style={styles.notSeenText}>
+            Number of Kanji/Kana Not Seen Yet: {numNotSeen}/
+            {arrList ? arrList.length : 0}
+          </Text>
+        )}
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.notSeenText}>Kanji/Kana</Text>
@@ -337,10 +346,16 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
       <View style={styles.modalMainContainer}>
         <Modal animationType="slide" transparent={true} visible={showModal}>
           <View style={styles.modalContainer}>
-            {kanji.length > 0 && <Text style={styles.modalText}>{kanji}</Text>}
-            <Text style={styles.modalText}>{kana}</Text>
+            {kanji.length > 0 && (
+              <Text style={styles.modalText} selectable={true}>
+                {kanji}
+              </Text>
+            )}
+            <Text style={styles.modalText} selectable={true}>
+              {kana}
+            </Text>
             <Text> </Text>
-            <Text style={[styles.scoreText, { fontSize: 45 }]}>
+            <Text style={[styles.scoreText, { fontSize: 45, textAlign: "center" }]}>
               {definition}
             </Text>
             <Text> </Text>

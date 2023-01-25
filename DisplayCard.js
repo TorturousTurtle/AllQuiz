@@ -5,7 +5,6 @@ import {
   View,
   StyleSheet,
   Modal,
-  FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -37,6 +36,8 @@ import { g20Arr } from "./assets/G20VocabArr";
 import { g21Arr } from "./assets/G21VocabArr";
 import { g22Arr } from "./assets/G22VocabArr";
 import { g23Arr } from "./assets/G23VocabArr";
+import { presentTenseArr } from "./assets/presentTenseArr";
+import { pastTenseArr } from "./assets/pastTenseArr";
 
 let wrongAnswers = [];
 let idList = [];
@@ -46,6 +47,27 @@ let currArrList = n5Arr;
 let round = 1;
 
 const Separator = () => <View style={styles.separator} />;
+
+const generateTenseQuestionArr = () => {
+  let arr = [];
+  let scrambledArr = shuffleQuestions(currArrList);
+  for (let i = 0; i < 50; i++) {
+    let cVerb = scrambledArr[i][3];
+    if (cVerb.length > 11) {
+      cVerb = cVerb.replace("/", "\n");
+    }
+    let tempArr = [
+      scrambledArr[i][0],
+      scrambledArr[i][1] + "\n\n" + scrambledArr[i][2],
+      scrambledArr[i][2],
+      cVerb + "\n\n" + scrambledArr[i][4],
+    ];
+    scrambledArr[i] = tempArr;
+    arr[i] = scrambledArr[i];
+    idList[i] = scrambledArr[i][0];
+  }
+  return arr;
+};
 
 const generateGenkiQuestionArr = () => {
   let arr = [];
@@ -130,6 +152,7 @@ const DisplayCard = ({
   const [dailyAttempts, setDailyAttempts] = useState({});
   const [hint, setHint] = useState(null);
   const [showHint, setShowHint] = useState(false);
+  const [fSize, setFSize] = useState(50);
   const navigation = useNavigation();
 
   const updateScoreList = (question, pointType) => {
@@ -391,6 +414,7 @@ const DisplayCard = ({
       if (practiceArr.length > 0) {
         setQuestionList(practiceArr);
       } else {
+        if (currArr[0] === "p") setFSize(40);
         switch (currArr) {
           case "n5":
             currArrList = n5Arr;
@@ -473,12 +497,20 @@ const DisplayCard = ({
           case "g23":
             currArrList = g23Arr;
             break;
+          case "present tense":
+            currArrList = presentTenseArr;
+            break;
+          case "past tense":
+            currArrList = pastTenseArr;
+            break;
         }
       }
       if (practiceArr.length === 0) {
         let arr = [];
         if (currArr[0] === "n") {
           arr = generateQuestionArr(extraData[0], extraData[1]);
+        } else if (currArr[0] === "p") {
+          arr = generateTenseQuestionArr(extraData[0], extraData[1]);
         } else {
           arr = generateGenkiQuestionArr();
         }
@@ -500,6 +532,7 @@ const DisplayCard = ({
     scores,
     hint,
     showHint,
+    fSize,
   ]);
 
   return (
@@ -524,10 +557,14 @@ const DisplayCard = ({
       <TouchableHighlight onPress={handleFlip} style={styles.topContainer}>
         <View>
           {cardFront && <Text style={styles.questionText}>{question}</Text>}
-          {!showHint && !cardFront && (
-            <Text style={styles.questionText}>{answer}</Text>
+          {!cardFront && (
+            <Text style={[styles.questionText, { fontSize: fSize }]}>
+              {answer}
+            </Text>
           )}
-          {showHint && <Text style={styles.questionText}>{hint}</Text>}
+          {showHint && cardFront && (
+            <Text style={styles.questionText}>{hint}</Text>
+          )}
         </View>
       </TouchableHighlight>
       <View style={styles.bottomContainer}>
@@ -553,7 +590,7 @@ const DisplayCard = ({
           )}
         </View>
         <View style={styles.shuffleButtonContainer}>
-          {shuffleActive && (
+          {shuffleActive && !showHint && (
             <View>
               <TouchableHighlight
                 style={[styles.buttonDisplay, { height: 40, width: 350 }]}
@@ -563,26 +600,28 @@ const DisplayCard = ({
                   Shuffle
                 </Text>
               </TouchableHighlight>
-              <TouchableHighlight
-                style={[
-                  styles.buttonDisplay,
-                  { height: 40, width: 350, marginTop: "3%" },
-                ]}
-                onPress={handleStartDef}
-              >
-                {questionFirst ? (
-                  <Text style={[styles.buttonText, { fontSize: 25 }]}>
-                    Start With Definitions
-                  </Text>
-                ) : (
-                  <Text style={[styles.buttonText, { fontSize: 25 }]}>
-                    Start With Kanji/Kana
-                  </Text>
-                )}
-              </TouchableHighlight>
+              {currArr[0] !== "p" && (
+                <TouchableHighlight
+                  style={[
+                    styles.buttonDisplay,
+                    { height: 40, width: 350, marginTop: "3%" },
+                  ]}
+                  onPress={handleStartDef}
+                >
+                  {questionFirst ? (
+                    <Text style={[styles.buttonText, { fontSize: 25 }]}>
+                      Start With Definitions
+                    </Text>
+                  ) : (
+                    <Text style={[styles.buttonText, { fontSize: 25 }]}>
+                      Start With Kanji/Kana
+                    </Text>
+                  )}
+                </TouchableHighlight>
+              )}
             </View>
           )}
-          {!showHint && cardFront && questionFirst && (
+          {!showHint && cardFront && questionFirst && currArr[0] !== "p" && (
             <TouchableHighlight
               style={[
                 styles.buttonDisplay,

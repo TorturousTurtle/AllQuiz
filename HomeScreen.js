@@ -7,20 +7,21 @@ import {
   TouchableHighlight,
 } from "react-native";
 
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 
 const Separator = () => <View style={styles.separator} />;
 
-function HomeScreen({
-  navigation,
-  handleUpdatePracticeArr
-}) {
+function HomeScreen({ navigation, handleUpdatePracticeArr }) {
   const handleJLPTNav = () => {
     navigation.navigate("JLPT Levels");
   };
 
   const handleGenkiNav = () => {
     navigation.navigate("Genki Chapters");
+  };
+
+  const handleConjugateNav = () => {
+    navigation.navigate("Verb Conjugation");
   };
 
   const handleLeastKnownClick = () => {
@@ -43,9 +44,7 @@ function HomeScreen({
             style={styles.buttonContainer}
             onPress={handleJLPTNav}
           >
-            <Text style={styles.buttonText}>
-              JLPT
-            </Text>
+            <Text style={styles.buttonText}>JLPT</Text>
           </TouchableHighlight>
           <Separator />
           <TouchableHighlight
@@ -53,19 +52,25 @@ function HomeScreen({
             style={styles.buttonContainer}
             onPress={handleGenkiNav}
           >
-            <Text style={styles.buttonText}>
-              Genki
-            </Text>
+            <Text style={styles.buttonText}>Genki</Text>
           </TouchableHighlight>
           <Separator />
           <TouchableHighlight
-          underlayColor="#757f8a"
-          style={styles.buttonContainer}
-          onPress={handleLeastKnownClick}
-        >
-          <Text style={styles.buttonText}> Least Known </Text>
-        </TouchableHighlight>
-        <Separator />
+            underlayColor="#757f8a"
+            style={styles.buttonContainer}
+            onPress={handleConjugateNav}
+          >
+            <Text style={styles.buttonText}> Verb Conjugation Practice </Text>
+          </TouchableHighlight>
+          <Separator />
+          <TouchableHighlight
+            underlayColor="#757f8a"
+            style={styles.buttonContainer}
+            onPress={handleLeastKnownClick}
+          >
+            <Text style={styles.buttonText}> Least Known </Text>
+          </TouchableHighlight>
+          <Separator />
         </View>
       </ImageBackground>
       <StatusBar style="dark" />
