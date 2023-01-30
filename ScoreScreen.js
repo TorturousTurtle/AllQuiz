@@ -80,7 +80,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
   const [arrList, setArrList] = useState([]);
   const [dailyAttempts, setDailyAttempts] = useState(null);
   const [open, setOpen] = useState(false);
-  const [quizList, setQuizList] = useState(null);
+  const [quizList, setQuizList] = useState("leastKnown");
   const [items, setItems] = useState(masterQuizList);
   const [refreshing, setRefreshing] = useState(false);
   const [leastKnownArr, setLeastKnownArr] = useState([]);

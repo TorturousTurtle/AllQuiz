@@ -50,6 +50,7 @@ function HomeStackScreen() {
 
   const handleResetPracticeArr = () => {
     setPracticeArr([]);
+    getData();
   }
 
   const handleUpdatePracticeArr = () => {

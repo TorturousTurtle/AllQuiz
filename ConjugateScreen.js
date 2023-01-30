@@ -7,13 +7,12 @@ import {
   TouchableHighlight,
   ScrollView
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import _ from "lodash";
 
 import LevelButton from "./components/LevelButton";
 
-const tenseArr = ["Present Tense", "Past Tense"];
+const tenseArr = ["Present Tense", "Past Tense", "Present Tense Progressive", "Past Tense Progressive"];
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -23,6 +22,7 @@ function ConjugateScreen({
   handleUpdateRange
 }) {
   const handleOptionPress = (choice) => {
+    console.log(choice)
     handleLevelChoice(choice);
     handleUpdateRange([0, 0], choice);
     navigation.navigate("Flash Cards");
@@ -44,7 +44,7 @@ function ConjugateScreen({
         style={styles.homeScreenBackground}
       >
         <View style={styles.headerContainer}>
-          <Text style={styles.textHeader}> Choose A Tense </Text>
+          <Text style={styles.textHeader}> Choose A Conjugation </Text>
         </View>
         <View style={styles.scrollContainer}>
         <ScrollView>

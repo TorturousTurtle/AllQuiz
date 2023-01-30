@@ -2,7 +2,7 @@
   "expo": {
     "name": "Nihongo Vocab",
     "slug": "nihongovocab",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "orientation": "portrait",
     "icon": "./assets/NihongoVocab.png",
     "userInterfaceStyle": "light",

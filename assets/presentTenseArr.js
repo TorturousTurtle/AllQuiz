@@ -500,7 +500,7 @@ export const presentTenseArr = [
     "fb9b3ba2-dd83-4ad6-b3dc-8d98360aa028",
     "掛ける",
     "かける",
-    "掛けます / 掛けます",
+    "掛けます / 掛けません",
     "hang, sit, telephone, risk",
   ],
   [

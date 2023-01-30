@@ -38,6 +38,8 @@ import { g22Arr } from "./assets/G22VocabArr";
 import { g23Arr } from "./assets/G23VocabArr";
 import { presentTenseArr } from "./assets/presentTenseArr";
 import { pastTenseArr } from "./assets/pastTenseArr";
+import { pastTenseProgArr } from "./assets/pastTenseProgArr";
+import { presentTenseProgArr } from "./assets/presentTenseProgArr";
 
 let wrongAnswers = [];
 let idList = [];
@@ -502,6 +504,12 @@ const DisplayCard = ({
             break;
           case "past tense":
             currArrList = pastTenseArr;
+            break;
+          case "present tense progressive":
+            currArrList = presentTenseProgArr;
+            break;
+          case "past tense progressive":
+            currArrList = pastTenseProgArr;
             break;
         }
       }
