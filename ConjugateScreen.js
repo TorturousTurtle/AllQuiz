@@ -12,7 +12,7 @@ import _ from "lodash";
 
 import LevelButton from "./components/LevelButton";
 
-const tenseArr = ["Present Tense", "Past Tense", "Present Tense Progressive", "Past Tense Progressive"];
+const tenseArr = ["Present Tense", "Past Tense", "Present Tense Progressive", "Past Tense Progressive", "Imperative", "Present Tense Adjectives", "Past Tense Adjectives"];
 
 const Separator = () => <View style={styles.separator} />;
 

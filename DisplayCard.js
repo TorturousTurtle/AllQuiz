@@ -40,6 +40,9 @@ import { presentTenseArr } from "./assets/presentTenseArr";
 import { pastTenseArr } from "./assets/pastTenseArr";
 import { pastTenseProgArr } from "./assets/pastTenseProgArr";
 import { presentTenseProgArr } from "./assets/presentTenseProgArr";
+import { presentTenseAdjArr } from "./assets/presentTenseAdjArr";
+import { pastTenseAdjArr } from "./assets/pastTenseAdjArr";
+import { imperativeArr } from "./assets/imperativeArr";
 
 let wrongAnswers = [];
 let idList = [];
@@ -58,9 +61,10 @@ const generateTenseQuestionArr = () => {
     if (cVerb.length > 11) {
       cVerb = cVerb.replace("/", "\n");
     }
+    let tempQ = (scrambledArr[i][1].length > 0) ? scrambledArr[i][1] + "\n\n" + scrambledArr[i][2] : scrambledArr[i][2];
     let tempArr = [
       scrambledArr[i][0],
-      scrambledArr[i][1] + "\n\n" + scrambledArr[i][2],
+      tempQ,
       scrambledArr[i][2],
       cVerb + "\n\n" + scrambledArr[i][4],
     ];
@@ -416,7 +420,7 @@ const DisplayCard = ({
       if (practiceArr.length > 0) {
         setQuestionList(practiceArr);
       } else {
-        if (currArr[0] === "p") setFSize(40);
+        if (currArr[0] === "p" || currArr[0] === "i") setFSize(35);
         switch (currArr) {
           case "n5":
             currArrList = n5Arr;
@@ -511,13 +515,22 @@ const DisplayCard = ({
           case "past tense progressive":
             currArrList = pastTenseProgArr;
             break;
+          case "present tense adjectives":
+            currArrList = presentTenseAdjArr;
+            break;
+          case "past tense adjectives":
+            currArrList = pastTenseAdjArr;
+            break;
+          case "imperative":
+            currArrList = imperativeArr;
+            break;
         }
       }
       if (practiceArr.length === 0) {
         let arr = [];
         if (currArr[0] === "n") {
           arr = generateQuestionArr(extraData[0], extraData[1]);
-        } else if (currArr[0] === "p") {
+        } else if (currArr[0] === "p" || currArr[0] === "i") {
           arr = generateTenseQuestionArr(extraData[0], extraData[1]);
         } else {
           arr = generateGenkiQuestionArr();

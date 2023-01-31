@@ -60,7 +60,7 @@ function HomeScreen({ navigation, handleUpdatePracticeArr }) {
             style={styles.buttonContainer}
             onPress={handleConjugateNav}
           >
-            <Text style={styles.buttonText}> Verb Conjugation Practice </Text>
+            <Text style={styles.buttonText}> Conjugation Practice </Text>
           </TouchableHighlight>
           <Separator />
           <TouchableHighlight
