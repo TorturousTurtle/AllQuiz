@@ -1,10 +1,10 @@
 export const n4Arr = [
   ["eea2f217-0647-481e-993c-7da3d1ee2928", "", "あ", "Ah"],
   ["d01eb39d-a17a-47f4-a0d4-3d9a0cc04df1", "", "ああ", "like that, that way"],
-  ["480de235-5d29-45d2-88f6-46cdf7269e7a", "", "あいさつ・する", "greeting"],
+  ["480de235-5d29-45d2-88f6-46cdf7269e7a", "挨拶", "あいさつ・する", "greeting"],
   ["3093373f-7673-4b5f-b853-eba7aca7b9b4", "間", "あいだ", "space, interval"],
   ["40255e62-5232-4e1d-a566-6a109bce544e", "合う", "あう", "to fit, to match"],
-  ["569d4a24-dc22-4dc7-a0e2-94bc115c0d78", "", "あかちゃん", "baby, infant"],
+  ["569d4a24-dc22-4dc7-a0e2-94bc115c0d78", "赤ちゃん", "あかちゃん", "baby, infant"],
   [
     "8594d017-eb91-442e-a4e7-25ea95c55fc2",
     "上がる",
@@ -91,7 +91,7 @@ export const n4Arr = [
   ["e9321011-78af-4cc8-8974-4a5c8b7ef3eb", "石", "いし", "stone"],
   [
     "6e4351dd-dc28-4999-8a8d-e1d9892200f1",
-    "",
+    "苛める",
     "いじめる",
     "to tease, to torment",
   ],
@@ -110,7 +110,7 @@ export const n4Arr = [
   ["e94a8ddc-ab43-4941-9e1b-1518adf9ef2c", "致す", "いたす", "(hum) to do"],
   [
     "e4c8edfc-52d1-40db-a2a7-a004921f324b",
-    "",
+    "頂く",
     "いただく",
     "to receive, to take food or drink (hum)",
   ],
@@ -159,7 +159,7 @@ export const n4Arr = [
     "うえる",
     "to plant, to grow",
   ],
-  ["145b1042-dd1a-4b4b-b721-901b86d47cf7", "", "うかがう", "to visit"],
+  ["145b1042-dd1a-4b4b-b721-901b86d47cf7", "伺う", "うかがう", "to visit"],
   ["939b2319-6155-47e0-a6ea-f99e114883ff", "", "うかがう", "to ask"],
   [
     "e8717817-7064-4093-a64e-c5d04847d88f",
@@ -174,8 +174,8 @@ export const n4Arr = [
     "to take (lesson, test), to undergo",
   ],
   ["ca7a04d5-50c0-441d-bf5e-9fd0e38567f5", "動く", "うごく", "to move"],
-  ["f4c0cc1f-7573-478e-a31b-b55d371bbc36", "", "うそ", "lie"],
-  ["d16ccbe1-cdb4-4758-b815-e787d06fc0a9", "", "うち", "within"],
+  ["f4c0cc1f-7573-478e-a31b-b55d371bbc36", "嘘", "うそ", "lie"],
+  ["d16ccbe1-cdb4-4758-b815-e787d06fc0a9", "内", "うち", "within"],
   ["66766583-f791-415b-a9b8-ced21b9ebe76", "打つ", "うつ", "to hit, to strike"],
   [
     "f4167bdf-6541-4e15-8c31-510ddb0afa3d",
@@ -196,7 +196,7 @@ export const n4Arr = [
     "to move (house), to transfer (department)",
   ],
   ["30d9bbc1-cfdd-406e-9fab-88562621a99b", "腕", "うで", "arm"],
-  ["b4b6baae-3d62-4f9c-9774-7612494f4773", "", "うまい", "delicious"],
+  ["b4b6baae-3d62-4f9c-9774-7612494f4773", "美味い", "うまい", "delicious"],
   [
     "43cb7b21-686b-41fa-9e1d-d1a863d5c0f1",
     "裏",
@@ -209,7 +209,7 @@ export const n4Arr = [
     "うりば",
     "place where things are sold",
   ],
-  ["d17b358d-2978-4360-b706-189612213928", "", "うれしい", "happy, glad"],
+  ["d17b358d-2978-4360-b706-189612213928", "嬉しい", "うれしい", "happy, glad"],
   [
     "a73a3e51-463f-4ba3-ae58-d79a3194a4b3",
     "",
@@ -258,7 +258,7 @@ export const n4Arr = [
   ],
   ["b1722c0f-18e3-4200-8149-0dd208c56ae3", "", "オーバー", "overcoat"],
   ["ca4dd770-7c4b-489e-ac08-ee5e49eefa0b", "", "おかげ", "thanks or owing to"],
-  ["a01efd61-9ec3-4a95-a4b4-14d7a96bdee5", "", "おかしい", "strange, funny"],
+  ["a01efd61-9ec3-4a95-a4b4-14d7a96bdee5", "可笑しい", "おかしい", "strange, funny"],
   ["a3e1a62e-fbeb-47bc-9365-a4c0d10d1c1a", "", "～おき", "after every ～"],
   [
     "d2762201-7eee-4966-867a-6e195a35a447",
@@ -337,7 +337,7 @@ export const n4Arr = [
   ["3282a7f9-344b-4cd0-b7e0-3ec057bc1520", "夫", "おっと", "husband"],
   [
     "4eb63e48-00b9-4438-9bdf-40fd462edbb6",
-    "",
+    "お釣り",
     "おつり",
     "change (money), balance",
   ],
@@ -376,7 +376,7 @@ export const n4Arr = [
     "おもう",
     "to think, to feel",
   ],
-  ["fda6961a-039d-4002-afab-1ae29156731e", "", "おもちゃ", "toy"],
+  ["fda6961a-039d-4002-afab-1ae29156731e", "玩具", "おもちゃ", "toy"],
   [
     "31706744-2d8f-44b7-8ca7-6bc730418218",
     "表",
@@ -465,8 +465,8 @@ export const n4Arr = [
     "かける",
     "to hang, to put on (eg wall)",
   ],
-  ["84113050-2108-4f66-a8ca-82492cd4b0cb", "", "かける", "to sit down"],
-  ["a3fc99f4-8367-4867-afbd-8b6749c478b6", "", "かける", "to begin to"],
+  ["84113050-2108-4f66-a8ca-82492cd4b0cb", "掛ける", "かける", "to sit down"],
+  ["a3fc99f4-8367-4867-afbd-8b6749c478b6", "掛ける", "かける", "to begin to"],
   [
     "ea7a77bf-807c-4bb2-a8ce-feb113bcdbf9",
     "飾る",
@@ -510,7 +510,7 @@ export const n4Arr = [
   ],
   [
     "0d1d304b-d0f9-4695-be05-a698ae02a216",
-    "",
+    "格好",
     "かっこう",
     "appearance, manner",
   ],
@@ -542,7 +542,7 @@ export const n4Arr = [
   ["39eb3403-e2c5-422d-8327-c3d0f9bb23d0", "壁", "かべ", "wall"],
   [
     "4d6e3cdb-2bd1-4b55-bcc7-e62a77add937",
-    "",
+    "構う",
     "かまう",
     "to mind, to care about",
   ],
@@ -633,7 +633,7 @@ export const n4Arr = [
     "きそく",
     "rule, regulations",
   ],
-  ["9efc2da1-c4e9-4df2-8c4c-c88c5458d82c", "", "きっと", "surely, definitely"],
+  ["9efc2da1-c4e9-4df2-8c4c-c88c5458d82c", "屹度", "きっと", "surely, definitely"],
   ["7602ef6d-4258-43f7-9807-714fcecf596d", "絹", "きぬ", "silk"],
   ["128be581-e959-41ef-97f0-84b477aaa941", "厳しい", "きびしい", "strict"],
   ["c327687e-f906-4b40-89c8-1e6821473e88", "気分", "きぶん", "feeling, mood"],
@@ -702,14 +702,14 @@ export const n4Arr = [
   ["09197dd4-564e-402c-a491-e46bf5586579", "草", "くさ", "grass"],
   [
     "8ba9d301-1360-4e3b-a0aa-15dd8b5bc056",
-    "",
+    "下さる",
     "くださる",
     "(hon) to give, to confer",
   ],
   ["6eb5fac8-49d9-4acc-b83e-b0a598eba2d9", "首", "くび", "neck"],
   ["fd1c494d-ecf8-4e38-89e7-846307d4ac28", "雲", "くも", "cloud"],
   ["ddfc79e7-50ce-4705-b922-0d9678e28ef7", "比べる", "くらべる", "to compare"],
-  ["4b712ce4-504b-4cc8-815a-6d637f8825d1", "", "くれる", "to give, to do for"],
+  ["4b712ce4-504b-4cc8-815a-6d637f8825d1", "呉れる", "くれる", "to give, to do for"],
   [
     "14b9333f-e4d2-4b51-b77d-4dd43f4f87be",
     "暮れる",
@@ -745,7 +745,7 @@ export const n4Arr = [
   ["36879fe3-a407-44e4-af14-2c5c4d5a9bfd", "警察", "けいさつ", "police"],
   [
     "4d6ef387-3d46-442f-9804-1d0121dbf28e",
-    "",
+    "怪我",
     "けが・する",
     "injury (to animate object), hurt",
   ],
@@ -782,7 +782,7 @@ export const n4Arr = [
     "げんいん",
     "cause, origin, source",
   ],
-  ["f9886471-1251-4244-bf7b-2de9c234764f", "", "けんか・する", "quarrel"],
+  ["f9886471-1251-4244-bf7b-2de9c234764f", "喧嘩", "けんか・する", "quarrel"],
   [
     "1e91cd0c-4f53-42b4-a3a2-b602a605ec78",
     "玄関",
@@ -884,7 +884,7 @@ export const n4Arr = [
   ["a3a52cc7-d7f7-4c37-9f2f-7f38a8b40cae", "答", "こたえ", "answer, response"],
   [
     "ee299471-7566-4cee-ae43-fef8b53d1d30",
-    "",
+    "ご馳走",
     "ごちそう",
     "feast, treating (someone)",
   ],
@@ -894,17 +894,17 @@ export const n4Arr = [
     "こっち",
     "(1) this person, (2) this direction, (3) this side, (4) thereafter",
   ],
-  ["cab43551-f3b4-449e-b477-cf5a65e227db", "", "こと", "thing, matter, fact"],
+  ["cab43551-f3b4-449e-b477-cf5a65e227db", "事", "こと", "thing, matter, fact"],
   ["af1952b4-39d5-4010-afe1-27e167f744f7", "小鳥", "ことり", "small bird"],
   [
     "9d4f4fab-09d2-4f89-924a-f447f136e9a5",
-    "",
+    "この間",
     "このあいだ",
     "the other day, recently",
   ],
   [
     "f6c25865-4ae6-41e3-9c18-23103ad92837",
-    "",
+    "この頃",
     "このごろ",
     "these days, nowadays",
   ],
@@ -916,14 +916,14 @@ export const n4Arr = [
   ],
   [
     "62ac3e42-b740-4d67-9c87-a12c65fe5ca1",
-    "",
+    "塵",
     "ごみ",
     "rubbish, trash, garbage",
   ],
   ["844f1eee-9dd7-44fc-8109-c7fb4f8c5908", "込む", "こむ", "to be crowded"],
   ["3d2f8377-8de1-42d6-9fa6-4df8cc4653e4", "米", "こめ", "uncooked rice"],
-  ["65fa16a5-7b49-462a-80ae-d58f22d602cc", "", "ごらんになる", "(hon) to see"],
-  ["aaecda19-6316-4f3e-ab37-d361b642a3db", "", "これから", "after this"],
+  ["65fa16a5-7b49-462a-80ae-d58f22d602cc", "ご覧になる", "ごらんになる", "(hon) to see"],
+  ["aaecda19-6316-4f3e-ab37-d361b642a3db", "此れから", "これから", "after this"],
   [
     "7bbc39a6-9ec7-41fb-9f52-240ca8868d10",
     "怖い",
@@ -1061,7 +1061,7 @@ export const n4Arr = [
     "match, game, contest",
   ],
   ["cc6e959e-7236-4495-b06d-f0cdd01cb485", "仕方", "しかた", "way, method"],
-  ["4d7e0122-5e61-435c-a104-f6c0ca41c97d", "", "しかる", "to scold"],
+  ["4d7e0122-5e61-435c-a104-f6c0ca41c97d", "叱る", "しかる", "to scold"],
   ["5a296654-6599-4caf-8e30-99419b6b8e8b", "～式", "～しき", "ceremony"],
   [
     "e7773442-0941-4856-8b6a-cbb66b2d9ca7",
@@ -1086,7 +1086,7 @@ export const n4Arr = [
   ],
   [
     "93adb69e-21e7-4ae2-bf8a-8fa0c5811107",
-    "",
+    "確り",
     "しっかり",
     "firmly, tightly, steady",
   ],
@@ -1104,7 +1104,7 @@ export const n4Arr = [
   ],
   ["dd7b09e9-0828-4d02-aef5-557a5af97906", "辞典", "じてん", "dictionary"],
   ["82e40be0-7505-41e0-8795-adaaef261c1c", "品物", "しなもの", "goods"],
-  ["cb8e8f11-f006-446f-900b-cac5b5f53139", "", "しばらく", "little while"],
+  ["cb8e8f11-f006-446f-900b-cac5b5f53139", "暫く", "しばらく", "little while"],
   ["8f40a5f8-e497-4e0f-adbf-fa6dbd48ef98", "島", "しま", "island"],
   [
     "dac97b59-5f9c-4cb3-99e6-4956989867bb",
@@ -1128,7 +1128,7 @@ export const n4Arr = [
   ],
   [
     "6ab481d0-4458-4629-bff4-651375459966",
-    "",
+    "邪魔",
     "じゃま",
     "hindrance, intrusion",
   ],
@@ -1256,7 +1256,7 @@ export const n4Arr = [
     "すいどう",
     "water service, water supply",
   ],
-  ["db065558-a260-4910-8476-c002b167a96b", "", "ずいぶん", "extremely"],
+  ["db065558-a260-4910-8476-c002b167a96b", "随分", "ずいぶん", "extremely"],
   [
     "92a88e3c-8d4a-4df3-b7a8-b5917c5d8427",
     "数学",
@@ -1277,8 +1277,8 @@ export const n4Arr = [
     "すぎる",
     "to exceed, to go beyond",
   ],
-  ["c80a370b-13d5-46e6-9cac-b551bc4be3fb", "", "すく", "to become empty"],
-  ["2739832a-81f5-4cff-add5-0458aea5fb9c", "", "すく", "to be less crowded"],
+  ["c80a370b-13d5-46e6-9cac-b551bc4be3fb", "空く", "すく", "to become empty"],
+  ["2739832a-81f5-4cff-add5-0458aea5fb9c", "空く", "すく", "to be less crowded"],
   ["e1f34c2a-37ef-42c2-ae1a-9400b6817428", "", "スクリーン", "screen"],
   [
     "5fae6e04-81eb-4b4c-a2c1-89344b137844",
@@ -1310,7 +1310,7 @@ export const n4Arr = [
   ["8e9115d1-8562-4e48-a71b-b89f331715d4", "砂", "すな", "sand"],
   [
     "d67ea47f-ac3d-4721-9cbc-e8684b9987e5",
-    "",
+    "素晴らしい",
     "すばらしい",
     "wonderful, splendid",
   ],
@@ -1322,7 +1322,7 @@ export const n4Arr = [
   ],
   ["883f5aa1-c9ee-4316-952a-365243bb9a7d", "隅", "すみ", "corner, nook"],
   ["24fbbb24-2bf2-42e4-aefd-538b9d27cdf9", "済む", "すむ", "to finish, to end"],
-  ["644a4735-fef8-463e-8e03-421e23511df8", "", "すり", "pickpocket"],
+  ["644a4735-fef8-463e-8e03-421e23511df8", "v", "すり", "pickpocket"],
   ["324acd77-6413-4c42-bc9f-425f205d66a1", "", "すると", "and, then"],
   ["c8983399-6a5e-4d9c-bc9a-da83d3932deb", "～製", "～せい", "made in ～"],
   [
@@ -1355,7 +1355,7 @@ export const n4Arr = [
   ["3bbe4137-dd5a-4989-a5c2-ca4c1c772bae", "背中", "せなか", "back (of body)"],
   [
     "4f1c10b1-2676-4a38-a8a4-ed4a6618e9f5",
-    "",
+    "是非",
     "ぜひ",
     "certainly, without fail",
   ],
@@ -1366,7 +1366,7 @@ export const n4Arr = [
     "looking after, help",
   ],
   ["b8947f9d-27e7-426a-a743-138118e44d72", "線", "せん", "line, wire"],
-  ["97544e91-8386-4c00-8af4-16286520c989", "", "ぜんぜん", "wholly, entirely"],
+  ["97544e91-8386-4c00-8af4-16286520c989", "全然", "ぜんぜん", "wholly, entirely"],
   ["dc1adab9-8d41-4b1d-a2ee-3e16cd9793a3", "戦争", "せんそう", "war"],
   [
     "2146d4f5-bc81-4d3d-b8fa-52b054821208",
@@ -1455,7 +1455,7 @@ export const n4Arr = [
   ],
   [
     "e1cf7852-f6df-4938-bfb9-3917406e280a",
-    "",
+    "大抵",
     "たいてい",
     "generally, usually",
   ],
@@ -1552,7 +1552,7 @@ export const n4Arr = [
   ],
   [
     "37156ea2-0527-4120-941d-0689a8e55656",
-    "",
+    "駄目",
     "だめ",
     "useless, no good, hopeless",
   ],
@@ -1617,7 +1617,7 @@ export const n4Arr = [
     "つかまえる",
     "to catch, to arrest, to seize",
   ],
-  ["a47dc351-b0ce-404e-ba49-c75cabc48ed6", "", "つき", "moon"],
+  ["a47dc351-b0ce-404e-ba49-c75cabc48ed6", "月", "つき", "moon"],
   ["7498f426-fa91-4c81-ae72-7f803fac9869", "～月", "～つき", "month"],
   [
     "67fc9185-c9a7-4d9e-b628-5be5173dedd8",
@@ -1659,7 +1659,7 @@ export const n4Arr = [
   ],
   ["8fb3d3ee-89d8-46f8-8bcf-698c5af6c6d9", "包む", "つつむ", "wrap, pack"],
   ["70658a77-336f-4498-94e7-f7875a977b37", "妻", "つま", "(hum) wife"],
-  ["6830f2db-9324-46d6-ac54-2e8046ac9ab1", "", "つもり", "intention, plan"],
+  ["6830f2db-9324-46d6-ac54-2e8046ac9ab1", "積もり", "つもり", "intention, plan"],
   ["b9d31b2a-fdd5-4a5a-afe1-36b0392dcc99", "釣る", "つる", "to fish"],
   [
     "e2971b6f-20c1-4fe1-ad7b-824620649139",
@@ -1685,7 +1685,6 @@ export const n4Arr = [
     "てきとう",
     "fitness, suitability",
   ],
-  ["cacaeb57-7f35-4700-b333-f7135a0da30c", "", "できる", "to be able to do"],
   [
     "c53a108f-b02e-45e2-9a64-2b20546f20de",
     "",
@@ -1739,7 +1738,7 @@ export const n4Arr = [
     "metroplitan, municipal",
   ],
   ["e3c36cb2-7da8-46dd-86e8-232c0b4ac68d", "道具", "どうぐ", "tool, means"],
-  ["449f1f12-5539-4d74-89c7-065d36ced5b0", "", "とうとう", "finally, at last"],
+  ["449f1f12-5539-4d74-89c7-065d36ced5b0", "等々", "とうとう", "finally, at last"],
   ["8a0e2a74-df70-40dd-b9af-afd5c659d134", "動物園", "どうぶつえん", "zoo"],
   [
     "8d434b8d-8799-4d6d-b43f-bca29decca91",
@@ -1766,7 +1765,7 @@ export const n4Arr = [
     "particularly, especially",
   ],
   ["9a093fd4-ef7d-4f24-9fa5-fbfe2b541818", "特別", "とくべつ", "special"],
-  ["03ebb80f-762c-47b3-aedb-a7248d796c13", "", "とこや", "barber"],
+  ["03ebb80f-762c-47b3-aedb-a7248d796c13", "床屋", "とこや", "barber"],
   [
     "e3170044-0d96-4aea-adf4-d1ce71013e00",
     "途中",
@@ -1873,7 +1872,7 @@ export const n4Arr = [
     "なれる",
     "to grow accustomed to",
   ],
-  ["c8d79c10-5ee5-49c0-87bc-a7bb3b80aac4", "", "におい", "odour, scent, smell"],
+  ["c8d79c10-5ee5-49c0-87bc-a7bb3b80aac4", "匂い", "におい", "odour, scent, smell"],
   ["0e3dfb1c-2945-44ce-9df3-e242c3e88970", "苦い", "にがい", "bitter"],
   [
     "6602f349-2f04-4b79-8931-70118bc97674",
@@ -1919,10 +1918,10 @@ export const n4Arr = [
     "ぬる",
     "to paint, to plaster",
   ],
-  ["4bf0d219-c636-43d8-9036-4e047b8bc556", "", "ぬれる", "to get wet"],
-  ["8e59bf24-ca18-4412-92b5-d9c55fa24c4b", "", "ねだん", "price, cost"],
+  ["4bf0d219-c636-43d8-9036-4e047b8bc556", "濡れる", "ぬれる", "to get wet"],
+  ["8e59bf24-ca18-4412-92b5-d9c55fa24c4b", "値段", "ねだん", "price, cost"],
   ["3a863ed7-e379-4ecd-bb81-d586f0ed548f", "熱", "ねつ", "fever, temperature"],
-  ["2d6f858c-b709-47bb-b4b6-0a06512fa230", "", "ねっしん", "zeal, enthusiasm"],
+  ["2d6f858c-b709-47bb-b4b6-0a06512fa230", "熱心", "ねっしん", "zeal, enthusiasm"],
   [
     "23ee0bcf-680c-4eaa-a6cf-a37f5d9f003f",
     "寝坊",
@@ -1937,7 +1936,7 @@ export const n4Arr = [
     "のこる",
     "to remain, to be left",
   ],
-  ["55fc220e-09b0-418f-98c6-6fed9a3d260e", "", "のど", "throat"],
+  ["55fc220e-09b0-418f-98c6-6fed9a3d260e", "喉", "のど", "throat"],
   [
     "41f4041e-3fa7-480e-a862-85ff8990c077",
     "乗り換える",
@@ -1981,7 +1980,7 @@ export const n4Arr = [
     "to start, to begin",
   ],
   ["6bf660df-f75f-4154-a61a-01eb7072be1f", "場所", "ばしょ", "place, location"],
-  ["51c43a68-7ac8-4111-a546-2979764b272b", "", "はず", "it should be so"],
+  ["51c43a68-7ac8-4111-a546-2979764b272b", "筈", "はず", "it should be so"],
   [
     "01f98d85-a9f5-47a4-8c2b-1609878c4939",
     "恥ずかしい",
@@ -2050,7 +2049,7 @@ export const n4Arr = [
     "ひきだし",
     "drawer, drawing out",
   ],
-  ["64cd13fd-2d7d-45bb-bbab-99c836b4c7df", "", "ひげ", "beard"],
+  ["64cd13fd-2d7d-45bb-bbab-99c836b4c7df", "鬚", "ひげ", "beard"],
   ["55bf33be-551b-4e56-a6d3-aaa8c970b3da", "飛行場", "ひこうじょう", "airport"],
   [
     "64045622-4532-4f68-bec5-d3e724535e6a",
@@ -2072,7 +2071,7 @@ export const n4Arr = [
   ],
   [
     "06270634-e4bf-4c7d-ae9b-4cebabc8e0a1",
-    "",
+    "吃驚",
     "びっくりする",
     "to be surprised",
   ],
@@ -2088,7 +2087,7 @@ export const n4Arr = [
     "ひつよう",
     "necessary, essential",
   ],
-  ["55aecbe4-5a5a-49ef-b363-0ef3f745ff3c", "", "ひどい", "cruel, awful"],
+  ["55aecbe4-5a5a-49ef-b363-0ef3f745ff3c", "酷い", "ひどい", "cruel, awful"],
   [
     "c2361d1a-d926-4b5d-a390-85bf97c158f9",
     "開く",
@@ -2151,7 +2150,7 @@ export const n4Arr = [
     "ふつう",
     "(1) generally, ordinarily, usually, (2) train that stops at every station",
   ],
-  ["3778b773-c299-4695-b6f2-db2351022ab3", "", "ぶどう", "grapes"],
+  ["3778b773-c299-4695-b6f2-db2351022ab3", "葡萄", "ぶどう", "grapes"],
   [
     "385b6629-ad02-4a94-afda-6bec86065da9",
     "太る",
@@ -2215,9 +2214,9 @@ export const n4Arr = [
     "(male) I, manservant",
   ],
   ["449f45bf-be35-4b15-aac0-0f28f4ed7b6b", "星", "ほし", "star"],
-  ["f619f347-121b-4b62-bf93-9f986e62557d", "", "ほど", "degree, extent"],
-  ["754ddab3-6a61-4620-ba43-b59d3b9ff80b", "", "ほとんど", "mostly, almost"],
-  ["5089cfec-894a-4b7f-9504-6bdc0346c8f5", "", "ほめる", "to praise"],
+  ["f619f347-121b-4b62-bf93-9f986e62557d", "程", "ほど", "degree, extent"],
+  ["754ddab3-6a61-4620-ba43-b59d3b9ff80b", "殆ど", "ほとんど", "mostly, almost"],
+  ["5089cfec-894a-4b7f-9504-6bdc0346c8f5", "褒める", "ほめる", "to praise"],
   [
     "49480072-bf04-4171-9f2a-05dcbafe3e5d",
     "翻訳",
@@ -2236,10 +2235,10 @@ export const n4Arr = [
     "まける",
     "to lose, to be defeated",
   ],
-  ["5508c62e-5160-4e98-b440-7fc3f9f49148", "", "まじめ", "diligent, serious"],
+  ["5508c62e-5160-4e98-b440-7fc3f9f49148", "真面目", "まじめ", "diligent, serious"],
   [
     "b7b48084-0307-4583-b88e-612742dfb631",
-    "",
+    "先ず",
     "まず",
     "first (of all), to start with",
   ],
@@ -2355,15 +2354,15 @@ export const n4Arr = [
     "もうす",
     "(hum) to be called, to say",
   ],
-  ["3b95b178-b0ed-48a9-b83b-7f5935f7d77f", "", "もうすぐ", "soon, very soon"],
-  ["abfac2ea-a84b-48ac-a211-7ee537a27dd6", "", "もし", "if"],
+  ["3b95b178-b0ed-48a9-b83b-7f5935f7d77f", "もう直ぐ", "もうすぐ", "soon, very soon"],
+  ["abfac2ea-a84b-48ac-a211-7ee537a27dd6", "若し", "もし", "if"],
   [
     "a74ffb66-2106-4081-8ebf-3dd6e8f2a076",
-    "",
+    "勿論",
     "もちろん",
     "certainly, of course",
   ],
-  ["dc429e54-a521-4a6a-8b30-e1bde3df0fdc", "", "もっとも", "most, extremely"],
+  ["dc429e54-a521-4a6a-8b30-e1bde3df0fdc", "最も", "もっとも", "most, extremely"],
   [
     "7456278f-9b4e-49b4-8d51-895ef5721ab9",
     "戻る",
@@ -2371,7 +2370,7 @@ export const n4Arr = [
     "to turn back, to return",
   ],
   ["c29119b8-87db-428f-b219-b7765b09ad59", "木綿", "もめん", "cotton"],
-  ["44fb4afd-e8f6-42d8-a53c-f07c55986ec7", "", "もらう", "to receive"],
+  ["44fb4afd-e8f6-42d8-a53c-f07c55986ec7", "貰う", "もらう", "to receive"],
   ["614dbc9d-728a-4eeb-9b5a-c36b59b22f9d", "森", "もり", "forest"],
   ["b6a1c7cf-c95b-4789-9b5b-911c0b0a91e3", "焼く", "やく", "to bake, to grill"],
   [
@@ -2401,7 +2400,7 @@ export const n4Arr = [
   ["56ca10bc-4b4b-44d0-a37a-45f0284c8fc5", "", "～やすい", "easy to do ～"],
   [
     "a896fb70-f082-4030-81c2-9deb5e52486e",
-    "",
+    "痩せる",
     "やせる",
     "to become thin, to lose weight",
   ],
@@ -2412,7 +2411,7 @@ export const n4Arr = [
     "やはり/やっぱり",
     "as I thought, absolutely",
   ],
-  ["0e2be335-3aab-44f3-8fe3-37303c9e77d5", "", "やむ", "to cease, to stop"],
+  ["0e2be335-3aab-44f3-8fe3-37303c9e77d5", "止む", "やむ", "to cease, to stop"],
   [
     "66e1b5ed-e1b9-4da0-8d2a-c35403dfc218",
     "止める",
@@ -2487,7 +2486,7 @@ export const n4Arr = [
   ],
   [
     "9a7dca0a-1276-4f06-8d16-0a7a30a6b472",
-    "",
+    "宜しい",
     "よろしい",
     "(hon) good, OK, all right",
   ],

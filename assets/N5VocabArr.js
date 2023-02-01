@@ -117,7 +117,7 @@ export const n5Arr = [
   ],
   ["40ef113c-841a-4624-99e4-dea7db910181", "角", "かど", "corner (e.g. desk)"],
   ["8f738fbe-54de-4f83-bb44-f8de7e9f9845", "黒", "くろ", "black"],
-  ["132b87d6-86ad-4392-ae3f-adb2a6791551", "", "あっち", "over there"],
+  ["132b87d6-86ad-4392-ae3f-adb2a6791551", "", "あっち", "over there (away from speaker and listener)"],
   [
     "f4a0777d-5c6f-487a-a290-006174b7cb19",
     "着く",
@@ -180,7 +180,7 @@ export const n5Arr = [
   ["3577aa1b-9eda-4930-9712-29d400b0fe32", "町", "まち", "town, city"],
   ["87c513a1-62c3-4dc3-9df0-3c9b5e4dc230", "門", "もん", "gate"],
   ["4c6f4191-05c2-4144-bd33-d62e7a8f6752", "切る", "きる", "to cut, to chop"],
-  ["81cb664c-1835-4e24-9869-5b34dc76f496", "", "そこ", "that place, there"],
+  ["81cb664c-1835-4e24-9869-5b34dc76f496", "", "そこ", "there (place relatively near listener)"],
   ["8830f08e-a1bb-4c49-b787-4d912ea9654d", "汚い", "きたない", "dirty, messy"],
   ["503a1f39-e640-442b-bf7c-16fb3e9d95b4", "遅い", "おそい", "late, slow"],
   [
@@ -532,7 +532,7 @@ export const n5Arr = [
   ["18920546-3a7a-4ebc-9084-bf808f4fae1b", "速い", "はやい", "quick, fast"],
   ["36f79099-8f19-45eb-ba8f-976256084c9d", "早い", "はやい", "early"],
   ["338c2807-14b8-46ec-9fc6-0e5bb2c3e170", "引く", "ひく", "to pull"],
-  ["8e5b2e42-15cc-4150-8472-f39515afb916", "彼方", "あちら", "there, yonder, that"],
+  ["8e5b2e42-15cc-4150-8472-f39515afb916", "彼方", "あちら", "that way (away from speaker and listener)"],
   ["970d9caf-ef57-4f39-ac1f-cf33dc4d56c2", "金曜日", "きんようび", "Friday"],
   ["65607f94-8335-412b-8b47-2516bd76850e", "洗う", "あらう", "to wash"],
   ["646d5511-2b8f-43b6-bd6f-943501f66657", "働く", "はたらく", "to work"],
@@ -892,7 +892,7 @@ export const n5Arr = [
   ["1d2c516f-60e6-48fb-a8bc-e3b9afdfb7aa", "一", "いち", "one"],
   ["b909ed99-29ca-44c1-b819-7c2738ed661c", "道", "みち", "road, street"],
   ["9ba5b6eb-a4ff-4c78-959f-39e9576a733a", "番号", "ばんごう", "number"],
-  ["a0dcafee-60d0-4874-95a4-56bd4fe1f15b", "", "あれ", "that, that thing"],
+  ["a0dcafee-60d0-4874-95a4-56bd4fe1f15b", "", "あれ", "that thing (away from speaker and listener)"],
   ["08aa1932-5430-4da2-82d7-7950ed520945", "自分", "じぶん", "myself, oneself"],
   ["464a27b3-3dab-4795-b978-3720e7e07e27", "高い", "たかい", "expensive"],
   [
@@ -998,7 +998,7 @@ export const n5Arr = [
     "counter for long cylindrical things",
   ],
   ["0828aa76-0a53-4d2b-aa6f-25134b440df1", "牛肉", "ぎゅうにく", "beef"],
-  ["fbc26e3d-df09-4e15-b7ad-7d9e7f33a82b", "", "あの", "that over there"],
+  ["fbc26e3d-df09-4e15-b7ad-7d9e7f33a82b", "", "あの", "that over there (away from speaker and listener)"],
   ["fc0c7517-ba87-4b8c-9b39-5c2840a26d8d", "水曜日", "すいようび", "Wednesday"],
   ["65ad5304-4b87-4ff4-b415-c54a46416723", "春", "はる", "spring"],
   ["e0220def-875e-492c-9f92-a0eb845d109c", "甘い", "あまい", "generous, sweet"],
@@ -1108,7 +1108,7 @@ export const n5Arr = [
     "to make, to create",
   ],
   ["60f26d5d-7fb6-403b-9267-8aad423e02e3", "木曜日", "もくようび", "Thursday"],
-  ["3571fa90-7d2b-4662-a249-a2b48d5b2ead", "", "その", "that"],
+  ["3571fa90-7d2b-4662-a249-a2b48d5b2ead", "", "その", "that (near listener)"],
   [
     "ac72ca73-8cd9-4000-8aaf-af08006d4af2",
     "暖かい",
@@ -1362,7 +1362,7 @@ export const n5Arr = [
     "at the time of ～",
   ],
   ["e6797b78-138c-4d3f-b477-5488d2dcdde7", "一昨年", "おととし", "year before last"],
-  ["0b46ee8d-7333-4ba1-9976-6f77315a8bb7", "", "では", "with that..."],
+  ["0b46ee8d-7333-4ba1-9976-6f77315a8bb7", "", "では", "then, well, so"],
   ["01d42380-f34e-4c31-a6e7-9fba87b99c24", "五", "ご", "five"],
   [
     "41f47c58-2757-4063-bc5c-947e67b64233",
@@ -1387,7 +1387,7 @@ export const n5Arr = [
     "～まい",
     "counter for flat things",
   ],
-  ["ba1e3fa1-16d0-4ec4-8cbe-a1f61f00ea7e", "", "それ", "it, that"],
+  ["ba1e3fa1-16d0-4ec4-8cbe-a1f61f00ea7e", "", "それ", "it, that (near speaker)"],
   ["6ff35cbf-d913-4990-a067-e887dde30756", "生徒", "せいと", "pupil"],
   ["5aad81d3-1ef1-4e91-bbfe-f0505e54d7f0", "浴びる", "あびる", "to bathe, to shower"],
   ["52bd94e9-7a9d-438d-be40-97cb0344dec5", "青い", "あおい", "blue"],
@@ -1499,7 +1499,7 @@ export const n5Arr = [
     "ふるい",
     "old (not person), aged, ancient",
   ],
-  ["02f8b3b3-fa2a-4fbd-b7d7-222072f1eeec", "", "そちら", "over there"],
+  ["02f8b3b3-fa2a-4fbd-b7d7-222072f1eeec", "", "そちら", "that way (close to listener"],
   [
     "374276d2-7df9-4eff-b139-ea01f95fe996",
     "飴",
@@ -1630,7 +1630,7 @@ export const n5Arr = [
     "314aca22-987b-440e-b1d2-c12db2db9014",
     "",
     "あそこ",
-    "there, over there, that place",
+    "over there, that place (away from speaker and listener)",
   ],
   ["039fa47e-989d-45c4-9712-a622f302380e", "旅行", "りょこう", "travel, trip"],
   [
@@ -1880,7 +1880,7 @@ export const n5Arr = [
     "overseas student",
   ],
   ["73b7686e-f9d3-432e-8db8-6d9d6c87364f", "", "いつも", "always, every time"],
-  ["6f032ef3-89fa-4b21-89a5-79eb45a2a3cc", "", "そっち", "over there"],
+  ["6f032ef3-89fa-4b21-89a5-79eb45a2a3cc", "", "そっち", "over there (near listener)"],
   ["6b6eb33e-9fc1-4ad7-be78-387724e3ecc8", "", "こっち", "this eg person, way"],
   [
     "d499730a-029b-4490-8a53-9175609264d1",

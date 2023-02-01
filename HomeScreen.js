@@ -11,7 +11,7 @@ import { StatusBar } from "expo-status-bar";
 
 const Separator = () => <View style={styles.separator} />;
 
-function HomeScreen({ navigation, handleUpdatePracticeArr }) {
+function HomeScreen({ navigation, handleUpdatePracticeArr, handleUpdateRandomArr }) {
   const handleJLPTNav = () => {
     navigation.navigate("JLPT Levels");
   };
@@ -26,6 +26,11 @@ function HomeScreen({ navigation, handleUpdatePracticeArr }) {
 
   const handleLeastKnownClick = () => {
     handleUpdatePracticeArr();
+    navigation.navigate("Flash Cards");
+  };
+
+  const handleRandomQuizClick = () => {
+    handleUpdateRandomArr();
     navigation.navigate("Flash Cards");
   };
 
@@ -69,6 +74,14 @@ function HomeScreen({ navigation, handleUpdatePracticeArr }) {
             onPress={handleLeastKnownClick}
           >
             <Text style={styles.buttonText}> Least Known </Text>
+          </TouchableHighlight>
+          <Separator />
+          <TouchableHighlight
+            underlayColor="#757f8a"
+            style={styles.buttonContainer}
+            onPress={handleRandomQuizClick}
+          >
+            <Text style={styles.buttonText}> Random 50 </Text>
           </TouchableHighlight>
           <Separator />
         </View>

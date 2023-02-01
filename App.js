@@ -17,8 +17,6 @@ import GenkiScreen from "./GenkiScreen.js";
 import ConjugateScreen from "./ConjugateScreen";
 import { masterVocabScores } from "./assets/MasterVocabScores.js";
 
-import { n5Arr } from "./assets/N5VocabArr";
-
 const HomeStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
 
@@ -28,6 +26,7 @@ function HomeStackScreen() {
   const [level, setLevel] = useState("");
   const [screenTitle, setScreenTitle] = useState("");
   const [practiceArr, setPracticeArr] = useState([]);
+  const [randomArr, setRandomArr] = useState([]);
   const [scores, setScores] = useState([]);
   const [flag, setFlag] = useState(true);
   const [dailyAttempts, setDailyAttempts] = useState({});
@@ -57,6 +56,20 @@ function HomeStackScreen() {
     setPracticeArr(scores);
   };
 
+  const handleUpdateRandomArr = () => {
+    let allArrTemp = shuffleArr(randomArr);
+    setPracticeArr(allArrTemp.slice(0, 50));
+  };
+
+  const shuffleArr = (o) => {
+    for (
+      var j, x, i = o.length;
+      i;
+      j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+    );
+    return o;
+  };
+
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
@@ -66,6 +79,7 @@ function HomeStackScreen() {
         let score = JSON.parse(jsonValue);
         let arr = [];
         let temp = [];
+        let allArr = [];
         for (const key in score) {
           let x = [key, score[key]["average"], score[key]["question"]];
           arr.push(x);
@@ -75,9 +89,11 @@ function HomeStackScreen() {
         });
         for (const x in arr) {
           if (arr[x][1] !== 0) {
+            allArr.push(arr[x][2]);
             if (temp.length < 50) temp.push(arr[x][2]);
           }
         }
+        setRandomArr(allArr);
         setScores(temp);
       } else {
         storeScores();
@@ -166,6 +182,7 @@ function HomeStackScreen() {
             {...props}
             handleLevelChoice={handleLevelChoice}
             handleUpdatePracticeArr={handleUpdatePracticeArr}
+            handleUpdateRandomArr={handleUpdateRandomArr}
           />
         )}
       </HomeStack.Screen>
