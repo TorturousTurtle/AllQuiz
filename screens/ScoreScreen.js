@@ -11,34 +11,33 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
 
-import { n5Arr } from "./assets/N5VocabArr";
-import { n4Arr } from "./assets/N4VocabArr";
-import { n3Arr } from "./assets/N3VocabArr";
-import { n2Arr } from "./assets/N2VocabArr";
-import { g1Arr } from "./assets/G1VocabArr";
-import { g2Arr } from "./assets/G2VocabArr";
-import { g3Arr } from "./assets/G3VocabArr";
-import { g4Arr } from "./assets/G4VocabArr";
-import { g5Arr } from "./assets/G5VocabArr";
-import { g6Arr } from "./assets/G6VocabArr";
-import { g7Arr } from "./assets/G7VocabArr";
-import { g8Arr } from "./assets/G8VocabArr";
-import { g9Arr } from "./assets/G9VocabArr";
-import { g10Arr } from "./assets/G10VocabArr";
-import { g11Arr } from "./assets/G11VocabArr";
-import { g12Arr } from "./assets/G12VocabArr";
-import { g13Arr } from "./assets/G13VocabArr";
-import { g14Arr } from "./assets/G14VocabArr";
-import { g15Arr } from "./assets/G15VocabArr";
-import { g16Arr } from "./assets/G16VocabArr";
-import { g17Arr } from "./assets/G17VocabArr";
-import { g18Arr } from "./assets/G18VocabArr";
-import { g19Arr } from "./assets/G19VocabArr";
-import { g20Arr } from "./assets/G20VocabArr";
-import { g21Arr } from "./assets/G21VocabArr";
-import { g22Arr } from "./assets/G22VocabArr";
-import { g23Arr } from "./assets/G23VocabArr";
-
+import { n5Arr } from "../assets/N5VocabArr";
+import { n4Arr } from "../assets/N4VocabArr";
+import { n3Arr } from "../assets/N3VocabArr";
+import { n2Arr } from "../assets/N2VocabArr";
+import { g1Arr } from "../assets/G1VocabArr";
+import { g2Arr } from "../assets/G2VocabArr";
+import { g3Arr } from "../assets/G3VocabArr";
+import { g4Arr } from "../assets/G4VocabArr";
+import { g5Arr } from "../assets/G5VocabArr";
+import { g6Arr } from "../assets/G6VocabArr";
+import { g7Arr } from "../assets/G7VocabArr";
+import { g8Arr } from "../assets/G8VocabArr";
+import { g9Arr } from "../assets/G9VocabArr";
+import { g10Arr } from "../assets/G10VocabArr";
+import { g11Arr } from "../assets/G11VocabArr";
+import { g12Arr } from "../assets/G12VocabArr";
+import { g13Arr } from "../assets/G13VocabArr";
+import { g14Arr } from "../assets/G14VocabArr";
+import { g15Arr } from "../assets/G15VocabArr";
+import { g16Arr } from "../assets/G16VocabArr";
+import { g17Arr } from "../assets/G17VocabArr";
+import { g18Arr } from "../assets/G18VocabArr";
+import { g19Arr } from "../assets/G19VocabArr";
+import { g20Arr } from "../assets/G20VocabArr";
+import { g21Arr } from "../assets/G21VocabArr";
+import { g22Arr } from "../assets/G22VocabArr";
+import { g23Arr } from "../assets/G23VocabArr";
 
 const masterQuizList = [
   { label: "Sort By Least Known", value: "leastKnown" },
@@ -93,6 +92,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
   const [average, setAverage] = useState(0);
   const [total, setTotal] = useState(0);
   const [numNotSeen, setNumNotSeen] = useState(0);
+  const [percentageCompleted, setPercentageComplete] = useState("0");
 
   const onRefresh = () => {
     let notSeen = 0;
@@ -280,6 +280,12 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
     if (scores.length === 0) getData();
     setScoreList();
     setDailyAttempts(numAttempts);
+    let avg = arrList
+      ? Math.floor(
+          (parseFloat(arrList.length - numNotSeen) / arrList.length) * 100
+        ).toString()
+      : "0";
+    setPercentageComplete(avg);
   }, [
     scores,
     open,
@@ -298,6 +304,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
     total,
     showModal,
     numNotSeen,
+    percentageCompleted,
   ]);
 
   return (
@@ -323,10 +330,15 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
       />
       <View style={{ marginTop: "2%" }}>
         {quizList && (
-          <Text style={styles.notSeenText}>
-            Number of Kanji/Kana Not Seen Yet: {numNotSeen}/
-            {arrList ? arrList.length : 0}
-          </Text>
+          <View>
+            <Text style={styles.notSeenText}>
+              Number of Kanji/Kana Not Seen Yet: {numNotSeen}/
+              {arrList ? arrList.length : 0}
+            </Text>
+            <Text style={styles.notSeenText}>
+              Percentage Completed: {percentageCompleted}%
+            </Text>
+          </View>
         )}
       </View>
       <View style={styles.textContainer}>
@@ -355,7 +367,9 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
               {kana}
             </Text>
             <Text> </Text>
-            <Text style={[styles.scoreText, { fontSize: 45, textAlign: "center" }]}>
+            <Text
+              style={[styles.scoreText, { fontSize: 45, textAlign: "center" }]}
+            >
               {definition}
             </Text>
             <Text> </Text>

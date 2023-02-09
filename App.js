@@ -8,13 +8,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import HomeScreen from "./HomeScreen";
-import ScoreScreen from "./ScoreScreen";
-import JLPTScreen from "./JLPTScreen.js";
-import QuizScreen from "./QuizScreen";
-import DisplayCard from "./DisplayCard";
-import GenkiScreen from "./GenkiScreen.js";
-import ConjugateScreen from "./ConjugateScreen";
+import HomeScreen from "./screens/HomeScreen";
+import ScoreScreen from "./screens/ScoreScreen";
+import JLPTScreen from "./screens/JLPTScreen.js";
+import QuizScreen from "./screens/QuizScreen";
+import DisplayCard from "./screens/DisplayCard";
+import GenkiScreen from "./screens/GenkiScreen.js";
+import ConjugateScreen from "./screens/ConjugateScreen";
+import PhrasesScreen from "./screens/PhrasesScreen";
 import { masterVocabScores } from "./assets/MasterVocabScores.js";
 
 const HomeStack = createNativeStackNavigator();
@@ -50,7 +51,7 @@ function HomeStackScreen() {
   const handleResetPracticeArr = () => {
     setPracticeArr([]);
     getData();
-  }
+  };
 
   const handleUpdatePracticeArr = () => {
     setPracticeArr(scores);
@@ -77,24 +78,32 @@ function HomeStackScreen() {
       const date = new Date();
       if (jsonValue != null) {
         let score = JSON.parse(jsonValue);
-        let arr = [];
-        let temp = [];
-        let allArr = [];
-        for (const key in score) {
-          let x = [key, score[key]["average"], score[key]["question"]];
-          arr.push(x);
-        }
-        arr.sort(function (a, b) {
-          return a[1] - b[1];
-        });
-        for (const x in arr) {
-          if (arr[x][1] !== 0) {
-            allArr.push(arr[x][2]);
-            if (temp.length < 50) temp.push(arr[x][2]);
+        if (
+          score["acbd255a-d35f-4cd3-96cb-3ceb26c9d36f"].hasOwnProperty("type")
+        ) {
+          let arr = [];
+          let temp = [];
+          let allArr = [];
+          for (const key in score) {
+            if (score[key]["type"] !== "not scored") {
+              let x = [key, score[key]["average"], score[key]["question"]];
+              arr.push(x);
+            }
           }
+          arr.sort(function (a, b) {
+            return a[1] - b[1];
+          });
+          for (const x in arr) {
+            if (arr[x][1] !== 0) {
+              allArr.push(arr[x][2]);
+              if (temp.length < 50) temp.push(arr[x][2]);
+            }
+          }
+          setRandomArr(allArr);
+          setScores(temp);
+        } else {
+          storeScores();
         }
-        setRandomArr(allArr);
-        setScores(temp);
       } else {
         storeScores();
         console.log("No scores imported");
@@ -139,6 +148,14 @@ function HomeStackScreen() {
     try {
       const jsonValue = JSON.stringify(masterVocabScores);
       await AsyncStorage.setItem("@scores", jsonValue);
+      let date = new Date();
+      let obj = {
+        attempts: 0,
+        date: date,
+        totalStudiedToday: 0,
+      };
+      const jsonVal = JSON.stringify(obj);
+      await AsyncStorage.setItem("@tries", jsonVal);
     } catch (e) {
       console.log("Error: " + e);
     }
@@ -183,6 +200,7 @@ function HomeStackScreen() {
             handleLevelChoice={handleLevelChoice}
             handleUpdatePracticeArr={handleUpdatePracticeArr}
             handleUpdateRandomArr={handleUpdateRandomArr}
+            randomArr={randomArr}
           />
         )}
       </HomeStack.Screen>
@@ -215,6 +233,16 @@ function HomeStackScreen() {
           />
         )}
       </HomeStack.Screen>
+      <HomeStack.Screen name="Phrases">
+        {(props) => (
+          <PhrasesScreen
+            {...props}
+            handleLevelChoice={handleLevelChoice}
+            handleUpdatePracticeArr={handleUpdatePracticeArr}
+            handleUpdateRange={handleUpdateRange}
+          />
+        )}
+      </HomeStack.Screen>
       <HomeStack.Screen name="Quiz Screen" options={{ title: screenTitle }}>
         {(props) => (
           <QuizScreen
@@ -225,7 +253,10 @@ function HomeStackScreen() {
           />
         )}
       </HomeStack.Screen>
-      <HomeStack.Screen name="Flash Cards" options={{ title: "" }}>
+      <HomeStack.Screen
+        name="Flash Cards"
+        options={{ title: "", headerBackVisible: false }}
+      >
         {(props) => (
           <DisplayCard
             {...props}

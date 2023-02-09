@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-} from "react-native";
+import { Text, StyleSheet, TouchableHighlight } from "react-native";
 
-const QuizButton = ({ func, range }) => {
+const MenuButton = ({ func, level, type }) => {
+  const title =
+    type === "range" ? level[0].toString() + "-" + level[1].toString() : level;
   const handlePress = () => {
-    let arr = [range[0] - 1, range[1]];
-    func(arr);
-  }
+    if (type === "level") {
+      choice = level.toLowerCase();
+      func(choice);
+    } else if (type === "range") {
+      let arr = [level[0] - 1, level[1]];
+      func(arr);
+    } else {
+      func();
+    }
+  };
   return (
     <TouchableHighlight
       underlayColor="#757f8a"
       style={styles.buttonContainer}
       onPress={handlePress}
     >
-      <Text style={styles.buttonText}>
-        {range[0]} - {range[1]}
-      </Text>
+      <Text style={styles.buttonText}> {title} </Text>
     </TouchableHighlight>
   );
 };
@@ -48,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuizButton;
+export default MenuButton;
