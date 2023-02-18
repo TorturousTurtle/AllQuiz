@@ -16,7 +16,10 @@ import DisplayCard from "./screens/DisplayCard";
 import GenkiScreen from "./screens/GenkiScreen.js";
 import ConjugateScreen from "./screens/ConjugateScreen";
 import PhrasesScreen from "./screens/PhrasesScreen";
+
 import { masterVocabScores } from "./assets/MasterVocabScores.js";
+
+import { getLeastPracticed } from "./utilities/arrGenerationFuncs";
 
 const HomeStack = createNativeStackNavigator();
 const SettingsStack = createNativeStackNavigator();
@@ -29,6 +32,7 @@ function HomeStackScreen() {
   const [practiceArr, setPracticeArr] = useState([]);
   const [randomArr, setRandomArr] = useState([]);
   const [scores, setScores] = useState([]);
+  const [masterListObj, setMasterListObj] = useState({});
   const [flag, setFlag] = useState(true);
   const [dailyAttempts, setDailyAttempts] = useState({});
 
@@ -60,6 +64,11 @@ function HomeStackScreen() {
   const handleUpdateRandomArr = () => {
     let allArrTemp = shuffleArr(randomArr);
     setPracticeArr(allArrTemp.slice(0, 50));
+  };
+
+  const handleLeastPracticedArr = (list) => {
+    let arr = getLeastPracticed(list, masterListObj);
+    setPracticeArr(arr);
   };
 
   const shuffleArr = (o) => {
@@ -99,6 +108,7 @@ function HomeStackScreen() {
               if (temp.length < 50) temp.push(arr[x][2]);
             }
           }
+          setMasterListObj(score);
           setRandomArr(allArr);
           setScores(temp);
         } else {
@@ -249,6 +259,7 @@ function HomeStackScreen() {
             {...props}
             extraData={questionRange}
             handleUpdateRange={handleUpdateRange}
+            handleLeastPracticedArr={handleLeastPracticedArr}
             listChoice={level}
           />
         )}

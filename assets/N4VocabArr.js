@@ -1322,7 +1322,7 @@ export const n4Arr = [
   ],
   ["883f5aa1-c9ee-4316-952a-365243bb9a7d", "隅", "すみ", "corner, nook"],
   ["24fbbb24-2bf2-42e4-aefd-538b9d27cdf9", "済む", "すむ", "to finish, to end"],
-  ["644a4735-fef8-463e-8e03-421e23511df8", "v", "すり", "pickpocket"],
+  ["644a4735-fef8-463e-8e03-421e23511df8", "済む", "すり", "pickpocket"],
   ["324acd77-6413-4c42-bc9f-425f205d66a1", "", "すると", "and, then"],
   ["c8983399-6a5e-4d9c-bc9a-da83d3932deb", "～製", "～せい", "made in ～"],
   [

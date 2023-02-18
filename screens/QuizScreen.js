@@ -26,7 +26,12 @@ const generateArrForFlatList = (arr) => {
   return sizeArr;
 };
 
-function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
+function QuizScreen({
+  navigation,
+  handleUpdateRange,
+  listChoice,
+  handleLeastPracticedArr,
+}) {
   const [startValue, setStartValue] = useState("0");
   const [endValue, setEndValue] = useState("0");
   const [listArr, setListArr] = useState([]);
@@ -48,6 +53,11 @@ function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
   const handleRandomQuizClick = () => {
     const endRange = quizArr.length;
     handleUpdateRange([0, endRange], listChoice);
+    navigation.navigate("Flash Cards");
+  };
+
+  const handleLeastPracticedClick = () => {
+    handleLeastPracticedArr(quizArr);
     navigation.navigate("Flash Cards");
   };
 
@@ -133,7 +143,17 @@ function QuizScreen({ navigation, handleUpdateRange, listChoice }) {
         <SafeAreaView style={styles.scrollContainer}>
           <ScrollView>
             <View style={styles.buttonsContainer}>
-              <MenuButton func={handleRandomQuizClick} level="Random 50" type="level" />
+              <MenuButton
+                func={handleRandomQuizClick}
+                level="Random 50"
+                type="level"
+              />
+              <Separator />
+              <MenuButton
+                func={handleLeastPracticedClick}
+                level="Least Practiced"
+                type="level"
+              />
               <Separator />
               {listArr.map((item, index) => renderItem(item, index))}
             </View>

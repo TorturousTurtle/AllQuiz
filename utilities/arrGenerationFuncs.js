@@ -87,3 +87,23 @@ export const shuffleQuestions = (o) => {
   );
   return o;
 };
+
+export const getLeastPracticed = (arr, masterListObj) => {
+  let leastPracticedArr = [];
+  let temp = [];
+  arr.forEach((item) => {
+    let x = [];
+    let total = masterListObj[item[0]].correct + masterListObj[item[0]].wrong;
+    x.push(...masterListObj[item[0]].question);
+    x.push(total);
+    temp.push(x);
+  });
+  temp.sort(function (a, b) {
+    return a[-1] - b[-1];
+  });
+  for (let i = 0; i < 50; i++) {
+    leastPracticedArr.push(temp[i]);
+  }
+  leastPracticedArr = shuffleQuestions(leastPracticedArr);
+  return leastPracticedArr;
+};
