@@ -35,6 +35,7 @@ function HomeStackScreen() {
   const [masterListObj, setMasterListObj] = useState({});
   const [flag, setFlag] = useState(true);
   const [dailyAttempts, setDailyAttempts] = useState({});
+  const [qFirst, setQFirst] = useState(true);
 
   const handleUpdateRange = (range, arr) => {
     setQuestionRange(range);
@@ -47,6 +48,11 @@ function HomeStackScreen() {
       screen = "Chapter " + choice.slice(-1);
     } else {
       screen = choice.toUpperCase() + " Vocabulary";
+    }
+    if (choice[0] === "a") {
+      setQFirst(false);
+    } else {
+      setQFirst(true);
     }
     setLevel(choice);
     setScreenTitle(screen);
@@ -272,6 +278,7 @@ function HomeStackScreen() {
           <DisplayCard
             {...props}
             extraData={questionRange}
+            qFirst={qFirst}
             currArr={currArr}
             handleResetPracticeArr={handleResetPracticeArr}
             practiceArr={practiceArr}

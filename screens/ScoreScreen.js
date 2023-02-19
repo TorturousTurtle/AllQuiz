@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Text,
   View,
   StyleSheet,
   TouchableHighlight,
   Modal,
-  ScrollView,
   RefreshControl,
+  FlatList,
 } from "react-native";
+import { FAB } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -93,6 +94,7 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
   const [total, setTotal] = useState(0);
   const [numNotSeen, setNumNotSeen] = useState(0);
   const [percentageCompleted, setPercentageComplete] = useState("0");
+  const flatlistRef = useRef(null);
 
   const onRefresh = () => {
     let notSeen = 0;
@@ -110,6 +112,14 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
       setNumNotSeen(notSeen);
       setRefreshing(false);
     });
+  };
+
+  const handleGoToListTop = () => {
+    flatlistRef.current.scrollToOffset({ offset: 0, animated: true });
+  };
+
+  const handleGoToListBottom = () => {
+    flatlistRef.current.scrollToEnd({ animated: true });
   };
 
   const handleHideModal = () => {
@@ -345,16 +355,18 @@ function ScoreScreen({ navigation, numAttempts, updateDailyTries }) {
         <Text style={styles.notSeenText}>Kanji/Kana</Text>
         <Text style={styles.notSeenText}>Average %</Text>
       </View>
-      {!showModal && (
-        <ScrollView
+        <FlatList
           style={styles.scrollContainer}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
-        >
-          {arrList && arrList.map((item, index) => renderItem(item, index))}
-        </ScrollView>
-      )}
+          data={arrList}
+          renderItem={({ item, index }) => renderItem(item, index)}
+          keyExtractor={(item) => item[0]}
+          ref={flatlistRef}
+        />
+        <FAB icon="arrow-up" style={styles.fabUpButton} onPress={handleGoToListTop} />
+        <FAB icon="arrow-down" style={styles.fabDownButton} onPress={handleGoToListBottom} />
       <View style={styles.modalMainContainer}>
         <Modal animationType="slide" transparent={true} visible={showModal}>
           <View style={styles.modalContainer}>
@@ -417,6 +429,28 @@ const styles = StyleSheet.create({
     width: 350,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  fabUpButton: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    right: 30,
+    bottom: 100,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.7
+  },
+  fabDownButton: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    right: 30,
+    bottom: 30,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.7
   },
   scoreContainer: {
     flexDirection: "row",

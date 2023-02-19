@@ -30,6 +30,7 @@ const DisplayCard = ({
   currArr,
   practiceArr,
   handleResetPracticeArr,
+  qFirst
 }) => {
   const [questionList, setQuestionList] = useState([]);
   const [qIterator, setQIterator] = useState(0);
@@ -38,7 +39,7 @@ const DisplayCard = ({
   const [answer, setAnswer] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [shuffleActive, setShuffleActive] = useState(true);
-  const [questionFirst, setQuestionFirst] = useState(true);
+  const [questionFirst, setQuestionFirst] = useState(qFirst);
   const [scores, setScores] = useState([]);
   const [dailyAttempts, setDailyAttempts] = useState({});
   const [hint, setHint] = useState(null);
@@ -56,7 +57,7 @@ const DisplayCard = ({
       question: [question[0], question[1], question[2], question[3]],
     };
     x[question[0]] = obj;
-    setScores(JSON.parse(JSON.stringify(x)));
+    return JSON.parse(JSON.stringify(x));
   };
 
   const handleFlip = () => {
@@ -305,6 +306,9 @@ const DisplayCard = ({
   useEffect(() => {
     if (scores.length === 0) getData();
     if (questionList.length === 0) {
+      if (currArr[0] === "a") {
+        setQuestionFirst(false);
+      } 
       if (practiceArr.length > 0) {
         setQuestionList(practiceArr);
       } else {
