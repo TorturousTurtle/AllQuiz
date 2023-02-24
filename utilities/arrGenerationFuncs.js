@@ -32,6 +32,16 @@ export const generateGenkiQuestionArr = (currArrList, idList) => {
   return arr;
 };
 
+export const generatePhrasesArr = (currArrList, idList) => {
+  let arr = [];
+  for (let i = 0; i < currArrList.length; i++) {
+    arr[i] = currArrList[i];
+    idList[i] = currArrList[i][0];
+  }
+  let temp = shuffleQuestions(arr);
+  return temp.slice(0, 50);
+};
+
 export const generateQuestionArr = (currArrList, start, end, idList) => {
   let arr = [];
   let i = 0;

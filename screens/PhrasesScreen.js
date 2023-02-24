@@ -12,10 +12,12 @@ import Separator from "../components/Separator";
 
 const pharasesArr = [
   "Around The House",
+  "N5 Verb Phrases",
 ];
 
 function PhrasesScreen({ navigation, handleLevelChoice, handleUpdateRange }) {
   const handleOptionPress = (choice) => {
+    if(choice[0] !== "a") choice = "a" + choice;
     handleLevelChoice(choice);
     handleUpdateRange([0, 0], choice);
     navigation.navigate("Flash Cards");

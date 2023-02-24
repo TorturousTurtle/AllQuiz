@@ -16,13 +16,15 @@ import DisplayCard from "./screens/DisplayCard";
 import GenkiScreen from "./screens/GenkiScreen.js";
 import ConjugateScreen from "./screens/ConjugateScreen";
 import PhrasesScreen from "./screens/PhrasesScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 import { masterVocabScores } from "./assets/MasterVocabScores.js";
 
 import { getLeastPracticed } from "./utilities/arrGenerationFuncs";
 
 const HomeStack = createNativeStackNavigator();
-const SettingsStack = createNativeStackNavigator();
+const ScoreStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
 
 function HomeStackScreen() {
   const [questionRange, setQuestionRange] = useState([]);
@@ -289,7 +291,7 @@ function HomeStackScreen() {
   );
 }
 
-function SettingsStackScreen() {
+function ScoreStackScreen() {
   const [numAttempts, setNumAttempts] = useState(null);
 
   const updateDailyTries = () => {
@@ -344,13 +346,13 @@ function SettingsStackScreen() {
     if (numAttempts === null) getData();
   }, [numAttempts]);
   return (
-    <SettingsStack.Navigator
+    <ScoreStack.Navigator
       screenOptions={{
         headerTintColor: "black",
         headerStyle: { backgroundColor: "#114B5F" },
       }}
     >
-      <SettingsStack.Screen name="Settings Screen" options={{ title: "" }}>
+      <ScoreStack.Screen name="Settings Screen" options={{ title: "" }}>
         {(props) => (
           <ScoreScreen
             {...props}
@@ -358,8 +360,40 @@ function SettingsStackScreen() {
             updateDailyTries={updateDailyTries}
           />
         )}
-      </SettingsStack.Screen>
-    </SettingsStack.Navigator>
+      </ScoreStack.Screen>
+    </ScoreStack.Navigator>
+  );
+}
+
+function ProfileStackScreen() {
+  const [scores, setScores] = useState(null);
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@scores");
+      if (jsonValue != null) {
+        let score = JSON.parse(jsonValue);
+        setScores(score);
+      }
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
+  useEffect(() => {
+    if (scores === null) getData();
+  }, [scores]);
+  return (
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerTintColor: "black",
+        headerStyle: { backgroundColor: "white" },
+      }}
+    >
+      <ProfileStack.Screen name="Profile Screen" options={{ title: "" }}>
+        {(props) => <ProfileScreen {...props} scores={scores} />}
+      </ProfileStack.Screen>
+    </ProfileStack.Navigator>
   );
 }
 
@@ -376,8 +410,10 @@ export default function App() {
 
             if (route.name === "Home") {
               iconName = focused ? "ios-home" : "ios-home-outline";
-            } else if (route.name === "Scores") {
+            } else if (route.name === "Quizzes") {
               iconName = focused ? "bulb" : "bulb-outline";
+            } else {
+              iconName = focused ? "ios-person" : "ios-person-outline";
             }
 
             // You can return any component that you like here!
@@ -394,6 +430,13 @@ export default function App() {
         })}
       >
         <Tab.Screen
+          name="Profile"
+          component={ProfileStackScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
           name="Home"
           component={HomeStackScreen}
           options={({ route }) => ({
@@ -408,8 +451,8 @@ export default function App() {
           })}
         />
         <Tab.Screen
-          name="Scores"
-          component={SettingsStackScreen}
+          name="Quizzes"
+          component={ScoreStackScreen}
           options={{
             headerShown: false,
           }}

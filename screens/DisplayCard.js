@@ -11,6 +11,7 @@ import {
   generateTenseQuestionArr,
   generateQuestionArr,
   generateGenkiQuestionArr,
+  generatePhrasesArr,
   populateNextRound,
   shuffleQuestions,
 } from "../utilities/arrGenerationFuncs";
@@ -331,6 +332,8 @@ const DisplayCard = ({
             extraData[1],
             idList
           );
+        } else if (currArr[0] === "a") {
+          arr = generatePhrasesArr(currArrList, idList);
         } else {
           arr = generateGenkiQuestionArr(currArrList, idList);
         }

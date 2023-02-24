@@ -35,6 +35,7 @@ import { presentTenseAdjArr } from "../assets/presentTenseAdjArr";
 import { pastTenseAdjArr } from "../assets/pastTenseAdjArr";
 import { imperativeArr } from "../assets/imperativeArr";
 import { atHomePhrasesArr } from "../assets/atHomePhrasesArr";
+import { n5VerbPhrases } from "../assets/n5VerbPhrases";
 
 export const arrFunctionPicker = (currArr) => {
   let currArrList = [];
@@ -149,6 +150,9 @@ export const arrFunctionPicker = (currArr) => {
       break;
     case "around the house":
       currArrList = atHomePhrasesArr;
+      break;
+    case "an5 verb phrases":
+      currArrList = n5VerbPhrases;
       break;
   }
   return currArrList;
