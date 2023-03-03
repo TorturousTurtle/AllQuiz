@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   getFocusedRouteNameFromRoute,
   NavigationContainer,
+  useIsFocused
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -28,6 +29,7 @@ const ProfileStack = createNativeStackNavigator();
 
 function HomeStackScreen() {
   const [questionRange, setQuestionRange] = useState([]);
+  const [quizSize, setQuizSize] = useState(50);
   const [currArr, setCurrArr] = useState("");
   const [level, setLevel] = useState("");
   const [screenTitle, setScreenTitle] = useState("");
@@ -38,10 +40,12 @@ function HomeStackScreen() {
   const [flag, setFlag] = useState(true);
   const [dailyAttempts, setDailyAttempts] = useState({});
   const [qFirst, setQFirst] = useState(true);
+  const isFocused = useIsFocused();
 
   const handleUpdateRange = (range, arr) => {
     setQuestionRange(range);
     setCurrArr(arr);
+    getData();
   };
 
   const handleLevelChoice = (choice) => {
@@ -66,17 +70,20 @@ function HomeStackScreen() {
   };
 
   const handleUpdatePracticeArr = () => {
-    setPracticeArr(scores);
+    let arr = scores.slice(0, quizSize);
+    setPracticeArr(arr);
   };
 
   const handleUpdateRandomArr = () => {
     let allArrTemp = shuffleArr(randomArr);
-    setPracticeArr(allArrTemp.slice(0, 50));
+    setPracticeArr(allArrTemp.slice(0, quizSize));
+    getData();
   };
 
   const handleLeastPracticedArr = (list) => {
-    let arr = getLeastPracticed(list, masterListObj);
+    let arr = getLeastPracticed(list, masterListObj, quizSize);
     setPracticeArr(arr);
+    getData();
   };
 
   const shuffleArr = (o) => {
@@ -92,6 +99,7 @@ function HomeStackScreen() {
     try {
       const jsonValue = await AsyncStorage.getItem("@scores");
       const tries = await AsyncStorage.getItem("@tries");
+      const size = await AsyncStorage.getItem("@numQuestions");
       const date = new Date();
       if (jsonValue != null) {
         let score = JSON.parse(jsonValue);
@@ -113,7 +121,7 @@ function HomeStackScreen() {
           for (const x in arr) {
             if (arr[x][1] !== 0) {
               allArr.push(arr[x][2]);
-              if (temp.length < 50) temp.push(arr[x][2]);
+              temp.push(arr[x][2]);
             }
           }
           setMasterListObj(score);
@@ -157,6 +165,12 @@ function HomeStackScreen() {
         setDailyAttempts(obj);
         storeAttempts(obj);
       }
+      if (size != null) {
+        let num = JSON.parse(size);
+        setQuizSize(num.num);
+      } else {
+        storeNumCards();
+      }
     } catch (e) {
       console.log("Error: " + e);
     }
@@ -179,10 +193,34 @@ function HomeStackScreen() {
     }
   };
 
+  const storeNumCards = async () => {
+    try {
+      let obj = {
+        num: 50,
+      };
+      const jsonVal = JSON.stringify(obj);
+      await AsyncStorage.setItem("@numQuestions", jsonVal);
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
   const storeAttempts = async (obj) => {
     try {
       const jsonValue = JSON.stringify(obj);
       await AsyncStorage.setItem("@tries", jsonValue);
+    } catch (e) {
+      console.log("Error: " + e);
+    }
+  };
+
+  const getQuizSize = async () => {
+    try {
+      const size = await AsyncStorage.getItem("@numQuestions");
+      if (size != null) {
+        let num = JSON.parse(size);
+        setQuizSize(num.num);
+      }
     } catch (e) {
       console.log("Error: " + e);
     }
@@ -193,6 +231,7 @@ function HomeStackScreen() {
       getData();
       setFlag(false);
     }
+    if(isFocused) getQuizSize();
   }, [
     questionRange,
     currArr,
@@ -202,6 +241,8 @@ function HomeStackScreen() {
     scores,
     flag,
     dailyAttempts,
+    quizSize,
+    isFocused
   ]);
 
   return (
@@ -269,6 +310,7 @@ function HomeStackScreen() {
             handleUpdateRange={handleUpdateRange}
             handleLeastPracticedArr={handleLeastPracticedArr}
             listChoice={level}
+            size={quizSize}
           />
         )}
       </HomeStack.Screen>
@@ -284,6 +326,7 @@ function HomeStackScreen() {
             currArr={currArr}
             handleResetPracticeArr={handleResetPracticeArr}
             practiceArr={practiceArr}
+            quizSize={quizSize}
           />
         )}
       </HomeStack.Screen>
@@ -293,6 +336,7 @@ function HomeStackScreen() {
 
 function ScoreStackScreen() {
   const [numAttempts, setNumAttempts] = useState(null);
+  const isFocused = useIsFocused();
 
   const updateDailyTries = () => {
     let tries = getData();
@@ -343,8 +387,8 @@ function ScoreStackScreen() {
   };
 
   useEffect(() => {
-    if (numAttempts === null) getData();
-  }, [numAttempts]);
+    if (isFocused) getData();
+  }, [numAttempts, isFocused]);
   return (
     <ScoreStack.Navigator
       screenOptions={{
@@ -403,14 +447,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Quizzes"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === "Home") {
+            if (route.name === "Quizzes") {
               iconName = focused ? "ios-home" : "ios-home-outline";
-            } else if (route.name === "Quizzes") {
+            } else if (route.name === "Scores") {
               iconName = focused ? "bulb" : "bulb-outline";
             } else {
               iconName = focused ? "ios-person" : "ios-person-outline";
@@ -437,7 +481,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Home"
+          name="Quizzes"
           component={HomeStackScreen}
           options={({ route }) => ({
             headerShown: false,
@@ -451,7 +495,7 @@ export default function App() {
           })}
         />
         <Tab.Screen
-          name="Quizzes"
+          name="Scores"
           component={ScoreStackScreen}
           options={{
             headerShown: false,

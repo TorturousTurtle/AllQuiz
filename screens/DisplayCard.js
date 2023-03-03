@@ -31,7 +31,8 @@ const DisplayCard = ({
   currArr,
   practiceArr,
   handleResetPracticeArr,
-  qFirst
+  qFirst,
+  quizSize,
 }) => {
   const [questionList, setQuestionList] = useState([]);
   const [qIterator, setQIterator] = useState(0);
@@ -309,7 +310,7 @@ const DisplayCard = ({
     if (questionList.length === 0) {
       if (currArr[0] === "a") {
         setQuestionFirst(false);
-      } 
+      }
       if (practiceArr.length > 0) {
         setQuestionList(practiceArr);
       } else {
@@ -323,17 +324,19 @@ const DisplayCard = ({
             currArrList,
             extraData[0],
             extraData[1],
-            idList
+            idList,
+            quizSize
           );
         } else if (currArr[0] === "p" || currArr[0] === "i") {
           arr = generateTenseQuestionArr(
             currArrList,
             extraData[0],
             extraData[1],
-            idList
+            idList,
+            quizSize
           );
         } else if (currArr[0] === "a") {
-          arr = generatePhrasesArr(currArrList, idList);
+          arr = generatePhrasesArr(currArrList, idList, quizSize);
         } else {
           arr = generateGenkiQuestionArr(currArrList, idList);
         }

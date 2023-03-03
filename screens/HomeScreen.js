@@ -73,7 +73,7 @@ function HomeScreen({
           {randomArr.length > 0 && (
             <MenuButton
               func={handleRandomQuizClick}
-              level="Random 50"
+              level="Random"
               type="main"
             />
           )}

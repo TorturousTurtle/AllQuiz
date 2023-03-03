@@ -13,6 +13,7 @@ import Separator from "../components/Separator";
 const pharasesArr = [
   "Around The House",
   "N5 Verb Phrases",
+  "N4 Verb Phrases",
 ];
 
 function PhrasesScreen({ navigation, handleLevelChoice, handleUpdateRange }) {

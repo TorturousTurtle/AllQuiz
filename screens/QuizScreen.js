@@ -7,6 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import BackgroundImage from "../components/BackgroundImage";
 import MenuButton from "../components/MenuButton";
@@ -18,9 +19,9 @@ import { n4Arr } from "../assets/N4VocabArr";
 import { n3Arr } from "../assets/N3VocabArr";
 import { n2Arr } from "../assets/N2VocabArr";
 
-const generateArrForFlatList = (arr) => {
+const generateArrForFlatList = (arr, size) => {
   let sizeArr = [];
-  for (let i = 0; i < Math.ceil(arr.length / 50); i++) {
+  for (let i = 0; i < Math.ceil(arr.length / size); i++) {
     sizeArr.push(i);
   }
   return sizeArr;
@@ -31,6 +32,7 @@ function QuizScreen({
   handleUpdateRange,
   listChoice,
   handleLeastPracticedArr,
+  size
 }) {
   const [startValue, setStartValue] = useState("0");
   const [endValue, setEndValue] = useState("0");
@@ -67,8 +69,8 @@ function QuizScreen({
   };
 
   const renderItem = (item, index) => {
-    let x = item * 50 + 1;
-    let y = x + 49;
+    let x = item * size + 1;
+    let y = x + (size - 1);
     let arr = [];
     if (y < quizArr.length) {
       arr.push(x);
@@ -107,11 +109,12 @@ function QuizScreen({
           currArrList = n2Arr;
           break;
       }
-      let arr = generateArrForFlatList(currArrList);
+      if(size === null) size = 50;
+      let arr = generateArrForFlatList(currArrList, size);
       setListArr(arr);
       setQuizArr(currArrList);
     }
-  }, [startValue, endValue, listArr, quizArr]);
+  }, [startValue, endValue, listArr, quizArr, size]);
 
   return (
     <View style={styles.container}>
@@ -145,7 +148,7 @@ function QuizScreen({
             <View style={styles.buttonsContainer}>
               <MenuButton
                 func={handleRandomQuizClick}
-                level="Random 50"
+                level="Random"
                 type="level"
               />
               <Separator />

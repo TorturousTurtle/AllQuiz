@@ -32,17 +32,17 @@ export const generateGenkiQuestionArr = (currArrList, idList) => {
   return arr;
 };
 
-export const generatePhrasesArr = (currArrList, idList) => {
+export const generatePhrasesArr = (currArrList, idList, quizSize) => {
   let arr = [];
   for (let i = 0; i < currArrList.length; i++) {
     arr[i] = currArrList[i];
     idList[i] = currArrList[i][0];
   }
   let temp = shuffleQuestions(arr);
-  return temp.slice(0, 50);
+  return temp.slice(0, quizSize);
 };
 
-export const generateQuestionArr = (currArrList, start, end, idList) => {
+export const generateQuestionArr = (currArrList, start, end, idList, quizSize) => {
   let arr = [];
   let i = 0;
   if (start === 0 && end === currArrList.length) {
@@ -50,18 +50,18 @@ export const generateQuestionArr = (currArrList, start, end, idList) => {
     for (i = start; i < end; i++) {
       a1.push(i);
     }
-    while (arr.length < 50) {
+    while (arr.length < quizSize) {
       let pos = Math.random() * a1.length;
       let element = a1.splice(pos, 1)[0];
       arr.push(currArrList[element]);
       idList.push(currArrList[element][0]);
     }
-  } else if (end - start > 50) {
+  } else if (end - start > quizSize) {
     let a1 = [];
     for (i = start; i < end; i++) {
       a1.push(i);
     }
-    while (arr.length < 50) {
+    while (arr.length < quizSize) {
       let pos = Math.random() * a1.length;
       let element = a1.splice(pos, 1)[0];
       arr.push(currArrList[element]);
@@ -98,21 +98,21 @@ export const shuffleQuestions = (o) => {
   return o;
 };
 
-export const getLeastPracticed = (arr, masterListObj) => {
+export const getLeastPracticed = (arr, masterListObj, quizSize) => {
   let leastPracticedArr = [];
   let temp = [];
   arr.forEach((item) => {
     let x = [];
     let total = masterListObj[item[0]].correct + masterListObj[item[0]].wrong;
-    x.push(...masterListObj[item[0]].question);
+    x.push([...item]);
     x.push(total);
     temp.push(x);
   });
   temp.sort(function (a, b) {
     return a[-1] - b[-1];
   });
-  for (let i = 0; i < 50; i++) {
-    leastPracticedArr.push(temp[i]);
+  for (let i = 0; i < quizSize; i++) {
+    leastPracticedArr.push(temp[i][0]);
   }
   leastPracticedArr = shuffleQuestions(leastPracticedArr);
   return leastPracticedArr;
