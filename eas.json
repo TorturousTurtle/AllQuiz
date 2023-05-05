@@ -15,6 +15,7 @@
       "distribution": "internal"
     },
     "production": {
+      "autoIncrement": true,
       "ios": {
         "resourceClass": "m1-medium"
       }
@@ -23,7 +24,7 @@
   "submit": {
     "production": {
       "ios": {
-        "ascAppId": "1663637112"
+        "ascAppId": "6448854668"
       }
     }
   }
