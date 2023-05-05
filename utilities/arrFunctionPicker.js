@@ -41,6 +41,9 @@ import { n4VerbPhrases } from "../assets/n4VerbPhrases";
 import { monitoring101Arr } from "../assets/monitoring101Arr";
 import { monitoring102Arr } from "../assets/monitoring102Arr";
 import { monitoring103Arr } from "../assets/monitoring103Arr";
+import { k8spart1Arr } from "../assets/k8spart1Arr";
+import { k8spart2Arr } from "../assets/k8spart2Arr";
+import { k8spart3Arr } from "../assets/k8spart3Arr";
 
 export const arrFunctionPicker = (currArr) => {
   let currArrList = [];
@@ -171,6 +174,15 @@ export const arrFunctionPicker = (currArr) => {
     case "Monitoring 103":
       currArrList = monitoring103Arr;
       break;
+    case "mk8s1":
+    currArrList = k8spart1Arr;
+    break;
+    case "mk8s2":
+    currArrList = k8spart2Arr;
+    break;
+    case "mk8s3":
+    currArrList = k8spart3Arr;
+    break;
   }
   return currArrList;
 };

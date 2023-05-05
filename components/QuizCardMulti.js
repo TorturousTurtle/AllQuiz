@@ -9,12 +9,12 @@ const QuizeCardMulti = ({ question, fSize }) => {
   }, [question]);
 
   const windowHeight = Dimensions.get("window").height;
-  const questionTextSize = Math.round(windowHeight * 0.04);
+  const questionTextSize = (questionText.length < 120) ? Math.round(windowHeight * 0.04) : Math.round(windowHeight * 0.03);
 
   return (
     <View style={styles.topContainer}>
       <View>
-        <Text style={[styles.questionText, { fontSize: questionTextSize }]}>
+        <Text style={[styles.questionText, { fontSize: questionTextSize }]} adjustsFontSizeToFit={true}>
           {questionText}
         </Text>
       </View>

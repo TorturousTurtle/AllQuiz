@@ -72,11 +72,13 @@ const DisplayMultiChoiceScreen = ({ navigation, currArr, quizSize }) => {
         qIterator={qIterator}
         length={questionList.length}
       />
-      <QuizCardMulti
-        question={question}
-        fSize={fSize}
-        setQuestion={setQuestion}
-      />
+      {question && (
+        <QuizCardMulti
+          question={question}
+          fSize={fSize}
+          setQuestion={setQuestion}
+        />
+      )}
       {question && (
         <QuizCardBottomMulti
           handleWrong={handleWrong}

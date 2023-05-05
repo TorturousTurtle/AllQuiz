@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bverrill88.allquiz",
@@ -33,7 +35,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "45ba246f-a6eb-473c-b0a1-579f70a25276"
+        "projectId": "0eae7dee-c6ad-4630-ae26-7a306eccc8b5"
       }
     },
     "owner": "bverrill88"

@@ -5,6 +5,7 @@ const MultiChoiceButton = ({ onPress, title, answer }) => {
   const buttonText = title;
   const [buttonColor, setButtonColor] = useState("#2076df");
   const { height, width } = Dimensions.get('window');
+  const fontS = (buttonText.length < 50) ? height * 0.03 : height * 0.02;
 
   const handleClick = () => {
     if (answer === "t") {
@@ -23,7 +24,7 @@ const MultiChoiceButton = ({ onPress, title, answer }) => {
       onPress={handleClick}
       style={[styles.buttonDisplay, { backgroundColor: buttonColor, height: height * 0.10 }]}
     >
-      <Text style={[styles.buttonText, { fontSize: height * 0.03 }]}>{buttonText}</Text>
+      <Text style={[styles.buttonText, { fontSize: fontS }]} adjustsFontSizeToFit={true}>{buttonText}</Text>
     </TouchableHighlight>
   );
 };

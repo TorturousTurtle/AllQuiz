@@ -73,6 +73,21 @@ function HomeScreen({
     navigation.navigate("Multi Choice");
   };
 
+  const handlek8s1 = () => {
+    handleLevelChoice("mk8s1");
+    navigation.navigate("Multi Choice");
+  };
+
+  const handlek8s2 = () => {
+    handleLevelChoice("mk8s2");
+    navigation.navigate("Multi Choice");
+  };
+
+  const handlek8s3 = () => {
+    handleLevelChoice("mk8s3");
+    navigation.navigate("Multi Choice");
+  };
+
   useEffect(() => {}, [japanese, datadog]);
 
   return (
@@ -140,6 +155,24 @@ function HomeScreen({
             <MenuButton
               func={handleMonitoring103}
               level="Monitoring 103"
+              type="main"
+            />
+            <Separator />
+            <MenuButton
+              func={handlek8s1}
+              level="Kubernetes Part 1"
+              type="main"
+            />
+            <Separator />
+            <MenuButton
+              func={handlek8s2}
+              level="Kubernetes Part 2"
+              type="main"
+            />
+            <Separator />
+            <MenuButton
+              func={handlek8s3}
+              level="Kubernetes Part 3"
               type="main"
             />
             <Separator />
