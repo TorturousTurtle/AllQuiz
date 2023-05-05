@@ -14,6 +14,7 @@ import ScoreScreen from "./screens/ScoreScreen";
 import JLPTScreen from "./screens/JLPTScreen.js";
 import QuizScreen from "./screens/QuizScreen";
 import DisplayCard from "./screens/DisplayCard";
+import DisplayMultiChoiceScreen from "./screens/DisplayMultiChoiceScreen";
 import GenkiScreen from "./screens/GenkiScreen.js";
 import ConjugateScreen from "./screens/ConjugateScreen";
 import PhrasesScreen from "./screens/PhrasesScreen";
@@ -326,6 +327,18 @@ function HomeStackScreen() {
             currArr={currArr}
             handleResetPracticeArr={handleResetPracticeArr}
             practiceArr={practiceArr}
+            quizSize={quizSize}
+          />
+        )}
+      </HomeStack.Screen>
+      <HomeStack.Screen
+        name="Multi Choice"
+        options={{ title: "", headerBackVisible: false }}
+      >
+        {(props) => (
+          <DisplayMultiChoiceScreen
+            {...props}
+            currArr={level}
             quizSize={quizSize}
           />
         )}

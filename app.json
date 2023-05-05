@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Nihongo Vocab",
-    "slug": "nihongovocab",
-    "version": "1.0.19",
+    "name": "All Quiz",
+    "slug": "allquiz",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bverrill88.nihongovocab",
+      "bundleIdentifier": "com.bverrill88.allquiz",
       "config": {
         "ITSAppUsesNonExemptEncryption": false
       }

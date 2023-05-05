@@ -38,6 +38,10 @@ import { atHomePhrasesArr } from "../assets/atHomePhrasesArr";
 import { n5VerbPhrases } from "../assets/n5VerbPhrases";
 import { n4VerbPhrases } from "../assets/n4VerbPhrases";
 
+import { monitoring101Arr } from "../assets/monitoring101Arr";
+import { monitoring102Arr } from "../assets/monitoring102Arr";
+import { monitoring103Arr } from "../assets/monitoring103Arr";
+
 export const arrFunctionPicker = (currArr) => {
   let currArrList = [];
   switch (currArr) {
@@ -157,6 +161,15 @@ export const arrFunctionPicker = (currArr) => {
       break;
     case "an4 verb phrases":
       currArrList = n4VerbPhrases;
+      break;
+    case "Monitoring 101":
+      currArrList = monitoring101Arr;
+      break;
+    case "Monitoring 102":
+      currArrList = monitoring102Arr;
+      break;
+    case "Monitoring 103":
+      currArrList = monitoring103Arr;
       break;
   }
   return currArrList;

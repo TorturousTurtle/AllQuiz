@@ -7,7 +7,6 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import BackgroundImage from "../components/BackgroundImage";
 import MenuButton from "../components/MenuButton";

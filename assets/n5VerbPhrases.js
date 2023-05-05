@@ -98,7 +98,7 @@ export const n5VerbPhrases = [
   [
     "0a6987d5-6129-494e-865d-d13abbd5e470",
     "昨日本を買った。",
-    "さくにっぽんをかった。",
+    "きのうはぽんをかった。",
     "I bought a book yesterday. \n(買う / かう)",
   ],
   [
@@ -381,7 +381,7 @@ export const n5VerbPhrases = [
     "d6d1e7a0-f97f-4128-892e-fdd7b585a0b7",
     "その車は止まらなかった。",
     "そのくるまはとまらなかった。",
-    "The car didn't stop. \n(止まる / とまる)",
+    "That car didn't stop. \n(止まる / とまる)",
   ],
   [
     "1005c343-48be-490a-95c0-4355d5279b5a",
