@@ -39,10 +39,15 @@ import { n5VerbPhrases } from "../assets/n5VerbPhrases";
 import { n4VerbPhrases } from "../assets/n4VerbPhrases";
 
 import { monitoring101Arr } from "../assets/monitoring101Arr";
+import { monitoring101FlashArr } from "../assets/monitoring101FlashArr";
 import { monitoring102Arr } from "../assets/monitoring102Arr";
+import { monitoring102FlashArr } from "../assets/monitoring102FlashArr";
 import { monitoring103Arr } from "../assets/monitoring103Arr";
+import { monitoring103FlashArr } from "../assets/monitoring103FlashArr";
 import { k8spart1Arr } from "../assets/k8spart1Arr";
+import { k8spart1FlashArr } from "../assets/k8spart1FlashArr";
 import { k8spart2Arr } from "../assets/k8spart2Arr";
+import { k8spart2FlashArr } from "../assets/k8spart2FlashArr";
 import { k8spart3Arr } from "../assets/k8spart3Arr";
 
 export const arrFunctionPicker = (currArr) => {
@@ -168,21 +173,36 @@ export const arrFunctionPicker = (currArr) => {
     case "Monitoring 101":
       currArrList = monitoring101Arr;
       break;
+    case "Monitoring 101 Flash":
+      currArrList = monitoring101FlashArr;
+      break;
     case "Monitoring 102":
       currArrList = monitoring102Arr;
+      break;
+    case "Monitoring 102 Flash":
+      currArrList = monitoring102FlashArr;
       break;
     case "Monitoring 103":
       currArrList = monitoring103Arr;
       break;
+    case "Monitoring 103 Flash":
+      currArrList = monitoring103FlashArr;
+      break;
     case "mk8s1":
-    currArrList = k8spart1Arr;
-    break;
+      currArrList = k8spart1Arr;
+      break;
+    case "mk8s1Flash":
+      currArrList = k8spart1FlashArr;
+      break;
     case "mk8s2":
-    currArrList = k8spart2Arr;
-    break;
+      currArrList = k8spart2Arr;
+      break;
+    case "mk8s2Flash":
+      currArrList = k8spart2FlashArr;
+      break;
     case "mk8s3":
-    currArrList = k8spart3Arr;
-    break;
+      currArrList = k8spart3Arr;
+      break;
   }
   return currArrList;
 };

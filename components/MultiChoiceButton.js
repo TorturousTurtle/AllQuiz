@@ -31,7 +31,7 @@ const MultiChoiceButton = ({ onPress, title, answer }) => {
 
 const styles = StyleSheet.create({
   buttonDisplay: {
-    width: 350,
+    width: "98%",
     marginTop: "2%",
     marginBottom: "2%",
     justifyContent: "center",

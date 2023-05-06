@@ -261,6 +261,7 @@ function HomeStackScreen() {
             handleUpdatePracticeArr={handleUpdatePracticeArr}
             handleUpdateRandomArr={handleUpdateRandomArr}
             randomArr={randomArr}
+            handleUpdateRange={handleUpdateRange}
           />
         )}
       </HomeStack.Screen>

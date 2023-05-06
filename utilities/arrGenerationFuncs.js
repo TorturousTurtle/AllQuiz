@@ -39,10 +39,17 @@ export const generatePhrasesArr = (currArrList, idList, quizSize) => {
     idList[i] = currArrList[i][0];
   }
   let temp = shuffleQuestions(arr);
+  if (quizSize > temp.length - 1) quizSize = temp.length - 1;
   return temp.slice(0, quizSize);
 };
 
-export const generateQuestionArr = (currArrList, start, end, idList, quizSize) => {
+export const generateQuestionArr = (
+  currArrList,
+  start,
+  end,
+  idList,
+  quizSize
+) => {
   let arr = [];
   let i = 0;
   if (start === 0 && end === currArrList.length) {

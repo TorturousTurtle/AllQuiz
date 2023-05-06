@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 
 import BackgroundImage from "../components/BackgroundImage";
 import Separator from "../components/Separator";
@@ -13,6 +13,7 @@ function HomeScreen({
   handleUpdateRandomArr,
   handleLevelChoice,
   randomArr,
+  handleUpdateRange,
 }) {
   const [japanese, setJapanese] = useState(false);
   const [datadog, setDatadog] = useState(false);
@@ -63,14 +64,30 @@ function HomeScreen({
     navigation.navigate("Multi Choice");
   };
 
+  const handleMonitoring101Flash = () => {
+    handleLevelChoice("Monitoring 101 Flash");
+    handleUpdateRange([0, 0], "Monitoring 101 Flash");
+    navigation.navigate("Flash Cards");
+  };
+
   const handleMonitoring102 = () => {
     handleLevelChoice("Monitoring 102");
     navigation.navigate("Multi Choice");
+  };
+  const handleMonitoring102Flash = () => {
+    handleLevelChoice("Monitoring 102 Flash");
+    handleUpdateRange([0, 0], "Monitoring 102 Flash");
+    navigation.navigate("Flash Cards");
   };
 
   const handleMonitoring103 = () => {
     handleLevelChoice("Monitoring 103");
     navigation.navigate("Multi Choice");
+  };
+  const handleMonitoring103Flash = () => {
+    handleLevelChoice("Monitoring 103 Flash");
+    handleUpdateRange([0, 0], "Monitoring 103 Flash");
+    navigation.navigate("Flash Cards");
   };
 
   const handlek8s1 = () => {
@@ -78,9 +95,20 @@ function HomeScreen({
     navigation.navigate("Multi Choice");
   };
 
+  const handleMK8S1Flash = () => {
+    handleLevelChoice("mk8s1Flash");
+    handleUpdateRange([0, 0], "mk8s1Flash");
+    navigation.navigate("Flash Cards");
+  };
+
   const handlek8s2 = () => {
     handleLevelChoice("mk8s2");
     navigation.navigate("Multi Choice");
+  };
+  const handleMK8S2Flash = () => {
+    handleLevelChoice("mk8s2Flash");
+    handleUpdateRange([0, 0], "mk8s2Flash");
+    navigation.navigate("Flash Cards");
   };
 
   const handlek8s3 = () => {
@@ -139,46 +167,83 @@ function HomeScreen({
           </View>
         )}
         {datadog && (
-          <View style={styles.buttonsContainer}>
-            <MenuButton
-              func={handleMonitoring101}
-              level="Monitoring 101"
-              type="main"
-            />
-            <Separator />
-            <MenuButton
-              func={handleMonitoring102}
-              level="Monitoring 102"
-              type="main"
-            />
-            <Separator />
-            <MenuButton
-              func={handleMonitoring103}
-              level="Monitoring 103"
-              type="main"
-            />
-            <Separator />
-            <MenuButton
-              func={handlek8s1}
-              level="Kubernetes Part 1"
-              type="main"
-            />
-            <Separator />
-            <MenuButton
-              func={handlek8s2}
-              level="Kubernetes Part 2"
-              type="main"
-            />
-            <Separator />
-            <MenuButton
-              func={handlek8s3}
-              level="Kubernetes Part 3"
-              type="main"
-            />
-            <Separator />
-            <MenuButton func={handleGoBack} level="Back To Main" type="main" />
-            <Separator />
-          </View>
+          <ScrollView style={{ flex: 1 }}>
+            <View style={styles.buttonsContainer}>
+              <MenuButton
+                func={handleMonitoring101}
+                level="Monitoring 101"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMonitoring101Flash}
+                level="Monitoring 101 Flash Cards"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMonitoring102}
+                level="Monitoring 102"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMonitoring102Flash}
+                level="Monitoring 102 Flash Cards"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMonitoring103}
+                level="Monitoring 103"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMonitoring103Flash}
+                level="Monitoring 103 Flash Cards"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handlek8s1}
+                level="Kubernetes Part 1"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMK8S1Flash}
+                level="Kubernetes Part 1 Flash Cards"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handlek8s2}
+                level="Kubernetes Part 2"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMK8S2Flash}
+                level="Kubernetes Part 2 Flash Cards"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handlek8s3}
+                level="Kubernetes Part 3"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleGoBack}
+                level="Back To Main"
+                type="main"
+                fixed={true}
+              />
+              <Separator />
+            </View>
+          </ScrollView>
         )}
       </BackgroundImage>
       <StatusBar style="dark" />
@@ -197,7 +262,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonsContainer: {
-    marginTop: "20%",
+    marginTop: "5%",
   },
   textHeader: {
     fontSize: 40,

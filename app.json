@@ -22,7 +22,8 @@
       "bundleIdentifier": "com.bverrill88.allquiz",
       "config": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
