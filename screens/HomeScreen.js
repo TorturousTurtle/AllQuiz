@@ -105,6 +105,7 @@ function HomeScreen({
     handleLevelChoice("mk8s2");
     navigation.navigate("Multi Choice");
   };
+
   const handleMK8S2Flash = () => {
     handleLevelChoice("mk8s2Flash");
     handleUpdateRange([0, 0], "mk8s2Flash");
@@ -114,6 +115,12 @@ function HomeScreen({
   const handlek8s3 = () => {
     handleLevelChoice("mk8s3");
     navigation.navigate("Multi Choice");
+  };
+
+  const handleMK8S3Flash = () => {
+    handleLevelChoice("mk8s3Flash");
+    handleUpdateRange([0, 0], "mk8s3Flash");
+    navigation.navigate("Flash Cards");
   };
 
   useEffect(() => {}, [japanese, datadog]);
@@ -232,6 +239,12 @@ function HomeScreen({
               <MenuButton
                 func={handlek8s3}
                 level="Kubernetes Part 3"
+                type="main"
+              />
+              <Separator />
+              <MenuButton
+                func={handleMK8S3Flash}
+                level="Kubernetes Part 3 Flash Cards"
                 type="main"
               />
               <Separator />

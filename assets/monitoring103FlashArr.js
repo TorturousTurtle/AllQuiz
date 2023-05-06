@@ -27,13 +27,13 @@ export const monitoring103FlashArr = [
     "04871b47-3605-489b-85bc-66b06997ae20",
     "What is the first step in the recursive investigation process?",
     "",
-    "The first step in the recursive investigation process is to start at the top with work metrics.",
+    "The first step is to examine the work metrics for the highest-level system that is exhibiting problems.",
   ],
   [
     "a7077130-c717-40c2-8090-407d1abd3415",
     "What is the second step in the recursive investigation process?",
     "",
-    "The second step in the recursive investigation process is to dig into resources.",
+    "The second step is to examine the resources that the system uses. Are those resources unavailable? Are they highly utilized or saturated?",
   ],
   [
     "358bb453-ba7c-457f-8e9c-f255d7410bdc",
@@ -186,22 +186,10 @@ export const monitoring103FlashArr = [
     "It is essential to have sufficiently comprehensive measurements in a monitoring system to provide a full picture of each system's health and function.",
   ],
   [
-    "33823631-edee-47ad-ae6f-76a9689dae28",
-    "Which of the following is not one of the main types of monitoring data?",
-    "",
-    "Cost metrics is not one of the main types of monitoring data.",
-  ],
-  [
     "1b1c0d44-c8e5-48ae-8977-2d08d3f205d5",
     "What is the role of events in the monitoring process?",
     "",
     "The role of events in the monitoring process is to provide additional context for investigations.",
-  ],
-  [
-    "e4843e70-5969-4617-ae89-c87bcdaab197",
-    "In which step of the recursive investigation process should you consider alerts and other events?",
-    "",
-    "In the recursive investigation process, you should consider alerts and other events in Step 3: Did something change?",
   ],
   [
     "499faf98-1625-42a6-ac84-c067cbe201e2",
@@ -216,22 +204,10 @@ export const monitoring103FlashArr = [
     "Understanding the hierarchy of systems and resources in your infrastructure is significant because it helps efficiently get to the root of any issues that surface.",
   ],
   [
-    "1a461c86-6ef8-430f-83e5-feeafc254cdd",
-    "What is the final step of the recursive investigation process?",
-    "",
-    'The final step of the recursive investigation process is "Fix it (and don\'t forget it)".',
-  ],
-  [
     "4f2c0f85-6c59-4f73-8e98-fb753f8c1d3a",
     "What type of resources are considered in the monitoring process?",
     "",
     "In the monitoring process, both physical resources and software or external services that serve as resources are considered.",
-  ],
-  [
-    "40b8ed12-d0d2-4d7f-8cba-5d949c83f5a6",
-    "According to the article, why is it important to describe the issue clearly at the outset of an investigation?",
-    "",
-    "According to the article, it is important to describe the issue clearly at the outset of an investigation to avoid losing track as you dive deeper into your systems to diagnose the issue.",
   ],
   [
     "bb1e9d66-60c5-4bed-8eef-8f933656c9a2",
@@ -241,7 +217,7 @@ export const monitoring103FlashArr = [
   ],
   [
     "a979e289-ae0b-4363-912a-9c2becfba16a",
-    "What should each system's dashboard display according to the article?",
+    "What should each system's dashboard display?",
     "",
     "Each system's dashboard should display the work metrics of the system, resource metrics of the system itself, and key metrics of the subsystems it depends on.",
   ],
@@ -262,12 +238,6 @@ export const monitoring103FlashArr = [
     "When examining work metrics for the highest-level system, what will these metrics often do?",
     "",
     "When examining work metrics for the highest-level system, these metrics will often point to the source of the problem or set the direction for your investigation.",
-  ],
-  [
-    "c9171419-7744-498b-b4bc-772f5ae9c26b",
-    "What should you do when an alert notifies you of a possible problem?",
-    "",
-    "When an alert notifies you of a possible problem, you should follow the recursive investigation process.",
   ],
   [
     "900c1d58-df46-4743-8b68-be1ae96e1b7d",
@@ -294,33 +264,9 @@ export const monitoring103FlashArr = [
     "Events describe discrete, infrequent occurrences in your system.",
   ],
   [
-    "12543aeb-5546-4f9c-8426-a205f1129384",
-    "What is the first step in the recursive investigation process?",
-    "",
-    "The first step in the recursive investigation process is to start at the top with work metrics.",
-  ],
-  [
     "b96a7854-f129-499b-bd25-1917f8666d4d",
     "What should you do if you haven't found the cause of the problem by inspecting top-level work metrics?",
     "",
     "If you haven't found the cause of the problem by inspecting top-level work metrics, you should examine the resources that the system uses.",
-  ],
-  [
-    "fa540e54-08b2-4793-9683-a741c335e891",
-    "In the recursive investigation process, what is the purpose of considering alerts and other events?",
-    "",
-    "In the recursive investigation process, the purpose of considering alerts and other events is to find correlations with your metrics.",
-  ],
-  [
-    "989148fd-6043-4619-a037-303c4ec91a34",
-    "What is the final step in the recursive investigation process?",
-    "",
-    "The final step in the recursive investigation process is to fix the issue and think about how to change the system to avoid similar problems in the future.",
-  ],
-  [
-    "bb4ad465-ac67-4b91-bf86-ad4b976e1ef7",
-    "What is the benefit of setting up dashboards in advance?",
-    "",
-    "The benefit of setting up dashboards in advance is to speed up your investigation during an outage.",
   ],
 ];

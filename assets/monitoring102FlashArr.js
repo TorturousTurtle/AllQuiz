@@ -67,7 +67,7 @@ export const monitoring102FlashArr = [
   ],
   [
     "f4359dd1-d1f0-44cd-9ca4-3e1f4d5a459c",
-    "Which of the following is an example of a symptom?",
+    "What is an example of a symptom?",
     "",
     "An example of a symptom is a website responding very slowly.",
   ],
@@ -79,13 +79,13 @@ export const monitoring102FlashArr = [
   ],
   [
     "32bc9761-385e-4bc4-b34b-39362a172764",
-    "Which of the following is a situation where an alert should not be generated?",
+    "What is a situation where an alert should not be generated?",
     "",
     "A situation where an alert should not be generated is when metrics in a test environment are out of bounds.",
   ],
   [
     "4dee281a-a0c6-4a11-aafd-9cdde8e285b7",
-    "Which of the following is a reason to automate a response to an issue?",
+    "What is a reason to automate a response to an issue?",
     "",
     "A reason to automate a response to an issue is to avoid calling someone away from work, sleep, or personal time.",
   ],
@@ -118,12 +118,6 @@ export const monitoring102FlashArr = [
     "How should moderate severity alerts be delivered?",
     "",
     "Moderate severity alerts should be delivered via email and/or chat room notifications.",
-  ],
-  [
-    "5990b9b7-4472-428a-8f70-f696641cc3f5",
-    "Which of the following should generate a high severity alert?",
-    "",
-    "Response times exceeding the internal SLA should generate a high severity alert.",
   ],
   [
     "1407758d-df6e-44d8-a8b9-a11496ffa243",
@@ -229,7 +223,7 @@ export const monitoring102FlashArr = [
   ],
   [
     "8fe10710-6296-456a-a6c6-e6b35ad561e6",
-    "Which of these is a symptom-based alert?",
+    "What is an example of a symptom-based alert?",
     "",
     "Error rates increasing beyond an acceptable level is a symptom-based alert.",
   ],
@@ -240,28 +234,10 @@ export const monitoring102FlashArr = [
     "The purpose of having a well-defined internal SLA is to provide a guideline for acceptable system performance and help prioritize alerts.",
   ],
   [
-    "1270ee63-285e-4b7d-84b6-8a66633c1187",
-    "Which of the following should not trigger an alert?",
-    "",
-    "A single server experiencing high CPU usage for a short period should not trigger an alert.",
-  ],
-  [
-    "669f3eb0-91c9-4e9e-ba77-4a7f50d612fa",
-    "What is the main advantage of using an alerting system?",
-    "",
-    "The main advantage of using an alerting system is automatically detecting and responding to system issues.",
-  ],
-  [
     "8b708d8a-2e35-4a03-88e5-bf9fa3161ad7",
     "What is an example of a cause-based alert?",
     "",
     "A specific server experiencing high memory usage is an example of a cause-based alert.",
-  ],
-  [
-    "7e2345d9-76e5-40c7-8131-54981420b0f1",
-    "Which of the following alerts should be considered as high priority?",
-    "",
-    "An increase in response times during peak hours should be considered as high priority.",
   ],
   [
     "ff7b7e2e-1c5c-497f-8cb7-b4522ad913b3",
@@ -298,5 +274,11 @@ export const monitoring102FlashArr = [
     "Why should you monitor and alert on both symptoms and causes?",
     "",
     "Monitoring and alerting on both symptoms and causes ensures that alerts are comprehensive and actionable.",
+  ],
+  [
+    "12f9ecce-0970-4693-a596-5e5b0604ffa4",
+    "What is an example of an alert that is probably not symptomatic of a real problem?",
+    "",
+    "A single server is doing its work very slowly, but it is part of a cluster with fast-failover to other machines, and it reboots periodically anyway.",
   ],
 ];

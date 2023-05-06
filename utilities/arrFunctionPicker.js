@@ -49,6 +49,7 @@ import { k8spart1FlashArr } from "../assets/k8spart1FlashArr";
 import { k8spart2Arr } from "../assets/k8spart2Arr";
 import { k8spart2FlashArr } from "../assets/k8spart2FlashArr";
 import { k8spart3Arr } from "../assets/k8spart3Arr";
+import { k8spart3FlashArr } from "../assets/k8spart3FlashArr";
 
 export const arrFunctionPicker = (currArr) => {
   let currArrList = [];
@@ -202,6 +203,9 @@ export const arrFunctionPicker = (currArr) => {
       break;
     case "mk8s3":
       currArrList = k8spart3Arr;
+      break;
+    case "mk8s3Flash":
+      currArrList = k8spart3FlashArr;
       break;
   }
   return currArrList;

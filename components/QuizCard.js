@@ -10,7 +10,7 @@ const QuizCard = ({
   hint,
   fSize
 }) => {
-  const textSize = (question && question.length > 50) ? 25 : fSize;
+  const textSize = (question && question.length > 80) ? 20 : (question && question.length > 40) ? 25 : fSize;
   return (
     <TouchableHighlight onPress={handleFlip} style={styles.topContainer}>
       <View>

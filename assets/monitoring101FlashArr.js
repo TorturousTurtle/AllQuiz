@@ -1,7 +1,7 @@
 export const monitoring101FlashArr = [
   [
     "8fc37fb7-d47a-4f85-9a26-07124f0156e0",
-    "Which type of data helps in assessing a system's internal health and performance?",
+    "What type of monitoring data helps in assessing a system's internal health and performance?",
     "",
     "Work metrics help in assessing a system's internal health and performance.",
   ],
@@ -27,31 +27,19 @@ export const monitoring101FlashArr = [
     "3c597539-9ac1-4e4c-a706-052b75af4d18",
     "What is an example of a work metric?",
     "",
-    "Throughput is an example of a work metric.",
+    "Throughput, success, error, and performance are examples of work metrics.",
   ],
   [
     "8dc6230e-eb1f-41ab-ad47-45ea3da3dcdc",
     "What is an example of a resource metric?",
     "",
-    "Utilization is an example of a resource metric.",
+    "Utilization, saturation, error, and availability examples of resource metrics.",
   ],
   [
     "5ee30c39-73b5-4309-a8c3-f7abe637f9d2",
     "What is the suggested minimum duration for retaining raw data at full granularity?",
     "",
     "Data should be retained at full granularity for at least 15 months.",
-  ],
-  [
-    "f75efa6b-888b-4848-92f1-d984e9fce7a6",
-    "Which of the following is a subtype of work metrics?",
-    "",
-    "Throughput is a subtype of work metrics.",
-  ],
-  [
-    "09686968-2a76-45b7-b4ae-c88db3746fb2",
-    "Which of the following is a key area covered by resource metrics?",
-    "",
-    "Utilization is a key area covered by resource metrics.",
   ],
   [
     "28bc6f1c-55a2-4187-837b-2d5adcc0533c",
@@ -79,7 +67,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "3048f9a8-3e6f-4ddb-bf73-26eca328a87b",
-    "Which type of data is most useful for capacity planning?",
+    "Which type of monitoring data is most useful for capacity planning?",
     "",
     "Work metrics are most useful for capacity planning.",
   ],
@@ -91,7 +79,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "5997420e-fd02-4dba-87a9-df803d034b95",
-    "Which type of data is best suited for measuring success?",
+    "Which type of monitoring data is best suited for measuring success?",
     "",
     "Work metrics are best suited for measuring success.",
   ],
@@ -115,13 +103,13 @@ export const monitoring101FlashArr = [
   ],
   [
     "2d7456fc-648e-433b-b7fa-c88d8b5cd867",
-    "Which of the following is a benefit of keeping data for longer periods?",
+    "What is a benefit of keeping data for longer periods?",
     "",
     "A benefit of keeping data for longer periods is that it allows for better trend analysis.",
   ],
   [
     "65ee7de7-74e5-4a32-bae6-d6f2927cca81",
-    "Which of the following best describes an event?",
+    "Which best describes an event?",
     "",
     "An event is best described as a discrete, infrequent occurrence in monitoring data.",
   ],
@@ -133,7 +121,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "2ce6b67f-f147-48a5-8f84-27307f026e06",
-    "Which type of data is most useful for diagnosing problems?",
+    "Which type of monitoring data is most useful for diagnosing problems?",
     "",
     "Resource metrics are most useful for diagnosing problems.",
   ],
@@ -145,21 +133,15 @@ export const monitoring101FlashArr = [
   ],
   [
     "7d495a30-3372-4bff-89ab-15574ce0ef32",
-    "Which type of data should be collected at the highest granularity possible?",
+    "Which type of monitoring data should be collected at the highest granularity possible?",
     "",
     "Work metrics should be collected at the highest granularity possible.",
   ],
   [
     "fff18362-6360-41ff-918b-1499afc19b91",
-    "Which type of data should be tagged by scope?",
+    "Which type of monitoring data should be tagged by scope?",
     "",
     "Work metrics, resource metrics, and events should all be tagged by scope.",
-  ],
-  [
-    "46553286-fd87-490f-93de-bd79f28a8b52",
-    "Which of the following is a subtype of resource metrics?",
-    "",
-    "Utilization is a subtype of resource metrics.",
   ],
   [
     "2ee42793-148f-4669-b496-f04dc8035507",
@@ -187,13 +169,13 @@ export const monitoring101FlashArr = [
   ],
   [
     "34ac3f5e-df54-472e-8b4a-fb2ea1af5d9a",
-    "Which of the following best describes work metrics?",
+    "What best describes work metrics?",
     "",
     "Work metrics are best described as measurements of a system's output.",
   ],
   [
     "7d8a3a32-1db0-4eeb-8e1e-01e86ccdc41b",
-    "Which of the following best describes resource metrics?",
+    "What best describes resource metrics?",
     "",
     "Resource metrics are best described as measurements of a system's resource usage.",
   ],
@@ -337,7 +319,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "8fcda33a-548c-4f98-9719-fb685fb8e693",
-    "Which of the following metrics is likely to be most useful for diagnosing a slow database query?",
+    "What metric is likely to be most useful for diagnosing a slow database query?",
     "",
     "Latency is likely to be most useful for diagnosing a slow database query, as it measures the time required to complete a unit of work.",
   ],
@@ -366,16 +348,22 @@ export const monitoring101FlashArr = [
     "The purpose of an alert in monitoring is to notify the appropriate personnel when an issue is detected.",
   ],
   [
-    "cb61f355-c378-47dc-8f6b-181394ed3a32",
-    "Which of the following is a best practice for alerting?",
+    "cb61f355-c378-47dc-8f6b-181394ed3a33",
+    "What is an alert record?",
     "",
-    "A best practice for alerting is to route alerts to the appropriate team members.",
+    "A record is a low-urgency alert that does not notify anyone automatically but is recorded in a monitoring system in case it becomes useful for later analysis or investigation.",
   ],
   [
-    "9fdf784e-1b32-4755-b6aa-b3635e04b930",
-    "What is the primary goal of Service Level Objectives (SLOs)?",
+    "cb61f355-c378-47dc-8f6b-181394ed3a34",
+    "What is an alert notification?",
     "",
-    "The primary goal of Service Level Objectives (SLOs) is to define the minimum acceptable level of service.",
+    " A notification is a moderate-urgency alert that notifies someone who can fix the problem in a non-interrupting way such as email or chat.",
+  ],
+  [
+    "cb61f355-c378-47dc-8f6b-181394ed3a35",
+    "What is an alert page?",
+    "",
+    "A page is an urgent alert that interrupts a recipient\'s work, sleep, or personal time, whatever the hour. ",
   ],
   [
     "a392b615-1956-4757-8c55-24fff8279307",
@@ -391,7 +379,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "88a9a62e-f6b8-4509-a796-0bd08fc0dd3f",
-    "Which of the following is a best practice for creating monitoring dashboards?",
+    "What is a best practice for creating monitoring dashboards?",
     "",
     "A best practice for creating monitoring dashboards is to focus on a small number of key metrics.",
   ],
@@ -403,7 +391,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "0111c084-feff-4657-8b60-637187d64322",
-    "Which of the following is a key reason to use anomaly detection in monitoring?",
+    "What is a key reason to use anomaly detection in monitoring?",
     "",
     "A key reason to use anomaly detection in monitoring is to automatically identify unusual patterns in performance data.",
   ],
@@ -415,7 +403,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "bfc24297-d3e5-4193-910a-17fdb95e3d3a",
-    "Which of the following is a key benefit of using distributed tracing?",
+    "What is a key benefit of using distributed tracing?",
     "",
     "A key benefit of using distributed tracing is end-to-end visibility into a request's lifecycle.",
   ],
@@ -433,7 +421,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "d999cd82-9dd1-49b3-9bb4-bf8313caf334",
-    "Which of the following is a best practice when setting up alerting?",
+    "What is a best practice when setting up alerting?",
     "",
     "A best practice when setting up alerting is to focus on a small number of key metrics.",
   ],
@@ -441,13 +429,7 @@ export const monitoring101FlashArr = [
     "694f3c7c-f88d-44dd-a18d-307236acf7a8",
     "What is the primary purpose of a Service Level Indicator (SLI)?",
     "",
-    "The primary purpose of a Service Level Indicator (SLI) is to measure the current level of service.",
-  ],
-  [
-    "3fe4823b-0373-4393-8566-7c4f19579b8d",
-    "Which of the following is a key advantage of using application performance monitoring (APM) tools?",
-    "",
-    "A key advantage of using application performance monitoring (APM) tools is the ability to collect more detailed and real-time performance data.",
+    "The primary purpose of a Service Level Indicator (SLI) is to measure the level of service provided to end users.",
   ],
   [
     "d1b8429e-fdfc-48a7-ad91-6ad5ebdbbb5e",
@@ -457,13 +439,13 @@ export const monitoring101FlashArr = [
   ],
   [
     "0c0a6822-4c4a-4905-99bc-1d390567a2e4",
-    "Which of the following is an example of a white-box monitoring technique?",
+    "What is an example of a white-box monitoring technique?",
     "",
     "Instrumentation is an example of a white-box monitoring technique.",
   ],
   [
     "d7dbedd7-4e44-4b0d-add7-1b2c860ac46f",
-    "Which of the following is an example of a black-box monitoring technique?",
+    "What is an example of a black-box monitoring technique?",
     "",
     "Synthetic monitoring is an example of a black-box monitoring technique.",
   ],
@@ -481,7 +463,7 @@ export const monitoring101FlashArr = [
   ],
   [
     "c1cf6237-34cd-4717-be32-5bbefa828b89",
-    "Which of the following is a key benefit of using real user monitoring (RUM)?",
+    "What is a key benefit of using real user monitoring (RUM)?",
     "",
     "A key benefit of using real user monitoring (RUM) is the ability to collect performance data based on actual user experiences.",
   ],
@@ -492,6 +474,12 @@ export const monitoring101FlashArr = [
     "The main purpose of setting up service level agreements (SLAs) is to define the minimum acceptable level of service and the consequences for not meeting it.",
   ],
   [
+    "c61ff7e9-934b-4466-8b3a-f3f69ac830f6",
+    "What is the main purpose of setting up service level objectives (SLOs)?",
+    "",
+    "SLOs are intended to define a range of what is most and least acceptable for performance standards.",
+  ],
+  [
     "fd5557c0-55fb-41c1-b5d6-9da199a1ff9b",
     "What is the primary purpose of an incident management process?",
     "",
@@ -499,15 +487,9 @@ export const monitoring101FlashArr = [
   ],
   [
     "68ee44a4-4ea1-4b8d-96a1-90e81da03f8a",
-    "Which of the following is a best practice for incident management?",
+    "What is a best practice for incident management?",
     "",
     "A best practice for incident management is to perform post-incident analysis to identify the root cause.",
-  ],
-  [
-    "792bec6f-4f44-4edf-878d-fad8bd75bd6a",
-    "Which of the following is a key aspect of incident response?",
-    "",
-    "A key aspect of incident response is identifying and addressing issues.",
   ],
   [
     "25e601f1-3102-4501-a414-b21acd96ea43",

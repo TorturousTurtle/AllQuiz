@@ -325,7 +325,7 @@ export const monitoring103Arr = [
     "In the monitoring process, both physical resources and software or external services that serve as resources are considered.",
   ],
   [
-    "According to the article, why is it important to describe the issue clearly at the outset of an investigation?",
+    "Why is it important to describe the issue clearly at the outset of an investigation?",
     ["To ensure the monitoring system is functioning properly", "f"],
     [
       "To avoid losing track as you dive deeper into your systems to diagnose the issue",
@@ -333,7 +333,7 @@ export const monitoring103Arr = [
     ],
     ["To minimize the number of metrics collected", "f"],
     ["To improve the performance of the monitoring system", "f"],
-    "According to the article, it is important to describe the issue clearly at the outset of an investigation to avoid losing track as you dive deeper into your systems to diagnose the issue.",
+    "It is important to describe the issue clearly at the outset of an investigation to avoid losing track as you dive deeper into your systems to diagnose the issue.",
   ],
   [
     "What is the goal of making systems observable via the monitoring data?",
@@ -344,7 +344,7 @@ export const monitoring103Arr = [
     "The goal of making systems observable via the monitoring data is to help diagnose the root cause of an issue.",
   ],
   [
-    "What should each system's dashboard display according to the article?",
+    "What should each system's dashboard display?",
     ["Only work metrics of the system", "f"],
     ["Only resource metrics of the system", "f"],
     [
