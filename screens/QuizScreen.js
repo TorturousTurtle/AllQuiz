@@ -13,10 +13,10 @@ import MenuButton from "../components/MenuButton";
 import Separator from "../components/Separator";
 import CustomPracticeInput from "../components/CustomPracticeInput";
 
-import { n5Arr } from "../assets/N5VocabArr";
-import { n4Arr } from "../assets/N4VocabArr";
-import { n3Arr } from "../assets/N3VocabArr";
-import { n2Arr } from "../assets/N2VocabArr";
+import { n5Arr } from "../assets/japaneseArrays/N5VocabArr";
+import { n4Arr } from "../assets/japaneseArrays/N4VocabArr";
+import { n3Arr } from "../assets/japaneseArrays/N3VocabArr";
+import { n2Arr } from "../assets/japaneseArrays/N2VocabArr";
 
 const generateArrForFlatList = (arr, size) => {
   let sizeArr = [];

@@ -57,6 +57,7 @@ const DisplayMultiChoiceScreen = ({ navigation, currArr, quizSize }) => {
 
   useEffect(() => {
     if (questionList.length === 0) {
+      console.log(currArr)
       currArrList = arrFunctionPicker(currArr);
       const temp = randomizeArr(currArrList, quizSize);
       setQuestionList(temp);

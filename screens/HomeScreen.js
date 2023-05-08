@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 
+import QuizChoiceModal from "../components/QuizChoiceModal";
+
 import BackgroundImage from "../components/BackgroundImage";
 import Separator from "../components/Separator";
 import MenuButton from "../components/MenuButton";
@@ -17,6 +19,11 @@ function HomeScreen({
 }) {
   const [japanese, setJapanese] = useState(false);
   const [datadog, setDatadog] = useState(false);
+  const [observability, setObservability] = useState(false);
+  const [rapdev, setRapdev] = useState(false);
+  const [containers, setContainers] = useState(false);
+  const [quiz, setQuiz] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const title =
     !japanese && !datadog ? "Choose A Subject" : "Choose A Quiz Source";
 
@@ -25,12 +32,30 @@ function HomeScreen({
     setDatadog(false);
   };
 
+  const handleDatadogGoBack = () => {
+    setObservability(false);
+    setContainers(false);
+    setRapdev(false);
+  };
+
   const handleJapanese = () => {
     setJapanese(true);
   };
 
   const handleDatadog = () => {
     setDatadog(true);
+  };
+
+  const handleMonAndObsShow = () => {
+    setObservability(true);
+  };
+
+  const handleContainersShow = () => {
+    setContainers(true);
+  };
+
+  const handleRapdevShow = () => {
+    setRapdev(true);
   };
 
   const handleJLPTNav = () => {
@@ -59,71 +84,33 @@ function HomeScreen({
     navigation.navigate("Flash Cards");
   };
 
-  const handleMonitoring101 = () => {
-    handleLevelChoice("Monitoring 101");
+  const handleClick = (name) => {
+    setQuiz(name);
+    setShowModal(true);
+  };
+
+  const chooseQuiz = (flag, name) => {
+    console.log(name);
+    if (flag) {
+      startFlashCardQuiz(name);
+    } else {
+      startMultiChoiceQuiz(name);
+    }
+  };
+
+  const startMultiChoiceQuiz = (name) => {
+    handleLevelChoice(name);
     navigation.navigate("Multi Choice");
   };
 
-  const handleMonitoring101Flash = () => {
-    handleLevelChoice("Monitoring 101 Flash");
-    handleUpdateRange([0, 0], "Monitoring 101 Flash");
+  const startFlashCardQuiz = (name) => {
+    const quizName = name + " flash cards";
+    handleLevelChoice(quizName);
+    handleUpdateRange([0, 0], quizName);
     navigation.navigate("Flash Cards");
   };
 
-  const handleMonitoring102 = () => {
-    handleLevelChoice("Monitoring 102");
-    navigation.navigate("Multi Choice");
-  };
-  const handleMonitoring102Flash = () => {
-    handleLevelChoice("Monitoring 102 Flash");
-    handleUpdateRange([0, 0], "Monitoring 102 Flash");
-    navigation.navigate("Flash Cards");
-  };
-
-  const handleMonitoring103 = () => {
-    handleLevelChoice("Monitoring 103");
-    navigation.navigate("Multi Choice");
-  };
-  const handleMonitoring103Flash = () => {
-    handleLevelChoice("Monitoring 103 Flash");
-    handleUpdateRange([0, 0], "Monitoring 103 Flash");
-    navigation.navigate("Flash Cards");
-  };
-
-  const handlek8s1 = () => {
-    handleLevelChoice("mk8s1");
-    navigation.navigate("Multi Choice");
-  };
-
-  const handleMK8S1Flash = () => {
-    handleLevelChoice("mk8s1Flash");
-    handleUpdateRange([0, 0], "mk8s1Flash");
-    navigation.navigate("Flash Cards");
-  };
-
-  const handlek8s2 = () => {
-    handleLevelChoice("mk8s2");
-    navigation.navigate("Multi Choice");
-  };
-
-  const handleMK8S2Flash = () => {
-    handleLevelChoice("mk8s2Flash");
-    handleUpdateRange([0, 0], "mk8s2Flash");
-    navigation.navigate("Flash Cards");
-  };
-
-  const handlek8s3 = () => {
-    handleLevelChoice("mk8s3");
-    navigation.navigate("Multi Choice");
-  };
-
-  const handleMK8S3Flash = () => {
-    handleLevelChoice("mk8s3Flash");
-    handleUpdateRange([0, 0], "mk8s3Flash");
-    navigation.navigate("Flash Cards");
-  };
-
-  useEffect(() => {}, [japanese, datadog]);
+  useEffect(() => {}, [japanese, datadog, observability, containers]);
 
   return (
     <View style={styles.container}>
@@ -176,90 +163,135 @@ function HomeScreen({
         {datadog && (
           <ScrollView style={{ flex: 1 }}>
             <View style={styles.buttonsContainer}>
-              <MenuButton
-                func={handleMonitoring101}
-                level="Monitoring 101"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMonitoring101Flash}
-                level="Monitoring 101 Flash Cards"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMonitoring102}
-                level="Monitoring 102"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMonitoring102Flash}
-                level="Monitoring 102 Flash Cards"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMonitoring103}
-                level="Monitoring 103"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMonitoring103Flash}
-                level="Monitoring 103 Flash Cards"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handlek8s1}
-                level="Kubernetes Part 1"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMK8S1Flash}
-                level="Kubernetes Part 1 Flash Cards"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handlek8s2}
-                level="Kubernetes Part 2"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMK8S2Flash}
-                level="Kubernetes Part 2 Flash Cards"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handlek8s3}
-                level="Kubernetes Part 3"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleMK8S3Flash}
-                level="Kubernetes Part 3 Flash Cards"
-                type="main"
-              />
-              <Separator />
-              <MenuButton
-                func={handleGoBack}
-                level="Back To Main"
-                type="main"
-                fixed={true}
-              />
-              <Separator />
+              {!containers && !observability && !rapdev && (
+                <View>
+                  <MenuButton
+                    func={handleMonAndObsShow}
+                    level="Monitoring & Observability"
+                    type="main"
+                  />
+                  <Separator />
+                </View>
+              )}
+              {!observability && !containers && !rapdev && (
+                <View>
+                  <MenuButton
+                    func={handleContainersShow}
+                    level="Containers"
+                    type="main"
+                  />
+                  <Separator />
+                </View>
+              )}
+              {!observability && !containers && !rapdev && (
+                <View>
+                  <MenuButton
+                    func={handleRapdevShow}
+                    level="RapDev"
+                    type="main"
+                  />
+                  <Separator />
+                </View>
+              )}
+              {observability && !containers && (
+                <View>
+                  <MenuButton
+                    func={handleClick}
+                    level="Monitoring 101"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleClick}
+                    level="Monitoring 102"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleClick}
+                    level="Monitoring 103"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleDatadogGoBack}
+                    level="Back To Datadog"
+                    type="main"
+                    fixed={true}
+                  />
+                  <Separator />
+                </View>
+              )}
+              {containers && !observability && (
+                <View>
+                  <MenuButton
+                    func={handleClick}
+                    level="Kubernetes Part 1"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleClick}
+                    level="Kubernetes Part 2"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleClick}
+                    level="Kubernetes Part 3"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleDatadogGoBack}
+                    level="Back To Datadog"
+                    type="main"
+                    fixed={true}
+                  />
+                  <Separator />
+                </View>
+              )}
+              {rapdev && (
+                <View>
+                  <MenuButton
+                    func={handleClick}
+                    level="RapDev Tagging Strategy"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
+                    func={handleDatadogGoBack}
+                    level="Back To Datadog"
+                    type="main"
+                    fixed={true}
+                  />
+                  <Separator />
+                </View>
+              )}
+              {!observability && !containers && !rapdev && (
+                <View>
+                  <MenuButton
+                    func={handleGoBack}
+                    level="Back To Main"
+                    type="main"
+                    fixed={true}
+                  />
+                  <Separator />
+                </View>
+              )}
             </View>
           </ScrollView>
         )}
       </BackgroundImage>
       <StatusBar style="dark" />
+      {showModal && (
+        <QuizChoiceModal
+          title={quiz}
+          setChoice={chooseQuiz}
+          modalVisible={showModal}
+          setModalVisible={setShowModal}
+        />
+      )}
     </View>
   );
 }
@@ -275,7 +307,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonsContainer: {
-    marginTop: "5%",
+    marginTop: "10%",
   },
   textHeader: {
     fontSize: 40,

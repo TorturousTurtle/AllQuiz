@@ -1,55 +1,57 @@
-import { n5Arr } from "../assets/N5VocabArr";
-import { n4Arr } from "../assets/N4VocabArr";
-import { n3Arr } from "../assets/N3VocabArr";
-import { n2Arr } from "../assets/N2VocabArr";
-import { g1Arr } from "../assets/G1VocabArr";
-import { g2Arr } from "../assets/G2VocabArr";
-import { g3Arr } from "../assets/G3VocabArr";
-import { g4Arr } from "../assets/G4VocabArr";
-import { g5Arr } from "../assets/G5VocabArr";
-import { g6Arr } from "../assets/G6VocabArr";
-import { g7Arr } from "../assets/G7VocabArr";
-import { g8Arr } from "../assets/G8VocabArr";
-import { g9Arr } from "../assets/G9VocabArr";
-import { g10Arr } from "../assets/G10VocabArr";
-import { g11Arr } from "../assets/G11VocabArr";
-import { g12Arr } from "../assets/G12VocabArr";
-import { g13Arr } from "../assets/G13VocabArr";
-import { g14Arr } from "../assets/G14VocabArr";
-import { g15Arr } from "../assets/G15VocabArr";
-import { g16Arr } from "../assets/G16VocabArr";
-import { g17Arr } from "../assets/G17VocabArr";
-import { g18Arr } from "../assets/G18VocabArr";
-import { g19Arr } from "../assets/G19VocabArr";
-import { g20Arr } from "../assets/G20VocabArr";
-import { g21Arr } from "../assets/G21VocabArr";
-import { g22Arr } from "../assets/G22VocabArr";
-import { g23Arr } from "../assets/G23VocabArr";
-import { presentTenseArr } from "../assets/presentTenseArr";
-import { pastTenseArr } from "../assets/pastTenseArr";
-import { presentTenseShortArr } from "../assets/presentTenseShortArr";
-import { pastTenseShortArr } from "../assets/pastTenseShortArr";
-import { pastTenseProgArr } from "../assets/pastTenseProgArr";
-import { presentTenseProgArr } from "../assets/presentTenseProgArr";
-import { presentTenseAdjArr } from "../assets/presentTenseAdjArr";
-import { pastTenseAdjArr } from "../assets/pastTenseAdjArr";
-import { imperativeArr } from "../assets/imperativeArr";
-import { atHomePhrasesArr } from "../assets/atHomePhrasesArr";
-import { n5VerbPhrases } from "../assets/n5VerbPhrases";
-import { n4VerbPhrases } from "../assets/n4VerbPhrases";
+import { n5Arr } from "../assets/japaneseArrays/N5VocabArr";
+import { n4Arr } from "../assets/japaneseArrays/N4VocabArr";
+import { n3Arr } from "../assets/japaneseArrays/N3VocabArr";
+import { n2Arr } from "../assets/japaneseArrays/N2VocabArr";
+import { g1Arr } from "../assets/japaneseArrays/G1VocabArr";
+import { g2Arr } from "../assets/japaneseArrays/G2VocabArr";
+import { g3Arr } from "../assets/japaneseArrays/G3VocabArr";
+import { g4Arr } from "../assets/japaneseArrays/G4VocabArr";
+import { g5Arr } from "../assets/japaneseArrays/G5VocabArr";
+import { g6Arr } from "../assets/japaneseArrays/G6VocabArr";
+import { g7Arr } from "../assets/japaneseArrays/G7VocabArr";
+import { g8Arr } from "../assets/japaneseArrays/G8VocabArr";
+import { g9Arr } from "../assets/japaneseArrays/G9VocabArr";
+import { g10Arr } from "../assets/japaneseArrays/G10VocabArr";
+import { g11Arr } from "../assets/japaneseArrays/G11VocabArr";
+import { g12Arr } from "../assets/japaneseArrays/G12VocabArr";
+import { g13Arr } from "../assets/japaneseArrays/G13VocabArr";
+import { g14Arr } from "../assets/japaneseArrays/G14VocabArr";
+import { g15Arr } from "../assets/japaneseArrays/G15VocabArr";
+import { g16Arr } from "../assets/japaneseArrays/G16VocabArr";
+import { g17Arr } from "../assets/japaneseArrays/G17VocabArr";
+import { g18Arr } from "../assets/japaneseArrays/G18VocabArr";
+import { g19Arr } from "../assets/japaneseArrays/G19VocabArr";
+import { g20Arr } from "../assets/japaneseArrays/G20VocabArr";
+import { g21Arr } from "../assets/japaneseArrays/G21VocabArr";
+import { g22Arr } from "../assets/japaneseArrays/G22VocabArr";
+import { g23Arr } from "../assets/japaneseArrays/G23VocabArr";
+import { presentTenseArr } from "../assets/japaneseArrays/presentTenseArr";
+import { pastTenseArr } from "../assets/japaneseArrays/pastTenseArr";
+import { presentTenseShortArr } from "../assets/japaneseArrays/presentTenseShortArr";
+import { pastTenseShortArr } from "../assets/japaneseArrays/pastTenseShortArr";
+import { pastTenseProgArr } from "../assets/japaneseArrays/pastTenseProgArr";
+import { presentTenseProgArr } from "../assets/japaneseArrays/presentTenseProgArr";
+import { presentTenseAdjArr } from "../assets/japaneseArrays/presentTenseAdjArr";
+import { pastTenseAdjArr } from "../assets/japaneseArrays/pastTenseAdjArr";
+import { imperativeArr } from "../assets/japaneseArrays/imperativeArr";
+import { atHomePhrasesArr } from "../assets/japaneseArrays/atHomePhrasesArr";
+import { n5VerbPhrases } from "../assets/japaneseArrays/n5VerbPhrases";
+import { n4VerbPhrases } from "../assets/japaneseArrays/n4VerbPhrases";
 
-import { monitoring101Arr } from "../assets/monitoring101Arr";
-import { monitoring101FlashArr } from "../assets/monitoring101FlashArr";
-import { monitoring102Arr } from "../assets/monitoring102Arr";
-import { monitoring102FlashArr } from "../assets/monitoring102FlashArr";
-import { monitoring103Arr } from "../assets/monitoring103Arr";
-import { monitoring103FlashArr } from "../assets/monitoring103FlashArr";
-import { k8spart1Arr } from "../assets/k8spart1Arr";
-import { k8spart1FlashArr } from "../assets/k8spart1FlashArr";
-import { k8spart2Arr } from "../assets/k8spart2Arr";
-import { k8spart2FlashArr } from "../assets/k8spart2FlashArr";
-import { k8spart3Arr } from "../assets/k8spart3Arr";
-import { k8spart3FlashArr } from "../assets/k8spart3FlashArr";
+import { monitoring101Arr } from "../assets/datadogArrays/monitoring101Arr";
+import { monitoring101FlashArr } from "../assets/datadogArrays/monitoring101FlashArr";
+import { monitoring102Arr } from "../assets/datadogArrays/monitoring102Arr";
+import { monitoring102FlashArr } from "../assets/datadogArrays/monitoring102FlashArr";
+import { monitoring103Arr } from "../assets/datadogArrays/monitoring103Arr";
+import { monitoring103FlashArr } from "../assets/datadogArrays/monitoring103FlashArr";
+import { k8spart1Arr } from "../assets/datadogArrays/k8spart1Arr";
+import { k8spart1FlashArr } from "../assets/datadogArrays/k8spart1FlashArr";
+import { k8spart2Arr } from "../assets/datadogArrays/k8spart2Arr";
+import { k8spart2FlashArr } from "../assets/datadogArrays/k8spart2FlashArr";
+import { k8spart3Arr } from "../assets/datadogArrays/k8spart3Arr";
+import { k8spart3FlashArr } from "../assets/datadogArrays/k8spart3FlashArr";
+import { rapdevTagsArr } from "../assets/datadogArrays/rapdevTagsArr";
+import { rapdevTagsFlashArr } from "../assets/datadogArrays/rapdevTagsFlashArr";
 
 export const arrFunctionPicker = (currArr) => {
   let currArrList = [];
@@ -171,41 +173,48 @@ export const arrFunctionPicker = (currArr) => {
     case "an4 verb phrases":
       currArrList = n4VerbPhrases;
       break;
-    case "Monitoring 101":
+    case "monitoring 101":
+      console.log("hit")
       currArrList = monitoring101Arr;
       break;
-    case "Monitoring 101 Flash":
+    case "monitoring 101 flash cards":
       currArrList = monitoring101FlashArr;
       break;
-    case "Monitoring 102":
+    case "monitoring 102":
       currArrList = monitoring102Arr;
       break;
-    case "Monitoring 102 Flash":
+    case "monitoring 102 flash cards":
       currArrList = monitoring102FlashArr;
       break;
-    case "Monitoring 103":
+    case "monitoring 103":
       currArrList = monitoring103Arr;
       break;
-    case "Monitoring 103 Flash":
+    case "monitoring 103 flash cards":
       currArrList = monitoring103FlashArr;
       break;
-    case "mk8s1":
+    case "kubernetes part 1":
       currArrList = k8spart1Arr;
       break;
-    case "mk8s1Flash":
+    case "kubernetes part 1 flash cards":
       currArrList = k8spart1FlashArr;
       break;
-    case "mk8s2":
+    case "kubernetes part 2":
       currArrList = k8spart2Arr;
       break;
-    case "mk8s2Flash":
+    case "kubernetes part 2 flash cards":
       currArrList = k8spart2FlashArr;
       break;
-    case "mk8s3":
+    case "kubernetes part 3":
       currArrList = k8spart3Arr;
       break;
-    case "mk8s3Flash":
+    case "kubernetes part 3 flash cards":
       currArrList = k8spart3FlashArr;
+      break;
+    case "rapdev tagging strategy":
+      currArrList = rapdevTagsArr;
+      break;
+    case "rapdev tagging strategy flash cards":
+      currArrList = rapdevTagsFlashArr;
       break;
   }
   return currArrList;

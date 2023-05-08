@@ -6,7 +6,7 @@ const MenuButton = ({ func, level, type }) => {
     type === "range" ? level[0].toString() + "-" + level[1].toString() : level;
   const handlePress = () => {
     if (type === "level") {
-      choice = level.toLowerCase();
+      const choice = level.toLowerCase();
       func(choice);
     } else if (type === "range") {
       let arr = [level[0] - 1, level[1]];
