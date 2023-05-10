@@ -214,6 +214,12 @@ function HomeScreen({
                   />
                   <Separator />
                   <MenuButton
+                    func={handleClick}
+                    level="Datadog Tags"
+                    type="level"
+                  />
+                  <Separator />
+                  <MenuButton
                     func={handleDatadogGoBack}
                     level="Back To Datadog"
                     type="main"

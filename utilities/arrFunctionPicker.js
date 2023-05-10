@@ -44,6 +44,8 @@ import { monitoring102Arr } from "../assets/datadogArrays/monitoring102Arr";
 import { monitoring102FlashArr } from "../assets/datadogArrays/monitoring102FlashArr";
 import { monitoring103Arr } from "../assets/datadogArrays/monitoring103Arr";
 import { monitoring103FlashArr } from "../assets/datadogArrays/monitoring103FlashArr";
+import { datadogTagsArr } from "../assets/datadogArrays/datadogTagsArr";
+import { datadogTagsFlashArr } from "../assets/datadogArrays/datadogTagsFlashArr";
 import { k8spart1Arr } from "../assets/datadogArrays/k8spart1Arr";
 import { k8spart1FlashArr } from "../assets/datadogArrays/k8spart1FlashArr";
 import { k8spart2Arr } from "../assets/datadogArrays/k8spart2Arr";
@@ -191,6 +193,12 @@ export const arrFunctionPicker = (currArr) => {
       break;
     case "monitoring 103 flash cards":
       currArrList = monitoring103FlashArr;
+      break;
+    case "datadog tags":
+      currArrList = datadogTagsArr;
+      break;
+    case "datadog tags flash cards":
+      currArrList = datadogTagsFlashArr;
       break;
     case "kubernetes part 1":
       currArrList = k8spart1Arr;

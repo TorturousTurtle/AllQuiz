@@ -335,7 +335,7 @@ const DisplayCard = ({
             idList,
             quizSize
           );
-        } else if (currArr[0] === "a" || currArr[0] === "m" || currArr[0] === "M") {
+        } else if (currArr[0] === "a" || currArr[0] === "m" || currArr[0] === "M" || currArr[0] === "d" || currArr[0] === "r") {
           arr = generatePhrasesArr(currArrList, idList, quizSize);
         } else {
           arr = generateGenkiQuestionArr(currArrList, idList);
